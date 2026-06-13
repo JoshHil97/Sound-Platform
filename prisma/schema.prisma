@@ -1,0 +1,392 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  TRAINEE
+  SOUND_OPERATOR
+  ENGINEER
+  SENIOR_ENGINEER
+  TECHNICAL_DIRECTOR
+  ADMIN
+}
+
+enum CurriculumLevel {
+  FOUNDATIONS
+  OPERATOR
+  ENGINEER
+  SENIOR_ENGINEER
+  TECHNICAL_DIRECTOR
+}
+
+enum LessonDifficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum AttemptStatus {
+  ASSIGNED
+  IN_PROGRESS
+  NEEDS_MENTOR_REVIEW
+  APPROVED
+  RETRY_REQUIRED
+}
+
+enum EquipmentCategory {
+  MIXER
+  STAGE_BOX
+  MICROPHONE
+  WIRELESS_SYSTEM
+  SPEAKER
+  MONITOR
+  P16_SYSTEM
+  DANTE_DEVICE
+  COMPUTER
+  SOFTWARE
+  NETWORK_SWITCH
+  CABLE
+  ACCESSORY
+}
+
+enum VisualCategory {
+  EQUIPMENT_PHOTO
+  CONSOLE_SCREENSHOT
+  SOFTWARE_SCREENSHOT
+  PLUGIN_EXAMPLE
+  SIGNAL_DIAGRAM
+  TRAINING_EXAMPLE
+}
+
+enum VisualRights {
+  OFFICIAL_VENDOR_REFERENCE
+  CHURCH_OWNED_REQUIRED
+  CREATE_ORIGINAL_DIAGRAM
+  PERMISSION_REQUIRED
+}
+
+enum AudioExampleCategory {
+  GAIN
+  EQ
+  DYNAMICS
+  FEEDBACK
+  LIVESTREAM
+}
+
+enum VideoReviewStatus {
+  CONFIRMED_SOURCE
+  NEEDS_FINAL_VIDEO_SELECTION
+}
+
+model User {
+  id                 String              @id @default(cuid())
+  name               String
+  email              String              @unique
+  role               UserRole            @default(TRAINEE)
+  quizAttempts       QuizAttempt[]
+  assessmentAttempts AssessmentAttempt[]
+  certifications     Certification[]
+  serviceLogs        ServiceLog[]
+  incidents          Incident[]          @relation("IncidentReporter")
+  comments           Comment[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+}
+
+model Role {
+  id          String   @id @default(cuid())
+  name        UserRole @unique
+  description String
+}
+
+model Module {
+  id            String                @id @default(cuid())
+  slug          String                @unique
+  title         String
+  level         CurriculumLevel
+  summary       String
+  duration      String
+  objectives    String
+  prerequisites String?
+  certification String
+  order         Int
+  lessons       Lesson[]
+  assessments   PracticalAssessment[]
+  churchNotes   ChurchSpecificNote[]
+}
+
+model Lesson {
+  id                       String              @id @default(cuid())
+  slug                     String              @unique
+  title                    String
+  summary                  String
+  difficulty               LessonDifficulty
+  durationMinutes          Int
+  moduleId                 String
+  module                   Module              @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  beginnerExplanation      String
+  intermediateExplanation  String
+  advancedExplanation      String
+  practicalExercise        String
+  activeRecallPrompt       String
+  spacedRepetitionPrompt   String
+  mentorSignoffCriteria    String
+  contentBlocks            LessonContent[]
+  quizzes                  Quiz[]
+  churchNotes              ChurchSpecificNote[]
+}
+
+model LessonContent {
+  id       String @id @default(cuid())
+  lessonId String
+  lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  heading  String
+  body     String
+  sort     Int
+}
+
+model Quiz {
+  id        String        @id @default(cuid())
+  title     String
+  passScore Int
+  lessonId  String
+  lesson    Lesson        @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  questions Question[]
+  attempts  QuizAttempt[]
+}
+
+model Question {
+  id        String @id @default(cuid())
+  quizId    String
+  quiz      Quiz   @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  prompt    String
+  options   String
+  answer    String
+  rationale String
+}
+
+model QuizAttempt {
+  id        String   @id @default(cuid())
+  quizId    String
+  quiz      Quiz     @relation(fields: [quizId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  score     Int
+  passed    Boolean
+  evidence  String?
+  createdAt DateTime @default(now())
+}
+
+model PracticalAssessment {
+  id       String              @id @default(cuid())
+  title    String
+  rubric   String
+  moduleId String
+  module   Module              @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  attempts AssessmentAttempt[]
+}
+
+model AssessmentAttempt {
+  id           String              @id @default(cuid())
+  assessmentId String
+  assessment   PracticalAssessment @relation(fields: [assessmentId], references: [id])
+  userId       String
+  user         User                @relation(fields: [userId], references: [id])
+  status       AttemptStatus       @default(ASSIGNED)
+  mentorName   String?
+  evidence     String?
+  notes        String?
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+}
+
+model Certification {
+  id                  String          @id @default(cuid())
+  userId              String
+  user                User            @relation(fields: [userId], references: [id])
+  level               CurriculumLevel
+  modulesCompleted    Int
+  quizAverage         Int
+  practicalSignoffs   Int
+  serviceObservations Int
+  status              AttemptStatus   @default(IN_PROGRESS)
+  renewalDue          DateTime?
+  seniorNotes         String?
+}
+
+model Equipment {
+  id               String            @id @default(cuid())
+  slug             String            @unique
+  name             String
+  category         EquipmentCategory
+  model            String
+  location         String
+  purpose          String
+  inputs           String
+  outputs          String
+  connectedDevices String
+  commonIssues     String
+  sopLinks         String
+  photoPlaceholder String?
+  notes            String
+  lastUpdated      DateTime          @default(now())
+}
+
+model VisualAsset {
+  id           String         @id @default(cuid())
+  slug         String         @unique
+  title        String
+  category     VisualCategory
+  trainingUse  String
+  sourceName   String
+  sourceUrl    String
+  rights       VisualRights
+  linkedTopics String
+  notes        String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model LessonGuide {
+  id               String   @id @default(cuid())
+  lessonSlug       String   @unique
+  coreIdea         String
+  boardChecks      String
+  listeningTargets String
+  commonMistakes   String
+  mentorPrompt     String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model AudioExample {
+  id            String               @id @default(cuid())
+  slug          String               @unique
+  title         String
+  category      AudioExampleCategory
+  whatYouHear   String
+  boardSymptoms String
+  checks        String
+  linkedLessons String
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+}
+
+model TrainingVideo {
+  id             String            @id @default(cuid())
+  slug           String            @unique
+  title          String
+  topic          String
+  sourceUrl      String
+  sourceName     String
+  durationTarget String
+  whyUse         String
+  linkedLessons  String
+  reviewStatus   VideoReviewStatus
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+}
+
+model SOP {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  category  String
+  purpose   String
+  steps     String
+  ownerRole UserRole
+  version   Int      @default(1)
+  updatedAt DateTime @updatedAt
+}
+
+model TroubleshootingFlow {
+  id        String                @id @default(cuid())
+  slug      String                @unique
+  title     String
+  symptom   String
+  priority  String
+  steps     TroubleshootingStep[]
+  incidents Incident[]
+}
+
+model TroubleshootingStep {
+  id         String              @id @default(cuid())
+  flowId     String
+  flow       TroubleshootingFlow @relation(fields: [flowId], references: [id], onDelete: Cascade)
+  key        String
+  prompt     String
+  helpText   String
+  yesNextKey String?
+  noNextKey  String?
+  resolution String?
+  sort       Int
+}
+
+model SignalPath {
+  id          String @id @default(cuid())
+  title       String
+  source      String
+  path        String
+  destination String
+  notes       String
+}
+
+model ServiceChecklist {
+  id          String   @id @default(cuid())
+  title       String
+  serviceType String
+  steps       String
+  ownerRole   UserRole
+}
+
+model ServiceLog {
+  id          String     @id @default(cuid())
+  serviceDate DateTime
+  serviceType String
+  operatorId  String
+  operator    User       @relation(fields: [operatorId], references: [id])
+  notes       String
+  incidents   Incident[]
+}
+
+model Incident {
+  id           String               @id @default(cuid())
+  title        String
+  severity     String
+  status       String
+  description  String
+  resolution   String?
+  reporterId   String
+  reporter     User                 @relation("IncidentReporter", fields: [reporterId], references: [id])
+  serviceLogId String?
+  serviceLog   ServiceLog?          @relation(fields: [serviceLogId], references: [id])
+  flowId       String?
+  flow         TroubleshootingFlow? @relation(fields: [flowId], references: [id])
+  createdAt    DateTime             @default(now())
+}
+
+model Comment {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  targetType String
+  targetId   String
+  body       String
+  createdAt  DateTime @default(now())
+}
+
+model ChurchSpecificNote {
+  id        String   @id @default(cuid())
+  moduleId  String?
+  module    Module?  @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  lessonId  String?
+  lesson    Lesson?  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  title     String
+  body      String
+  updatedAt DateTime @updatedAt
+}
