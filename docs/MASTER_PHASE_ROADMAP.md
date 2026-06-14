@@ -32,6 +32,8 @@ Outputs:
 - Risk register
 - Backlog with priorities
 
+Status: initial audit completed in [phase-1/REPOSITORY_AUDIT.md](phase-1/REPOSITORY_AUDIT.md).
+
 ## PHASE 2: Design System
 
 Goal: establish the premium Sound Academy visual language.

@@ -40,6 +40,8 @@ Phase 0 is mandatory before broad lesson generation or deeper feature expansion.
 - Platform integration strategy
 - Curriculum governance
 
+Phase 1 repository audit lives in [docs/phase-1/README.md](docs/phase-1/README.md). It records the current route/component/schema state, risks, and the backlog for Phase 2 design system and Phase 3 platform architecture.
+
 ## Local Setup
 
 ```bash
