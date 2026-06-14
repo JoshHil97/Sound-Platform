@@ -1,4 +1,4 @@
-import type { ActivityItem, AudioExample, Certification, CertificationEvidence, Equipment, Lesson, LessonGuide, Module, Quiz, RoadmapNode, ServiceChecklistItem, SOP, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource } from "@/lib/types";
+import type { Academy, ActivityItem, AudioExample, Certification, CertificationDefinition, CertificationEvidence, Competency, CurriculumAssessment, Equipment, EvidenceRecord, LearningOutcome, Lesson, LessonGuide, Module, PracticalExercise, ProgressionRule, Quiz, RoadmapNode, ServiceChecklistItem, ServiceExperienceRecord, Skill, SkillTree, SOP, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource } from "@/lib/types";
 
 export const modules: Module[] = [
   ["ministry-safety-signal-flow", "Ministry, Safety and Signal Flow", "Foundations", "Service mindset, safe operation and end-to-end signal flow.", "2-3 hrs"],
@@ -32,6 +32,154 @@ export const modules: Module[] = [
   certification: "Lesson completion, quiz pass, practical mentor sign-off and live service observation.",
   order: order + 1
 }));
+
+export const academies: Academy[] = [
+  {
+    slug: "foundations-academy",
+    title: "Foundations Academy",
+    mission: "Give new volunteers a safe, ministry-first understanding of sound, signal flow, gain, routing and first-line troubleshooting.",
+    ownerRole: "Senior Engineer",
+    activeVersion: "1.0",
+    order: 1,
+    moduleSlugs: ["ministry-safety-signal-flow", "church-layout-gain-structure", "microphones-di-stage-basics", "x32-fundamentals", "monitoring-p16-talkback", "critical-listening"]
+  },
+  {
+    slug: "foh-operator-academy",
+    title: "FOH Operator Academy",
+    mission: "Prepare reliable Sunday operators who can set up, line-check, mix speech and worship, support monitors and recover common faults.",
+    ownerRole: "Senior Engineer",
+    activeVersion: "1.0",
+    order: 2,
+    moduleSlugs: ["service-prep-patching-line-check", "foh-mixing-fundamentals", "x32-eq-dynamics-fx", "wireless-choir-worship-mixing"]
+  },
+  {
+    slug: "livestream-academy",
+    title: "Livestream Academy",
+    mission: "Train operators to build a dedicated broadcast mix through X32, Dante, Logic Pro, Waves processing and encoder handoff.",
+    ownerRole: "Engineer",
+    activeVersion: "1.0",
+    order: 3,
+    moduleSlugs: ["livestream-signal-design", "logic-pro-livestream-mixing", "waves-workflows-livestream"]
+  },
+  {
+    slug: "systems-academy",
+    title: "Systems Academy",
+    mission: "Train engineers to own routing, Dante, showfiles, documentation, virtual soundcheck and cross-domain fault isolation.",
+    ownerRole: "Senior Engineer",
+    activeVersion: "1.0",
+    order: 4,
+    moduleSlugs: ["advanced-x32-routing-showfiles", "dante-networking-dvs", "troubleshooting-fault-isolation", "recording-virtual-soundcheck-review"]
+  },
+  {
+    slug: "leadership-academy",
+    title: "Leadership Academy",
+    mission: "Prepare senior engineers to coach, assess, document, review services and guard team quality.",
+    ownerRole: "Technical Director",
+    activeVersion: "1.0",
+    order: 5,
+    moduleSlugs: ["system-tuning-feedback", "documentation-coaching-quality"]
+  },
+  {
+    slug: "technical-director-academy",
+    title: "Technical Director Academy",
+    mission: "Govern system architecture, network design, redundancy, certification, inventory, budget, procurement and change control.",
+    ownerRole: "Technical Director",
+    activeVersion: "1.0",
+    order: 6,
+    moduleSlugs: ["technical-director-governance"]
+  }
+];
+
+export const skills: Skill[] = [
+  { slug: "x32-signal-navigation", title: "X32 Signal Navigation", domain: "X32", description: "Move from source to channel, bus, matrix, DCA and output without guessing.", competencySlugs: ["trace-signal-path", "operate-x32-channel"] },
+  { slug: "dante-route-verification", title: "Dante Route Verification", domain: "Dante", description: "Verify device visibility, subscriptions, sample rate, clocking and DVS interface.", competencySlugs: ["verify-dante-path", "isolate-network-audio-fault"] },
+  { slug: "logic-stream-template", title: "Logic Stream Template Operation", domain: "Logic", description: "Operate the approved Logic template with named inputs, buses, meters and encoder handoff.", competencySlugs: ["operate-logic-stream-template", "manage-stream-loudness"] },
+  { slug: "waves-purpose-processing", title: "Purpose-First Waves Processing", domain: "Waves", description: "Choose Waves plugins by audible problem rather than plugin name.", competencySlugs: ["apply-purpose-first-processing"] },
+  { slug: "wireless-service-readiness", title: "Wireless Service Readiness", domain: "Wireless", description: "Prepare mics, batteries, labels, receivers and handoff for service.", competencySlugs: ["prepare-wireless-systems"] },
+  { slug: "p16-monitor-routing", title: "P16 Monitor Routing", domain: "P16", description: "Maintain predictable source order and safe personal monitoring workflows.", competencySlugs: ["support-monitoring-and-p16"] },
+  { slug: "speech-first-mix", title: "Speech-First Mix Priority", domain: "FOH", description: "Protect intelligibility and priority of spoken word in room and stream.", competencySlugs: ["mix-speech-and-worship"] },
+  { slug: "fault-isolation", title: "Fault Isolation", domain: "Troubleshooting", description: "Move from symptom to source, test, recovery, escalation and incident log.", competencySlugs: ["run-safe-troubleshooting-flow"] },
+  { slug: "mentor-feedback", title: "Mentor Feedback", domain: "Leadership", description: "Observe, coach, sign off and document practical sound team growth.", competencySlugs: ["coach-and-sign-off-trainees"] }
+];
+
+export const competencies: Competency[] = [
+  { slug: "trace-signal-path", title: "Trace Signal Path", category: "Knowledge", description: "Explain source to mic/DI, X32, buses, Dante, Logic, encoder, PA and P16 paths.", level: "Foundations", academySlugs: ["foundations-academy"], moduleSlugs: ["ministry-safety-signal-flow", "church-layout-gain-structure"], skillSlugs: ["x32-signal-navigation"] },
+  { slug: "operate-x32-channel", title: "Operate an X32 Channel", category: "Practical", description: "Select a channel, set gain, engage HPF, read meters and avoid unsafe routing changes.", level: "Foundations", academySlugs: ["foundations-academy", "foh-operator-academy"], moduleSlugs: ["x32-fundamentals", "service-prep-patching-line-check"], skillSlugs: ["x32-signal-navigation"] },
+  { slug: "support-monitoring-and-p16", title: "Support Monitoring and P16", category: "Operational", description: "Verify P16 source order, stage monitor sends and talkback without disrupting FOH.", level: "Operator", academySlugs: ["foh-operator-academy"], moduleSlugs: ["monitoring-p16-talkback", "service-prep-patching-line-check"], skillSlugs: ["p16-monitor-routing"] },
+  { slug: "mix-speech-and-worship", title: "Mix Speech and Worship", category: "Practical", description: "Balance speech, worship team and choir with appropriate EQ, dynamics and service priority.", level: "Operator", academySlugs: ["foh-operator-academy"], moduleSlugs: ["foh-mixing-fundamentals", "x32-eq-dynamics-fx", "wireless-choir-worship-mixing"], skillSlugs: ["speech-first-mix"] },
+  { slug: "prepare-wireless-systems", title: "Prepare Wireless Systems", category: "Operational", description: "Prepare batteries, labels, mute state, receivers and handoff before service.", level: "Operator", academySlugs: ["foh-operator-academy"], moduleSlugs: ["wireless-choir-worship-mixing"], skillSlugs: ["wireless-service-readiness"] },
+  { slug: "verify-dante-path", title: "Verify Dante Path", category: "Practical", description: "Confirm Dante device visibility, subscriptions, DVS state, sample rate and clock before service.", level: "Engineer", academySlugs: ["livestream-academy", "systems-academy"], moduleSlugs: ["dante-networking-dvs", "logic-pro-livestream-mixing"], skillSlugs: ["dante-route-verification"] },
+  { slug: "operate-logic-stream-template", title: "Operate Logic Stream Template", category: "Practical", description: "Run the approved Logic livestream template with named inputs, buses, plugins and output handoff.", level: "Engineer", academySlugs: ["livestream-academy"], moduleSlugs: ["logic-pro-livestream-mixing"], skillSlugs: ["logic-stream-template"] },
+  { slug: "manage-stream-loudness", title: "Manage Stream Loudness", category: "Operational", description: "Monitor loudness, limiting, translation and plugin delay across livestream outputs.", level: "Engineer", academySlugs: ["livestream-academy"], moduleSlugs: ["logic-pro-livestream-mixing", "waves-workflows-livestream"], skillSlugs: ["logic-stream-template"] },
+  { slug: "apply-purpose-first-processing", title: "Apply Purpose-First Processing", category: "Practical", description: "Use EQ, dynamic EQ, compression, de-essing and limiting to solve audible problems.", level: "Engineer", academySlugs: ["livestream-academy"], moduleSlugs: ["waves-workflows-livestream", "x32-eq-dynamics-fx"], skillSlugs: ["waves-purpose-processing"] },
+  { slug: "run-safe-troubleshooting-flow", title: "Run Safe Troubleshooting Flow", category: "Troubleshooting", description: "Use symptom-based yes/no checks, recover service, escalate and log the root cause.", level: "Engineer", academySlugs: ["systems-academy"], moduleSlugs: ["troubleshooting-fault-isolation"], skillSlugs: ["fault-isolation"] },
+  { slug: "coach-and-sign-off-trainees", title: "Coach and Sign Off Trainees", category: "Leadership", description: "Observe trainees, give feedback, require evidence and approve practical readiness.", level: "Senior Engineer", academySlugs: ["leadership-academy"], moduleSlugs: ["documentation-coaching-quality"], skillSlugs: ["mentor-feedback"] }
+];
+
+export const certificationDefinitions: CertificationDefinition[] = [
+  { slug: "foundations-ready", academySlug: "foundations-academy", level: "Foundations", title: "Foundations Ready", mission: "Can serve as an assisted volunteer who understands signal flow, safety and first checks.", renewalMonths: 12, requiredServiceObservations: 1, moduleSlugs: academies[0].moduleSlugs, competencySlugs: ["trace-signal-path", "operate-x32-channel"] },
+  { slug: "foh-operator-certified", academySlug: "foh-operator-academy", level: "Operator", title: "FOH Operator Certified", mission: "Can prepare and operate routine Sunday FOH workflows with mentor-approved competence.", renewalMonths: 12, requiredServiceObservations: 4, moduleSlugs: academies[1].moduleSlugs, competencySlugs: ["operate-x32-channel", "support-monitoring-and-p16", "mix-speech-and-worship", "prepare-wireless-systems"] },
+  { slug: "livestream-engineer-certified", academySlug: "livestream-academy", level: "Engineer", title: "Livestream Engineer Certified", mission: "Can verify Dante into Logic and produce a controlled livestream mix through approved templates.", renewalMonths: 12, requiredServiceObservations: 6, moduleSlugs: academies[2].moduleSlugs, competencySlugs: ["verify-dante-path", "operate-logic-stream-template", "manage-stream-loudness", "apply-purpose-first-processing"] },
+  { slug: "systems-engineer-certified", academySlug: "systems-academy", level: "Engineer", title: "Systems Engineer Certified", mission: "Can manage advanced routing, Dante, documentation and cross-domain troubleshooting.", renewalMonths: 12, requiredServiceObservations: 8, moduleSlugs: academies[3].moduleSlugs, competencySlugs: ["verify-dante-path", "run-safe-troubleshooting-flow"] },
+  { slug: "senior-engineer-mentor", academySlug: "leadership-academy", level: "Senior Engineer", title: "Senior Engineer Mentor", mission: "Can coach, assess and approve practical readiness with consistent rubrics.", renewalMonths: 18, requiredServiceObservations: 12, moduleSlugs: academies[4].moduleSlugs, competencySlugs: ["coach-and-sign-off-trainees", "run-safe-troubleshooting-flow"] },
+  { slug: "technical-director-governance", academySlug: "technical-director-academy", level: "Technical Director", title: "Technical Director Governance", mission: "Can govern architecture, certification, procurement, SOPs and change control.", renewalMonths: 24, requiredServiceObservations: 16, moduleSlugs: academies[5].moduleSlugs, competencySlugs: ["coach-and-sign-off-trainees"] }
+];
+
+export const skillTrees: SkillTree[] = academies.map((academy) => ({
+  academySlug: academy.slug,
+  title: `${academy.title} Skill Tree`,
+  version: academy.activeVersion,
+  nodes: skills
+    .filter((skill) => competencies.some((competency) => competency.academySlugs.includes(academy.slug) && competency.skillSlugs.includes(skill.slug)))
+    .map((skill, index) => ({
+      skillSlug: skill.slug,
+      parentSkillSlug: index === 0 ? undefined : skills.find((candidate) => competencies.some((competency) => competency.academySlugs.includes(academy.slug) && competency.skillSlugs.includes(candidate.slug)))?.slug,
+      unlockRule: index === 0 ? "Available at academy start" : "Unlock after mentor confirms prior practical evidence",
+      positionX: 120 + index * 180,
+      positionY: 120 + (index % 2) * 120
+    }))
+}));
+
+export const curriculumAssessments: CurriculumAssessment[] = [
+  { slug: "foundations-signal-flow-scenario", moduleSlug: "ministry-safety-signal-flow", type: "Scenario", title: "Trace the Church Signal Path", rubric: "Trainee explains each handoff from mic to room and stream using church equipment names.", passCriteria: "Correctly traces source, X32, output and stream path with no unsafe assumptions.", retryCriteria: "Retry if the trainee cannot identify where signal enters or leaves the X32.", mentorRoleRequired: "Senior Engineer", competencySlugs: ["trace-signal-path"] },
+  { slug: "x32-channel-practical", moduleSlug: "x32-fundamentals", type: "Practical", title: "Set Gain on an X32 Vocal Channel", rubric: "Trainee sets clean gain, reads meter, engages HPF and explains fader vs preamp.", passCriteria: "No clipping, clear explanation and correct channel handling.", retryCriteria: "Retry if gain is set from quiet test level or fader is used to hide bad gain.", mentorRoleRequired: "Senior Engineer", competencySlugs: ["operate-x32-channel"] },
+  { slug: "logic-stream-practical", moduleSlug: "logic-pro-livestream-mixing", type: "Practical", title: "Verify Dante Into Logic and Stream Output", rubric: "Engineer verifies X32 send, Dante subscription, DVS, Logic meter and encoder handoff.", passCriteria: "Signal is verified at every point and documented.", retryCriteria: "Retry if operator skips Dante/DVS verification.", mentorRoleRequired: "Senior Engineer", competencySlugs: ["verify-dante-path", "operate-logic-stream-template"] },
+  { slug: "troubleshooting-live-scenario", moduleSlug: "troubleshooting-fault-isolation", type: "Scenario", title: "Recover Livestream No Sound", rubric: "Engineer uses the decision tree, tests one change at a time, restores signal and logs cause.", passCriteria: "Correct recovery path and calm escalation discipline.", retryCriteria: "Retry if changes are made blindly or FOH is disrupted.", mentorRoleRequired: "Senior Engineer", competencySlugs: ["run-safe-troubleshooting-flow"] },
+  { slug: "mentor-review-assessment", moduleSlug: "documentation-coaching-quality", type: "Mentor", title: "Observe and Sign Off an Operator", rubric: "Senior engineer observes, gives specific feedback, records evidence and sets next step.", passCriteria: "Feedback is specific, kind, evidence-based and actionable.", retryCriteria: "Retry if sign-off lacks observable criteria.", mentorRoleRequired: "Technical Director", competencySlugs: ["coach-and-sign-off-trainees"] }
+];
+
+export const practicalExercises: PracticalExercise[] = [
+  { moduleSlug: "x32-fundamentals", lessonSlug: "x32-navigation", title: "Find and Verify a Vocal Channel", setup: "Use training scene or supervised rehearsal channel.", task: "Select the channel, identify meter, mute state, sends and main assignment.", expectedResult: "Trainee can explain what is active without changing service routing.", evidenceRequired: "Mentor observation note.", safetyConstraints: "Do not recall scenes or change routing during a live service." },
+  { moduleSlug: "logic-pro-livestream-mixing", lessonSlug: "dante-into-logic", title: "Dante to Logic Checkpoint", setup: "Approved Logic template and Dante Controller open.", task: "Verify one speech channel from X32 send to Logic input and stream output.", expectedResult: "Signal is visible and named correctly at every stage.", evidenceRequired: "Screenshot or mentor note with route confirmed.", safetyConstraints: "Do not change clock leader without senior approval." },
+  { moduleSlug: "waves-workflows-livestream", lessonSlug: "waves-vocal-speech-chains", title: "Purpose-First Vocal Chain", setup: "Use Sound Lab or virtual soundcheck vocal sample.", task: "Choose F6/C6/RComp/CLA Vocals only when the audible problem justifies it.", expectedResult: "Processing improves clarity without harshness or over-compression.", evidenceRequired: "Before/after note and chain purpose explanation.", safetyConstraints: "Do not insert heavy plugins during service without checking latency." },
+  { moduleSlug: "troubleshooting-fault-isolation", lessonSlug: "fault-isolation-method", title: "No Sound Decision Tree Drill", setup: "Simulated no-sound microphone fault.", task: "Run through safe first checks and identify root cause.", expectedResult: "Trainee tests one point at a time and logs the final cause.", evidenceRequired: "Scenario result and mentor sign-off.", safetyConstraints: "Do not repeatedly unmute unknown paths at show volume." }
+];
+
+export const learningOutcomes: LearningOutcome[] = [
+  { academySlug: "foundations-academy", outcomeType: "Academy", measurableVerb: "Trace", text: "Trace the church signal path from source to FOH and livestream destination." },
+  { academySlug: "foh-operator-academy", outcomeType: "Academy", measurableVerb: "Operate", text: "Operate routine FOH preparation, line check, speech mix and worship support tasks." },
+  { academySlug: "livestream-academy", outcomeType: "Academy", measurableVerb: "Verify", text: "Verify Dante into Logic and produce a stable livestream mix using approved templates." },
+  { moduleSlug: "dante-networking-dvs", outcomeType: "Module", measurableVerb: "Diagnose", text: "Diagnose Dante visibility, subscription, clock, sample-rate and DVS interface issues." },
+  { lessonSlug: "gain-structure-basics", outcomeType: "Lesson", measurableVerb: "Set", text: "Set input gain with headroom and explain why fader level is not preamp gain." }
+];
+
+export const progressionRules: ProgressionRule[] = [
+  { fromAcademySlug: "foundations-academy", toAcademySlug: "foh-operator-academy", fromCertificationSlug: "foundations-ready", toCertificationSlug: "foh-operator-certified", ruleType: "CertificationGate", requirement: "Foundations Ready certification, one observed service and mentor approval." },
+  { fromAcademySlug: "foh-operator-academy", toAcademySlug: "livestream-academy", fromCertificationSlug: "foh-operator-certified", toCertificationSlug: "livestream-engineer-certified", ruleType: "ExperienceGate", requirement: "Operator certification plus four service observations and clean incident logging." },
+  { fromAcademySlug: "livestream-academy", toAcademySlug: "systems-academy", fromCertificationSlug: "livestream-engineer-certified", toCertificationSlug: "systems-engineer-certified", ruleType: "CompetencyGate", requirement: "Dante verification, Logic stream template operation and livestream troubleshooting sign-off." },
+  { fromAcademySlug: "systems-academy", toAcademySlug: "leadership-academy", fromCertificationSlug: "systems-engineer-certified", toCertificationSlug: "senior-engineer-mentor", ruleType: "MentorGate", requirement: "Systems certification plus senior engineer recommendation and observed coaching." }
+];
+
+export const serviceExperiences: ServiceExperienceRecord[] = [
+  { traineeEmail: "daniel@example.church", mentorEmail: "samuel@example.church", serviceDate: "2026-06-07", serviceType: "Sunday Worship", roleServed: "FOH shadow operator", observationNotes: "Handled line check calmly; needs more confidence with choir mic feedback checks.", approvedForCertification: false },
+  { traineeEmail: "grace@example.church", mentorEmail: "samuel@example.church", serviceDate: "2026-06-07", serviceType: "Sunday Worship Livestream", roleServed: "Logic stream engineer", observationNotes: "Verified DVS and Logic template before service; stream handoff was stable.", approvedForCertification: true }
+];
+
+export const evidenceRecords: EvidenceRecord[] = [
+  { userEmail: "daniel@example.church", type: "Practical", title: "X32 channel gain practical", description: "Set gain on vocal channel during rehearsal and explained meter target.", relatedEntityType: "CurriculumAssessment", relatedEntityId: "x32-channel-practical", competencySlug: "operate-x32-channel", assessmentSlug: "x32-channel-practical", status: "Needs Review" },
+  { userEmail: "grace@example.church", type: "Service Observation", title: "Livestream signal path verified", description: "Confirmed X32 stream bus, Dante subscription, DVS input, Logic strip and OBS capture.", relatedEntityType: "CurriculumAssessment", relatedEntityId: "logic-stream-practical", competencySlug: "operate-logic-stream-template", assessmentSlug: "logic-stream-practical", status: "Approved" },
+  { userEmail: "ava@example.church", type: "Sound Lab", title: "Clipped mic diagnosis", description: "Identified too-hot gain and listed preamp-first checks.", relatedEntityType: "SoundLabExercise", relatedEntityId: "too-hot-clipping", competencySlug: "trace-signal-path", status: "Submitted" }
+];
 
 const lessonRows: Array<[string, string, string, Lesson["difficulty"], string]> = [
   ["why-sound-is-ministry", "Why Sound Is Ministry", "Serve worship, speech clarity and congregation participation.", "Beginner", "ministry-safety-signal-flow"],

@@ -1,5 +1,5 @@
 import { MetricCard, PageHeader, SectionHeader, SurfaceCard } from "@/components/ui";
-import { audioExamples, certifications, equipment, lessonGuides, lessons, modules, quizzes, sops, trainingVideos, troubleshootingFlows, users, visualSources } from "@/lib/data";
+import { academies, audioExamples, certificationDefinitions, certifications, competencies, curriculumAssessments, equipment, evidenceRecords, lessonGuides, lessons, modules, practicalExercises, progressionRules, quizzes, skillTrees, skills, sops, trainingVideos, troubleshootingFlows, users, visualSources } from "@/lib/data";
 
 export default function AdminPage() {
   return (
@@ -18,6 +18,15 @@ export default function AdminPage() {
         <MetricCard label="Lesson guides" value={lessonGuides.length} detail="Board checks, listening targets and mentor prompts." />
         <MetricCard label="Videos" value={trainingVideos.length} detail="YouTube lesson source queue." />
         <MetricCard label="Certifications" value={certifications.length} detail="Evidence-oriented progress records." />
+        <MetricCard label="Academies" value={academies.length} detail="Phase 0 hierarchy now represented as platform data." />
+        <MetricCard label="Certification definitions" value={certificationDefinitions.length} detail="Governed award criteria separate from user progress." />
+        <MetricCard label="Competencies" value={competencies.length} detail="Knowledge, practical, operational and leadership requirements." />
+        <MetricCard label="Skills" value={skills.length} detail="X32, Dante, Logic, Waves and service-operation skill nodes." />
+        <MetricCard label="Skill trees" value={skillTrees.length} detail="Roadmap structures for future Academy rendering." />
+        <MetricCard label="Curriculum assessments" value={curriculumAssessments.length} detail="Scenario, practical, service and mentor assessment definitions." />
+        <MetricCard label="Practical exercises" value={practicalExercises.length} detail="Hands-on training tasks mapped to modules and lessons." />
+        <MetricCard label="Progression rules" value={progressionRules.length} detail="Certification gates and academy movement requirements." />
+        <MetricCard label="Evidence records" value={evidenceRecords.length} detail="Seed examples for future mentor review workflow." />
       </section>
       <SurfaceCard className="mt-6">
         <SectionHeader title="Admin build notes" description="The CMS should protect anything that can affect a live service, certification award, or church-specific system document." />

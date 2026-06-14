@@ -61,6 +61,8 @@ Outputs:
 - Role/permission model
 - CI/CD and Vercel preview plan
 
+Status: initial platform data spine completed in [phase-3/PLATFORM_ARCHITECTURE_BLUEPRINT.md](phase-3/PLATFORM_ARCHITECTURE_BLUEPRINT.md).
+
 ## PHASE 4: Academy Experience
 
 Goal: make Academy a skill roadmap rather than a module list.

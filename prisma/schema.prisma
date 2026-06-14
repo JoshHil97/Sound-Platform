@@ -83,6 +83,76 @@ enum VideoReviewStatus {
   NEEDS_FINAL_VIDEO_SELECTION
 }
 
+enum CurriculumStatus {
+  DRAFT
+  ACTIVE
+  RETIRED
+}
+
+enum CompetencyCategory {
+  KNOWLEDGE
+  PRACTICAL
+  OPERATIONAL
+  TROUBLESHOOTING
+  COMMUNICATION
+  LEADERSHIP
+}
+
+enum SkillDomain {
+  X32
+  DANTE
+  LOGIC
+  WAVES
+  WIRELESS
+  P16
+  FOH
+  LIVESTREAM
+  TROUBLESHOOTING
+  LEADERSHIP
+}
+
+enum LessonType {
+  CONCEPT
+  WALKTHROUGH
+  SIMULATOR
+  LISTENING_DRILL
+  SERVICE_DRILL
+  SCENARIO
+  MENTOR_ASSESSMENT
+}
+
+enum CurriculumAssessmentType {
+  KNOWLEDGE
+  PRACTICAL
+  SCENARIO
+  SERVICE
+  MENTOR
+  CERTIFICATION
+}
+
+enum EvidenceType {
+  QUIZ
+  SOUND_LAB
+  PRACTICAL
+  SERVICE_OBSERVATION
+  MENTOR_NOTE
+  MEDIA_UPLOAD
+}
+
+enum EvidenceStatus {
+  SUBMITTED
+  NEEDS_REVIEW
+  APPROVED
+  REVISION_REQUESTED
+  REJECTED
+}
+
+enum ReviewDecision {
+  APPROVED
+  REVISION_REQUESTED
+  REJECTED
+}
+
 model User {
   id                 String              @id @default(cuid())
   name               String
@@ -91,6 +161,12 @@ model User {
   quizAttempts       QuizAttempt[]
   assessmentAttempts AssessmentAttempt[]
   certifications     Certification[]
+  mentorSignOffs     MentorSignOff[]     @relation("MentorSignOffTrainee")
+  mentorReviews      MentorSignOff[]     @relation("MentorSignOffMentor")
+  serviceExperiences ServiceExperience[] @relation("ServiceExperienceTrainee")
+  mentoredServices   ServiceExperience[] @relation("ServiceExperienceMentor")
+  evidence           Evidence[]
+  evidenceReviews    EvidenceReview[]    @relation("EvidenceReviewer")
   serviceLogs        ServiceLog[]
   incidents          Incident[]          @relation("IncidentReporter")
   comments           Comment[]
@@ -108,6 +184,8 @@ model Module {
   id            String                @id @default(cuid())
   slug          String                @unique
   title         String
+  academyId     String?
+  academy       Academy?              @relation(fields: [academyId], references: [id])
   level         CurriculumLevel
   summary       String
   duration      String
@@ -117,6 +195,11 @@ model Module {
   order         Int
   lessons       Lesson[]
   assessments   PracticalAssessment[]
+  competencies  Competency[]          @relation("ModuleCompetencies")
+  certificationDefinitions CertificationDefinition[] @relation("CertificationModules")
+  outcomes      LearningOutcome[]
+  exercises     PracticalExercise[]
+  curriculumAssessments CurriculumAssessment[]
   churchNotes   ChurchSpecificNote[]
 }
 
@@ -136,9 +219,229 @@ model Lesson {
   activeRecallPrompt       String
   spacedRepetitionPrompt   String
   mentorSignoffCriteria    String
+  lessonType               LessonType?         @default(CONCEPT)
+  ministryContext          String?
+  lessonSteps              LessonStep[]
+  learningOutcomes         LearningOutcome[]
+  practicalExercises       PracticalExercise[]
   contentBlocks            LessonContent[]
   quizzes                  Quiz[]
   churchNotes              ChurchSpecificNote[]
+}
+
+model Academy {
+  id                       String                    @id @default(cuid())
+  slug                     String                    @unique
+  title                    String
+  mission                  String
+  ownerRole                UserRole
+  order                    Int
+  activeVersion            String                    @default("1.0")
+  modules                  Module[]
+  certificationDefinitions CertificationDefinition[]
+  competencies             Competency[]              @relation("AcademyCompetencies")
+  learningOutcomes         LearningOutcome[]
+  skillTrees               SkillTree[]
+  progressionRulesFrom     ProgressionRule[]         @relation("ProgressionFromAcademy")
+  progressionRulesTo       ProgressionRule[]         @relation("ProgressionToAcademy")
+  status                   CurriculumStatus          @default(ACTIVE)
+  createdAt                DateTime                  @default(now())
+  updatedAt                DateTime                  @updatedAt
+}
+
+model CertificationDefinition {
+  id                          String                    @id @default(cuid())
+  slug                        String                    @unique
+  academyId                   String
+  academy                     Academy                   @relation(fields: [academyId], references: [id], onDelete: Cascade)
+  level                       CurriculumLevel
+  title                       String
+  mission                     String
+  renewalMonths               Int
+  requiredServiceObservations Int
+  status                      CurriculumStatus          @default(ACTIVE)
+  competencyRequirements      Competency[]              @relation("CertificationCompetencies")
+  moduleRequirements          Module[]                  @relation("CertificationModules")
+  assessmentRequirements      CurriculumAssessment[]    @relation("CertificationAssessments")
+  progressionRulesFrom        ProgressionRule[]         @relation("ProgressionFromCertification")
+  progressionRulesTo          ProgressionRule[]         @relation("ProgressionToCertification")
+}
+
+model Competency {
+  id                       String                    @id @default(cuid())
+  slug                     String                    @unique
+  title                    String
+  category                 CompetencyCategory
+  description              String
+  level                    CurriculumLevel
+  academies                Academy[]                 @relation("AcademyCompetencies")
+  modules                  Module[]                  @relation("ModuleCompetencies")
+  skills                   Skill[]                   @relation("SkillCompetencies")
+  assessments              CurriculumAssessment[]    @relation("AssessmentCompetencies")
+  certificationDefinitions CertificationDefinition[] @relation("CertificationCompetencies")
+  evidence                 Evidence[]
+}
+
+model Skill {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  title       String
+  domain      SkillDomain
+  description String
+  competencies Competency[] @relation("SkillCompetencies")
+  treeNodes   SkillTreeNode[]
+}
+
+model SkillTree {
+  id        String          @id @default(cuid())
+  academyId String
+  academy   Academy         @relation(fields: [academyId], references: [id], onDelete: Cascade)
+  title     String
+  version   String          @default("1.0")
+  nodes     SkillTreeNode[]
+}
+
+model SkillTreeNode {
+  id           String          @id @default(cuid())
+  skillTreeId  String
+  skillTree    SkillTree       @relation(fields: [skillTreeId], references: [id], onDelete: Cascade)
+  skillId      String
+  skill        Skill           @relation(fields: [skillId], references: [id])
+  parentNodeId String?
+  parentNode   SkillTreeNode?  @relation("SkillTreeParent", fields: [parentNodeId], references: [id])
+  childNodes   SkillTreeNode[] @relation("SkillTreeParent")
+  unlockRule   String
+  positionX    Int
+  positionY    Int
+}
+
+model LessonStep {
+  id                  String  @id @default(cuid())
+  lessonId            String
+  lesson              Lesson  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  interfaceType       String
+  action              String
+  expectedObservation String
+  whyItMatters        String
+  safetyNote          String?
+  order               Int
+}
+
+model LearningOutcome {
+  id             String   @id @default(cuid())
+  text           String
+  outcomeType    String
+  measurableVerb String
+  academyId      String?
+  academy        Academy? @relation(fields: [academyId], references: [id])
+  moduleId       String?
+  module         Module?  @relation(fields: [moduleId], references: [id])
+  lessonId       String?
+  lesson         Lesson?  @relation(fields: [lessonId], references: [id])
+}
+
+model PracticalExercise {
+  id                String  @id @default(cuid())
+  moduleId          String?
+  module            Module? @relation(fields: [moduleId], references: [id])
+  lessonId          String?
+  lesson            Lesson? @relation(fields: [lessonId], references: [id])
+  title             String
+  setup             String
+  task              String
+  expectedResult    String
+  evidenceRequired  String
+  safetyConstraints String
+}
+
+model CurriculumAssessment {
+  id                       String                    @id @default(cuid())
+  slug                     String                    @unique
+  moduleId                 String?
+  module                   Module?                   @relation(fields: [moduleId], references: [id])
+  type                     CurriculumAssessmentType
+  title                    String
+  rubric                   String
+  passCriteria             String
+  retryCriteria            String
+  mentorRoleRequired       UserRole
+  competencies             Competency[]              @relation("AssessmentCompetencies")
+  certificationDefinitions CertificationDefinition[] @relation("CertificationAssessments")
+  mentorSignOffs           MentorSignOff[]
+  evidence                 Evidence[]
+}
+
+model MentorSignOff {
+  id                  String               @id @default(cuid())
+  traineeId           String
+  trainee             User                 @relation("MentorSignOffTrainee", fields: [traineeId], references: [id])
+  mentorId            String
+  mentor              User                 @relation("MentorSignOffMentor", fields: [mentorId], references: [id])
+  assessmentId         String
+  assessment           CurriculumAssessment @relation(fields: [assessmentId], references: [id])
+  status              AttemptStatus         @default(NEEDS_MENTOR_REVIEW)
+  observedAt           DateTime?
+  serviceContext       String
+  feedback             String
+  nextStep             String
+}
+
+model ServiceExperience {
+  id                       String   @id @default(cuid())
+  traineeId                String
+  trainee                  User     @relation("ServiceExperienceTrainee", fields: [traineeId], references: [id])
+  serviceDate              DateTime
+  serviceType              String
+  roleServed               String
+  mentorId                 String?
+  mentor                   User?    @relation("ServiceExperienceMentor", fields: [mentorId], references: [id])
+  observationNotes          String
+  approvedForCertification Boolean  @default(false)
+}
+
+model ProgressionRule {
+  id                    String                   @id @default(cuid())
+  fromAcademyId          String?
+  fromAcademy            Academy?                 @relation("ProgressionFromAcademy", fields: [fromAcademyId], references: [id])
+  toAcademyId            String?
+  toAcademy              Academy?                 @relation("ProgressionToAcademy", fields: [toAcademyId], references: [id])
+  fromCertificationId    String?
+  fromCertification      CertificationDefinition? @relation("ProgressionFromCertification", fields: [fromCertificationId], references: [id])
+  toCertificationId      String?
+  toCertification        CertificationDefinition? @relation("ProgressionToCertification", fields: [toCertificationId], references: [id])
+  ruleType               String
+  requirement            String
+  active                 Boolean                  @default(true)
+}
+
+model Evidence {
+  id                String                @id @default(cuid())
+  userId            String
+  user              User                  @relation(fields: [userId], references: [id])
+  type              EvidenceType
+  title             String
+  description       String
+  assetUrl          String?
+  relatedEntityType String
+  relatedEntityId   String
+  competencyId      String?
+  competency        Competency?           @relation(fields: [competencyId], references: [id])
+  assessmentId      String?
+  assessment        CurriculumAssessment? @relation(fields: [assessmentId], references: [id])
+  submittedAt       DateTime              @default(now())
+  status            EvidenceStatus        @default(SUBMITTED)
+  reviews           EvidenceReview[]
+}
+
+model EvidenceReview {
+  id         String         @id @default(cuid())
+  evidenceId String
+  evidence   Evidence       @relation(fields: [evidenceId], references: [id], onDelete: Cascade)
+  reviewerId String
+  reviewer   User           @relation("EvidenceReviewer", fields: [reviewerId], references: [id])
+  decision   ReviewDecision
+  notes      String
+  reviewedAt DateTime       @default(now())
 }
 
 model LessonContent {

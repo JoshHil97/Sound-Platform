@@ -44,6 +44,8 @@ Phase 1 repository audit lives in [docs/phase-1/README.md](docs/phase-1/README.m
 
 Phase 2 design system lives in [docs/phase-2/README.md](docs/phase-2/README.md). It defines the Sound Academy dark control-room tokens, reusable UI primitives and page migration rules.
 
+Phase 3 platform architecture lives in [docs/phase-3/README.md](docs/phase-3/README.md). It adds the curriculum graph, competency, certification definition, mentor sign-off, service experience and evidence data spine.
+
 ## Local Setup
 
 ```bash

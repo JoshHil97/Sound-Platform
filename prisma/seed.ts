@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { audioExamples, equipment, lessonGuides, lessons, modules, quizzes, sops, trainingVideos, troubleshootingFlows, users, visualSources } from "../src/lib/data";
+import { academies, audioExamples, certificationDefinitions, competencies, curriculumAssessments, equipment, evidenceRecords, learningOutcomes, lessonGuides, lessons, modules, practicalExercises, progressionRules, quizzes, serviceExperiences, skillTrees, skills, sops, trainingVideos, troubleshootingFlows, users, visualSources } from "../src/lib/data";
 
 const prisma = new PrismaClient();
 
@@ -54,8 +54,65 @@ const videoReviewStatusMap = {
   "Confirmed source": "CONFIRMED_SOURCE",
   "Needs final video selection": "NEEDS_FINAL_VIDEO_SELECTION"
 } as const;
+const competencyCategoryMap = {
+  Knowledge: "KNOWLEDGE",
+  Practical: "PRACTICAL",
+  Operational: "OPERATIONAL",
+  Troubleshooting: "TROUBLESHOOTING",
+  Communication: "COMMUNICATION",
+  Leadership: "LEADERSHIP"
+} as const;
+const skillDomainMap = {
+  X32: "X32",
+  Dante: "DANTE",
+  Logic: "LOGIC",
+  Waves: "WAVES",
+  Wireless: "WIRELESS",
+  P16: "P16",
+  FOH: "FOH",
+  Livestream: "LIVESTREAM",
+  Troubleshooting: "TROUBLESHOOTING",
+  Leadership: "LEADERSHIP"
+} as const;
+const curriculumAssessmentTypeMap = {
+  Knowledge: "KNOWLEDGE",
+  Practical: "PRACTICAL",
+  Scenario: "SCENARIO",
+  Service: "SERVICE",
+  Mentor: "MENTOR",
+  Certification: "CERTIFICATION"
+} as const;
+const evidenceTypeMap = {
+  Quiz: "QUIZ",
+  "Sound Lab": "SOUND_LAB",
+  Practical: "PRACTICAL",
+  "Service Observation": "SERVICE_OBSERVATION",
+  "Mentor Note": "MENTOR_NOTE",
+  "Media Upload": "MEDIA_UPLOAD"
+} as const;
+const evidenceStatusMap = {
+  Submitted: "SUBMITTED",
+  "Needs Review": "NEEDS_REVIEW",
+  Approved: "APPROVED",
+  "Revision Requested": "REVISION_REQUESTED",
+  Rejected: "REJECTED"
+} as const;
 
 async function main() {
+  await prisma.evidenceReview.deleteMany();
+  await prisma.evidence.deleteMany();
+  await prisma.serviceExperience.deleteMany();
+  await prisma.mentorSignOff.deleteMany();
+  await prisma.progressionRule.deleteMany();
+  await prisma.practicalExercise.deleteMany();
+  await prisma.learningOutcome.deleteMany();
+  await prisma.skillTreeNode.deleteMany();
+  await prisma.skillTree.deleteMany();
+  await prisma.curriculumAssessment.deleteMany();
+  await prisma.certificationDefinition.deleteMany();
+  await prisma.competency.deleteMany();
+  await prisma.skill.deleteMany();
+  await prisma.academy.deleteMany();
   await prisma.comment.deleteMany();
   await prisma.incident.deleteMany();
   await prisma.serviceLog.deleteMany();
@@ -90,11 +147,26 @@ async function main() {
     await prisma.user.create({ data: { name: user.name, email: user.email, role: roleMap[user.role] as never } });
   }
 
+  for (const academy of academies) {
+    await prisma.academy.create({
+      data: {
+        slug: academy.slug,
+        title: academy.title,
+        mission: academy.mission,
+        ownerRole: roleMap[academy.ownerRole] as never,
+        activeVersion: academy.activeVersion,
+        order: academy.order
+      }
+    });
+  }
+
   for (const curriculumModule of modules) {
+    const academy = academies.find((item) => item.moduleSlugs.includes(curriculumModule.slug));
     await prisma.module.create({
       data: {
         slug: curriculumModule.slug,
         title: curriculumModule.title,
+        academyId: academy ? (await prisma.academy.findUniqueOrThrow({ where: { slug: academy.slug } })).id : undefined,
         level: levelMap[curriculumModule.level] as never,
         summary: curriculumModule.summary,
         duration: curriculumModule.duration,
@@ -103,6 +175,99 @@ async function main() {
         certification: curriculumModule.certification,
         order: curriculumModule.order,
         assessments: { create: { title: `${curriculumModule.title} Practical Sign-Off`, rubric: "Perform safely, explain decisions, follow SOP and document exceptions." } }
+      }
+    });
+  }
+
+  for (const skill of skills) {
+    await prisma.skill.create({
+      data: {
+        slug: skill.slug,
+        title: skill.title,
+        domain: skillDomainMap[skill.domain] as never,
+        description: skill.description
+      }
+    });
+  }
+
+  for (const competency of competencies) {
+    await prisma.competency.create({
+      data: {
+        slug: competency.slug,
+        title: competency.title,
+        category: competencyCategoryMap[competency.category] as never,
+        description: competency.description,
+        level: levelMap[competency.level] as never,
+        academies: { connect: competency.academySlugs.map((slug) => ({ slug })) },
+        modules: { connect: competency.moduleSlugs.map((slug) => ({ slug })) },
+        skills: { connect: competency.skillSlugs.map((slug) => ({ slug })) }
+      }
+    });
+  }
+
+  for (const definition of certificationDefinitions) {
+    const academy = await prisma.academy.findUniqueOrThrow({ where: { slug: definition.academySlug } });
+    await prisma.certificationDefinition.create({
+      data: {
+        slug: definition.slug,
+        academyId: academy.id,
+        level: levelMap[definition.level] as never,
+        title: definition.title,
+        mission: definition.mission,
+        renewalMonths: definition.renewalMonths,
+        requiredServiceObservations: definition.requiredServiceObservations,
+        moduleRequirements: { connect: definition.moduleSlugs.map((slug) => ({ slug })) },
+        competencyRequirements: { connect: definition.competencySlugs.map((slug) => ({ slug })) }
+      }
+    });
+  }
+
+  for (const tree of skillTrees) {
+    const academy = await prisma.academy.findUniqueOrThrow({ where: { slug: tree.academySlug } });
+    const createdTree = await prisma.skillTree.create({ data: { academyId: academy.id, title: tree.title, version: tree.version } });
+    const nodeIds = new Map<string, string>();
+    for (const node of tree.nodes) {
+      const skill = await prisma.skill.findUniqueOrThrow({ where: { slug: node.skillSlug } });
+      const createdNode = await prisma.skillTreeNode.create({
+        data: {
+          skillTreeId: createdTree.id,
+          skillId: skill.id,
+          parentNodeId: node.parentSkillSlug ? nodeIds.get(node.parentSkillSlug) : undefined,
+          unlockRule: node.unlockRule,
+          positionX: node.positionX,
+          positionY: node.positionY
+        }
+      });
+      nodeIds.set(node.skillSlug, createdNode.id);
+    }
+  }
+
+  for (const assessment of curriculumAssessments) {
+    const curriculumModuleRecord = await prisma.module.findUniqueOrThrow({ where: { slug: assessment.moduleSlug } });
+    await prisma.curriculumAssessment.create({
+      data: {
+        slug: assessment.slug,
+        moduleId: curriculumModuleRecord.id,
+        type: curriculumAssessmentTypeMap[assessment.type] as never,
+        title: assessment.title,
+        rubric: assessment.rubric,
+        passCriteria: assessment.passCriteria,
+        retryCriteria: assessment.retryCriteria,
+        mentorRoleRequired: roleMap[assessment.mentorRoleRequired] as never,
+        competencies: { connect: assessment.competencySlugs.map((slug) => ({ slug })) }
+      }
+    });
+  }
+
+  for (const definition of certificationDefinitions) {
+    await prisma.certificationDefinition.update({
+      where: { slug: definition.slug },
+      data: {
+        assessmentRequirements: {
+          connect: curriculumAssessments
+            .filter((assessment) => definition.moduleSlugs.includes(assessment.moduleSlug))
+            .map((assessment) => ({ slug: assessment.slug }))
+        }
       }
     });
   }
@@ -125,6 +290,39 @@ async function main() {
         spacedRepetitionPrompt: lesson.spaced,
         mentorSignoffCriteria: lesson.signoff,
         contentBlocks: { create: [{ heading: "Short Focus", body: lesson.summary, sort: 1 }, { heading: "Practical Exercise", body: lesson.practical, sort: 2 }] }
+      }
+    });
+  }
+
+  for (const outcome of learningOutcomes) {
+    const academy = outcome.academySlug ? await prisma.academy.findUnique({ where: { slug: outcome.academySlug } }) : null;
+    const curriculumModuleRecord = outcome.moduleSlug ? await prisma.module.findUnique({ where: { slug: outcome.moduleSlug } }) : null;
+    const lesson = outcome.lessonSlug ? await prisma.lesson.findUnique({ where: { slug: outcome.lessonSlug } }) : null;
+    await prisma.learningOutcome.create({
+      data: {
+        text: outcome.text,
+        outcomeType: outcome.outcomeType,
+        measurableVerb: outcome.measurableVerb,
+        academyId: academy?.id,
+        moduleId: curriculumModuleRecord?.id,
+        lessonId: lesson?.id
+      }
+    });
+  }
+
+  for (const exercise of practicalExercises) {
+    const curriculumModuleRecord = await prisma.module.findUniqueOrThrow({ where: { slug: exercise.moduleSlug } });
+    const lesson = exercise.lessonSlug ? await prisma.lesson.findUnique({ where: { slug: exercise.lessonSlug } }) : null;
+    await prisma.practicalExercise.create({
+      data: {
+        moduleId: curriculumModuleRecord.id,
+        lessonId: lesson?.id,
+        title: exercise.title,
+        setup: exercise.setup,
+        task: exercise.task,
+        expectedResult: exercise.expectedResult,
+        evidenceRequired: exercise.evidenceRequired,
+        safetyConstraints: exercise.safetyConstraints
       }
     });
   }
@@ -233,6 +431,58 @@ async function main() {
         whyUse: video.whyUse,
         linkedLessons: video.linkedLessons.join("\n"),
         reviewStatus: videoReviewStatusMap[video.reviewStatus] as never
+      }
+    });
+  }
+
+  for (const rule of progressionRules) {
+    const fromAcademy = rule.fromAcademySlug ? await prisma.academy.findUnique({ where: { slug: rule.fromAcademySlug } }) : null;
+    const toAcademy = rule.toAcademySlug ? await prisma.academy.findUnique({ where: { slug: rule.toAcademySlug } }) : null;
+    const fromCertification = rule.fromCertificationSlug ? await prisma.certificationDefinition.findUnique({ where: { slug: rule.fromCertificationSlug } }) : null;
+    const toCertification = rule.toCertificationSlug ? await prisma.certificationDefinition.findUnique({ where: { slug: rule.toCertificationSlug } }) : null;
+    await prisma.progressionRule.create({
+      data: {
+        fromAcademyId: fromAcademy?.id,
+        toAcademyId: toAcademy?.id,
+        fromCertificationId: fromCertification?.id,
+        toCertificationId: toCertification?.id,
+        ruleType: rule.ruleType,
+        requirement: rule.requirement
+      }
+    });
+  }
+
+  for (const experience of serviceExperiences) {
+    const trainee = await prisma.user.findUniqueOrThrow({ where: { email: experience.traineeEmail } });
+    const mentor = experience.mentorEmail ? await prisma.user.findUnique({ where: { email: experience.mentorEmail } }) : null;
+    await prisma.serviceExperience.create({
+      data: {
+        traineeId: trainee.id,
+        serviceDate: new Date(experience.serviceDate),
+        serviceType: experience.serviceType,
+        roleServed: experience.roleServed,
+        mentorId: mentor?.id,
+        observationNotes: experience.observationNotes,
+        approvedForCertification: experience.approvedForCertification
+      }
+    });
+  }
+
+  for (const evidence of evidenceRecords) {
+    const user = await prisma.user.findUniqueOrThrow({ where: { email: evidence.userEmail } });
+    const competency = evidence.competencySlug ? await prisma.competency.findUnique({ where: { slug: evidence.competencySlug } }) : null;
+    const assessment = evidence.assessmentSlug ? await prisma.curriculumAssessment.findUnique({ where: { slug: evidence.assessmentSlug } }) : null;
+    await prisma.evidence.create({
+      data: {
+        userId: user.id,
+        type: evidenceTypeMap[evidence.type] as never,
+        title: evidence.title,
+        description: evidence.description,
+        relatedEntityType: evidence.relatedEntityType,
+        relatedEntityId: evidence.relatedEntityId,
+        competencyId: competency?.id,
+        assessmentId: assessment?.id,
+        status: evidenceStatusMap[evidence.status] as never
       }
     });
   }

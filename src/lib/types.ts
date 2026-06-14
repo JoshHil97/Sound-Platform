@@ -151,3 +151,124 @@ export type CertificationEvidence = {
   status: "Complete" | "Pending" | "Needs Review";
   detail: string;
 };
+
+export type Academy = {
+  slug: string;
+  title: string;
+  mission: string;
+  ownerRole: Role;
+  activeVersion: string;
+  order: number;
+  moduleSlugs: string[];
+};
+
+export type CertificationDefinition = {
+  slug: string;
+  academySlug: string;
+  level: Level;
+  title: string;
+  mission: string;
+  renewalMonths: number;
+  requiredServiceObservations: number;
+  moduleSlugs: string[];
+  competencySlugs: string[];
+};
+
+export type CompetencyCategory = "Knowledge" | "Practical" | "Operational" | "Troubleshooting" | "Communication" | "Leadership";
+
+export type Competency = {
+  slug: string;
+  title: string;
+  category: CompetencyCategory;
+  description: string;
+  level: Level;
+  academySlugs: string[];
+  moduleSlugs: string[];
+  skillSlugs: string[];
+};
+
+export type Skill = {
+  slug: string;
+  title: string;
+  domain: "X32" | "Dante" | "Logic" | "Waves" | "Wireless" | "P16" | "FOH" | "Livestream" | "Troubleshooting" | "Leadership";
+  description: string;
+  competencySlugs: string[];
+};
+
+export type SkillTreeNode = {
+  skillSlug: string;
+  parentSkillSlug?: string;
+  unlockRule: string;
+  positionX: number;
+  positionY: number;
+};
+
+export type SkillTree = {
+  academySlug: string;
+  title: string;
+  version: string;
+  nodes: SkillTreeNode[];
+};
+
+export type CurriculumAssessment = {
+  slug: string;
+  moduleSlug: string;
+  type: "Knowledge" | "Practical" | "Scenario" | "Service" | "Mentor" | "Certification";
+  title: string;
+  rubric: string;
+  passCriteria: string;
+  retryCriteria: string;
+  mentorRoleRequired: Role;
+  competencySlugs: string[];
+};
+
+export type PracticalExercise = {
+  moduleSlug: string;
+  lessonSlug?: string;
+  title: string;
+  setup: string;
+  task: string;
+  expectedResult: string;
+  evidenceRequired: string;
+  safetyConstraints: string;
+};
+
+export type LearningOutcome = {
+  text: string;
+  outcomeType: "Academy" | "Module" | "Lesson";
+  measurableVerb: string;
+  academySlug?: string;
+  moduleSlug?: string;
+  lessonSlug?: string;
+};
+
+export type ProgressionRule = {
+  fromAcademySlug?: string;
+  toAcademySlug?: string;
+  fromCertificationSlug?: string;
+  toCertificationSlug?: string;
+  ruleType: string;
+  requirement: string;
+};
+
+export type ServiceExperienceRecord = {
+  traineeEmail: string;
+  serviceDate: string;
+  serviceType: string;
+  roleServed: string;
+  mentorEmail?: string;
+  observationNotes: string;
+  approvedForCertification: boolean;
+};
+
+export type EvidenceRecord = {
+  userEmail: string;
+  type: "Quiz" | "Sound Lab" | "Practical" | "Service Observation" | "Mentor Note" | "Media Upload";
+  title: string;
+  description: string;
+  relatedEntityType: string;
+  relatedEntityId: string;
+  competencySlug?: string;
+  assessmentSlug?: string;
+  status: "Submitted" | "Needs Review" | "Approved" | "Revision Requested" | "Rejected";
+};
