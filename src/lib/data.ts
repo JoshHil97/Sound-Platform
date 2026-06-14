@@ -1,4 +1,4 @@
-import type { Academy, ActivityItem, AudioExample, Certification, CertificationDefinition, CertificationEvidence, Competency, CurriculumAssessment, DanteDeviceTwin, DanteSubscription, DigitalSignalPath, Equipment, EvidenceRecord, LearningOutcome, Lesson, LessonGuide, LogicChannelStrip, Module, OfflineResource, P16Source, PracticalExercise, PracticalTrainingWorkflow, ProgressionRule, Quiz, RoadmapNode, ServiceChecklistItem, ServiceEscalationContact, ServiceExperienceRecord, ServiceQuickFault, ServiceScheduleItem, Skill, SkillTree, SOP, StageZone, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource, WirelessAssignment, X32Bus, X32InputChannel } from "@/lib/types";
+import type { Academy, ActivityItem, AudioExample, Certification, CertificationDefinition, CertificationEvidence, CertificationPassport, Competency, CurriculumAssessment, DanteDeviceTwin, DanteSubscription, DigitalSignalPath, Equipment, EvidenceRecord, LearningOutcome, Lesson, LessonGuide, LogicChannelStrip, MentorSignOffTask, Module, OfflineResource, P16Source, PracticalExercise, PracticalTrainingWorkflow, ProgressionRule, Quiz, RoadmapNode, ServiceChecklistItem, ServiceEscalationContact, ServiceExperienceRecord, ServiceQuickFault, ServiceScheduleItem, Skill, SkillTree, SOP, StageZone, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource, WirelessAssignment, X32Bus, X32InputChannel } from "@/lib/types";
 
 export const modules: Module[] = [
   ["ministry-safety-signal-flow", "Ministry, Safety and Signal Flow", "Foundations", "Service mindset, safe operation and end-to-end signal flow.", "2-3 hrs"],
@@ -1284,6 +1284,109 @@ export const certificationEvidence: CertificationEvidence[] = [
   { title: "X32 patch-name-gain drill", type: "Practical", status: "Needs Review", detail: "Evidence uploaded; awaiting Senior Engineer sign-off." },
   { title: "Sunday service shadowing", type: "Service Observation", status: "Pending", detail: "Needs one more observed line check and stream verification." },
   { title: "Mentor note", type: "Mentor Note", status: "Complete", detail: "Ready for Dante subscription practice with supervision." }
+];
+
+export const certificationPassports: CertificationPassport[] = [
+  {
+    userEmail: "ava@example.church",
+    certificationSlug: "foundations-ready",
+    targetRole: "Trainee",
+    xp: 1840,
+    soundLabScore: 78,
+    evidenceReviewed: 3,
+    pendingSignoffs: 2,
+    renewalWindow: "Annual safety and gain refresher",
+    readiness: 42,
+    nextAction: "Complete X32 channel gain practical with a Senior Engineer.",
+    gates: [
+      { label: "Modules", required: "6 required", completed: "2 complete", status: "In Progress" },
+      { label: "Knowledge", required: "Foundations quiz pass", completed: "84% average", status: "Complete" },
+      { label: "Practical", required: "Gain and signal path sign-off", completed: "1 of 3 signed", status: "Needs Review" },
+      { label: "Service", required: "1 shadowed service", completed: "1 logged", status: "Complete" },
+      { label: "Mentor", required: "Senior Engineer approval", completed: "Pending", status: "Blocked" }
+    ],
+    competencyProgress: [
+      { competencySlug: "trace-signal-path", status: "Complete", evidenceTitle: "Signal path sketch", mentorNote: "Can explain mic to X32 to LR path." },
+      { competencySlug: "operate-x32-channel", status: "Needs Review", evidenceTitle: "X32 gain drill", mentorNote: "Needs confidence reading preamp meter before fader moves." }
+    ]
+  },
+  {
+    userEmail: "daniel@example.church",
+    certificationSlug: "foh-operator-certified",
+    targetRole: "Sound Operator",
+    xp: 4280,
+    soundLabScore: 86,
+    evidenceReviewed: 8,
+    pendingSignoffs: 1,
+    renewalWindow: "Annual service observation and incident review",
+    readiness: 72,
+    nextAction: "Finish wireless prep and choir feedback assessment.",
+    gates: [
+      { label: "Modules", required: "4 operator modules", completed: "3 complete", status: "In Progress" },
+      { label: "Knowledge", required: "Operator quiz average 85%+", completed: "88% average", status: "Complete" },
+      { label: "Practical", required: "Patch, wireless, P16 and FOH mix", completed: "4 sign-offs", status: "Needs Review" },
+      { label: "Service", required: "4 observed services", completed: "5 logged", status: "Complete" },
+      { label: "Mentor", required: "Senior Engineer approval", completed: "Review scheduled", status: "Needs Review" }
+    ],
+    competencyProgress: [
+      { competencySlug: "operate-x32-channel", status: "Complete", evidenceTitle: "Patch-name-gain evidence", mentorNote: "Clean workflow; documents changes." },
+      { competencySlug: "support-monitoring-and-p16", status: "Complete", evidenceTitle: "P16 route restore", mentorNote: "Safe monitor changes." },
+      { competencySlug: "mix-speech-and-worship", status: "In Progress", evidenceTitle: "Sunday FOH observation", mentorNote: "Speech priority is good; choir EQ still developing." },
+      { competencySlug: "prepare-wireless-systems", status: "Needs Review", evidenceTitle: "Wireless prep sign-off", mentorNote: "Needs consistent battery and label process." }
+    ]
+  },
+  {
+    userEmail: "grace@example.church",
+    certificationSlug: "livestream-engineer-certified",
+    targetRole: "Engineer",
+    xp: 6920,
+    soundLabScore: 94,
+    evidenceReviewed: 14,
+    pendingSignoffs: 0,
+    renewalWindow: "Semiannual Logic template and loudness-policy review",
+    readiness: 96,
+    nextAction: "Ready for Technical Director approval and renewal date assignment.",
+    gates: [
+      { label: "Modules", required: "3 livestream modules", completed: "3 complete", status: "Complete" },
+      { label: "Knowledge", required: "Logic, Dante and Waves checks", completed: "92% average", status: "Complete" },
+      { label: "Practical", required: "Dante, Logic and Waves sign-offs", completed: "8 sign-offs", status: "Complete" },
+      { label: "Service", required: "6 observed services", completed: "12 logged", status: "Complete" },
+      { label: "Mentor", required: "Senior Engineer approval", completed: "Approved", status: "Complete" }
+    ],
+    competencyProgress: [
+      { competencySlug: "verify-dante-path", status: "Complete", evidenceTitle: "Dante-to-Logic verification", mentorNote: "Checks X32, subscription, DVS and Logic in order." },
+      { competencySlug: "operate-logic-stream-template", status: "Complete", evidenceTitle: "Logic template walkthrough", mentorNote: "Strong template discipline and naming." },
+      { competencySlug: "manage-stream-loudness", status: "Complete", evidenceTitle: "Stream loudness observation", mentorNote: "Limiter use is controlled and musical." },
+      { competencySlug: "apply-purpose-first-processing", status: "Complete", evidenceTitle: "Waves vocal chain lab", mentorNote: "Explains plugin choices by audible problem." }
+    ]
+  }
+];
+
+export const mentorSignOffTasks: MentorSignOffTask[] = [
+  {
+    traineeEmail: "ava@example.church",
+    title: "X32 channel gain practical",
+    mentorName: "Samuel Brooks",
+    dueDate: "2026-06-19",
+    status: "Scheduled",
+    rubric: "Set preamp from real source level, explain meter target, engage HPF and avoid fader-as-gain thinking."
+  },
+  {
+    traineeEmail: "daniel@example.church",
+    title: "Wireless prep and choir feedback assessment",
+    mentorName: "Samuel Brooks",
+    dueDate: "2026-06-23",
+    status: "Ready for Review",
+    rubric: "Prepare RF/battery/labels, place choir mics safely, identify feedback risk and document the service plan."
+  },
+  {
+    traineeEmail: "grace@example.church",
+    title: "Livestream Engineer final approval",
+    mentorName: "Naomi Patel",
+    dueDate: "2026-06-30",
+    status: "Observed",
+    rubric: "Approve Dante-to-Logic signal verification, Logic template discipline, stream loudness and encoder handoff."
+  }
 ];
 
 export const serviceLogs = [

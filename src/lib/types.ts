@@ -205,6 +205,46 @@ export type CertificationEvidence = {
   detail: string;
 };
 
+export type CertificationGateStatus = "Complete" | "In Progress" | "Blocked" | "Needs Review";
+
+export type CertificationGate = {
+  label: string;
+  required: string;
+  completed: string;
+  status: CertificationGateStatus;
+};
+
+export type CompetencyProgress = {
+  competencySlug: string;
+  status: CertificationGateStatus;
+  evidenceTitle: string;
+  mentorNote: string;
+};
+
+export type MentorSignOffTask = {
+  traineeEmail: string;
+  title: string;
+  mentorName: string;
+  dueDate: string;
+  status: "Ready for Review" | "Observed" | "Retry Required" | "Scheduled";
+  rubric: string;
+};
+
+export type CertificationPassport = {
+  userEmail: string;
+  certificationSlug: string;
+  targetRole: Role;
+  xp: number;
+  soundLabScore: number;
+  evidenceReviewed: number;
+  pendingSignoffs: number;
+  renewalWindow: string;
+  readiness: number;
+  nextAction: string;
+  gates: CertificationGate[];
+  competencyProgress: CompetencyProgress[];
+};
+
 export type Academy = {
   slug: string;
   title: string;

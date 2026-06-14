@@ -147,6 +147,8 @@ Outputs:
 - Service experience requirements
 - Renewal logic
 
+Status: initial competency passport and evidence-based certification UI completed in [phase-9/CERTIFICATION_PASSPORT_BLUEPRINT.md](phase-9/CERTIFICATION_PASSPORT_BLUEPRINT.md).
+
 ## PHASE 10: Admin CMS
 
 Goal: manage curriculum, content, assets and approvals.
