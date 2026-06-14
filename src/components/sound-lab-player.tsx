@@ -1,15 +1,19 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Play, Square } from "lucide-react";
+import { CheckCircle2, Play, Shuffle, Square, XCircle } from "lucide-react";
 import type { AudioExample } from "@/lib/types";
-import { Tag } from "@/components/ui";
+import { Meter, StatusPill } from "@/components/ui";
 
-type LabTone = "clean-gain" | "too-hot-clipping" | "too-low-noisy" | "rumble-hpf" | "harsh-presence" | "compression-control" | "gate-chatter" | "feedback-ring" | "stream-limiter";
+type LabTone = AudioExample["slug"];
+
+const diagnoses = ["Clipping / Distortion", "Low Gain / Noise", "Feedback", "Harsh / Bright", "Muddy / Boomy", "Dynamics Problem"];
 
 export function SoundLabPlayer({ examples }: { examples: AudioExample[] }) {
-  const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [activeSlug, setActiveSlug] = useState(examples[0]?.slug ?? null);
+  const [playingSlug, setPlayingSlug] = useState<string | null>(null);
   const [context, setContext] = useState<AudioContext | null>(null);
+  const [revealed, setRevealed] = useState(false);
   const selected = useMemo(() => examples.find((example) => example.slug === activeSlug) ?? examples[0], [activeSlug, examples]);
 
   async function stopCurrent() {
@@ -17,86 +21,124 @@ export function SoundLabPlayer({ examples }: { examples: AudioExample[] }) {
       await context.close();
       setContext(null);
     }
-    setActiveSlug(null);
+    setPlayingSlug(null);
   }
 
   async function playExample(slug: string) {
     await stopCurrent();
     const audioContext = new AudioContext();
     setContext(audioContext);
-    setActiveSlug(slug);
+    setPlayingSlug(slug);
     playTone(audioContext, slug as LabTone);
     window.setTimeout(() => {
       void audioContext.close();
       setContext((current) => (current === audioContext ? null : current));
-      setActiveSlug((current) => (current === slug ? null : current));
+      setPlayingSlug((current) => (current === slug ? null : current));
     }, 2600);
   }
 
+  function chooseScenario(slug: string) {
+    setActiveSlug(slug);
+    setRevealed(false);
+  }
+
   return (
-    <div className="grid gap-4 lg:grid-cols-[1fr_360px]">
-      <section className="grid gap-3">
-        {examples.map((example) => (
-          <article key={example.slug} className="rounded-md border border-[var(--line)] bg-white p-4 shadow-sm">
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="font-bold">{example.title}</h3>
-                  <Tag>{example.category}</Tag>
-                </div>
-                <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{example.whatYouHear}</p>
+    <div className="grid gap-4 xl:grid-cols-[330px_1fr_320px]">
+      <section className="glass-panel rounded-3xl p-4">
+        <div className="flex items-center justify-between">
+          <h2 className="font-bold">Choose a scenario</h2>
+          <button type="button" className="focus-ring rounded-xl border border-violet-400/30 p-2 text-violet-100" onClick={() => chooseScenario(examples[Math.floor(Math.random() * examples.length)].slug)}>
+            <Shuffle size={16} aria-hidden="true" />
+            <span className="sr-only">Random scenario</span>
+          </button>
+        </div>
+        <div className="mt-4 grid gap-2">
+          {examples.map((example) => (
+            <button key={example.slug} type="button" onClick={() => chooseScenario(example.slug)} className={`focus-ring rounded-2xl border p-3 text-left transition ${selected?.slug === example.slug ? "border-violet-300/60 bg-violet-500/20" : "border-white/10 bg-white/[0.04] hover:bg-white/[0.07]"}`}>
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-sm font-bold">{example.title}</p>
+                <StatusPill>{example.category}</StatusPill>
               </div>
-              <button
-                type="button"
-                onClick={() => activeSlug === example.slug ? void stopCurrent() : void playExample(example.slug)}
-                className="focus-ring inline-flex items-center gap-2 rounded-md bg-[var(--accent)] px-3 py-2 text-sm font-semibold text-white hover:bg-[var(--accent-strong)]"
-              >
-                {activeSlug === example.slug ? <Square size={16} aria-hidden="true" /> : <Play size={16} aria-hidden="true" />}
-                {activeSlug === example.slug ? "Stop" : "Play"}
-              </button>
-            </div>
-            <div className="mt-4 grid gap-3 md:grid-cols-2">
-              <Checklist title="Board symptoms" items={example.boardSymptoms} />
-              <Checklist title="Checks to make" items={example.checks} />
-            </div>
-          </article>
-        ))}
+              <p className="mt-1 text-xs leading-5 text-[var(--muted)]">{example.whatYouHear}</p>
+            </button>
+          ))}
+        </div>
       </section>
 
-      <aside className="h-max rounded-md border border-[var(--line)] bg-white p-5 shadow-sm lg:sticky lg:top-24">
-        <h2 className="text-xl font-bold">Listening brief</h2>
-        <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
-          Play examples at a comfortable volume. These are synthetic training sounds, not real service recordings, so they are rights-safe and repeatable.
-        </p>
-        {selected ? (
-          <div className="mt-5 rounded-md bg-slate-50 p-4">
-            <p className="text-sm font-semibold">Current focus</p>
-            <p className="mt-2 text-lg font-bold">{selected.title}</p>
-            <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{selected.whatYouHear}</p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {selected.linkedLessons.map((lesson) => (
-                <span key={lesson} className="rounded-md bg-white px-2 py-1 text-xs font-semibold text-slate-700">{lesson}</span>
-              ))}
+      <section className="glass-panel rounded-3xl p-5">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-300">Listen and diagnose</p>
+            <h2 className="mt-2 text-2xl font-black">{selected?.title}</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--muted)]">{selected?.whatYouHear}</p>
+          </div>
+          {selected ? (
+            <button type="button" onClick={() => playingSlug === selected.slug ? void stopCurrent() : void playExample(selected.slug)} className="focus-ring inline-flex items-center gap-2 rounded-xl bg-violet-500 px-4 py-3 text-sm font-bold text-white shadow-[0_0_30px_rgba(124,58,237,0.35)]">
+              {playingSlug === selected.slug ? <Square size={17} /> : <Play size={17} />}
+              {playingSlug === selected.slug ? "Stop" : "Play A/B"}
+            </button>
+          ) : null}
+        </div>
+
+        <div className="mt-6 rounded-2xl border border-white/10 bg-black/30 p-4">
+          <div className="flex h-28 items-center gap-1 overflow-hidden">
+            {Array.from({ length: 80 }).map((_, index) => (
+              <span key={index} className="w-full rounded-full bg-gradient-to-t from-violet-700 to-cyan-300" style={{ height: `${18 + Math.abs(Math.sin(index * 0.42)) * 78}%`, opacity: index % 7 === 0 ? 1 : 0.62 }} />
+            ))}
+          </div>
+          <div className="mt-4 grid grid-cols-4 gap-2">
+            {["A", "B", "C", "Ref"].map((item) => <button key={item} className="rounded-xl border border-white/10 bg-white/[0.04] py-2 text-sm font-bold text-slate-200">{item}</button>)}
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <h3 className="font-bold">What do you hear?</h3>
+          <div className="mt-3 grid gap-2 md:grid-cols-3">
+            {diagnoses.map((diagnosis) => (
+              <button key={diagnosis} className="focus-ring rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-sm font-semibold text-slate-200 hover:border-violet-400/40 hover:bg-violet-500/10">
+                {diagnosis}
+              </button>
+            ))}
+          </div>
+          <button onClick={() => setRevealed(true)} className="focus-ring mt-4 w-full rounded-xl bg-violet-500/90 px-4 py-3 text-sm font-bold text-white hover:bg-violet-500">Reveal answer and recommended fix</button>
+          {revealed && selected ? (
+            <div className="mt-4 rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-4">
+              <div className="flex items-center gap-2 text-emerald-200"><CheckCircle2 size={18} /> Recommended first checks</div>
+              <ul className="mt-3 grid gap-2 text-sm leading-6 text-emerald-50">
+                {selected.checks.map((check) => <li key={check}>- {check}</li>)}
+              </ul>
             </div>
+          ) : null}
+        </div>
+      </section>
+
+      <aside className="glass-panel rounded-3xl p-5">
+        <h2 className="font-bold">Visual reference</h2>
+        <div className="mt-5 grid gap-4">
+          <Meter label="Input Meter" value={selected?.slug.includes("clipping") ? 96 : selected?.slug.includes("low") ? 24 : 72} />
+          <Meter label="Output Meter" value={selected?.slug.includes("limiter") ? 91 : 67} />
+          <Meter label="Gain Reduction" value={selected?.category === "Dynamics" ? 68 : 28} />
+          <Meter label="Noise Floor" value={selected?.slug.includes("noisy") ? 70 : 18} />
+        </div>
+        <div className="mt-6 rounded-2xl border border-white/10 bg-black/25 p-4">
+          <div className="flex items-center justify-between text-xs text-[var(--muted)]">
+            <span>20</span><span>100</span><span>1k</span><span>10k</span><span>20k</span>
+          </div>
+          <div className="mt-3 flex h-32 items-end gap-1">
+            {Array.from({ length: 36 }).map((_, index) => (
+              <span key={index} className="w-full rounded-t bg-violet-500/70" style={{ height: `${20 + Math.abs(Math.cos(index * 0.55)) * 70}%` }} />
+            ))}
+          </div>
+        </div>
+        {selected ? (
+          <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+            <div className="flex items-center gap-2 text-sm font-bold text-amber-200"><XCircle size={17} /> Board symptoms</div>
+            <ul className="mt-3 grid gap-2 text-sm leading-6 text-[var(--muted)]">
+              {selected.boardSymptoms.map((symptom) => <li key={symptom}>- {symptom}</li>)}
+            </ul>
           </div>
         ) : null}
       </aside>
-    </div>
-  );
-}
-
-function Checklist({ title, items }: { title: string; items: string[] }) {
-  return (
-    <div className="rounded-md bg-slate-50 p-3">
-      <h4 className="text-sm font-bold">{title}</h4>
-      <ul className="mt-2 grid gap-2 text-sm leading-6 text-[var(--muted)]">
-        {items.map((item) => (
-          <li key={item} className="flex gap-2">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]" />
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }

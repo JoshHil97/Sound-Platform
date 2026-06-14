@@ -26,6 +26,20 @@ A church-specific sound engineering academy platform for volunteer onboarding, o
 - Service logs
 - Admin overview
 
+## Project Roadmap
+
+The build now follows the master phase plan in [docs/MASTER_PHASE_ROADMAP.md](docs/MASTER_PHASE_ROADMAP.md).
+
+Phase 0 is mandatory before broad lesson generation or deeper feature expansion. Its governing documents live in [docs/phase-0/README.md](docs/phase-0/README.md) and define:
+
+- Curriculum architecture
+- Certification pathways
+- Competency mapping
+- Assessment design
+- Mentor sign-off rules
+- Platform integration strategy
+- Curriculum governance
+
 ## Local Setup
 
 ```bash
@@ -40,7 +54,7 @@ The local MVP uses:
 DATABASE_URL="file:./dev.db"
 ```
 
-Copy `.env.example` to `.env` for local development.
+Create `.env` locally with the value above for development. The file is intentionally ignored by Git.
 
 ## Vercel Notes
 
@@ -64,4 +78,6 @@ Recommended Vercel setup:
 
 ## Content Roadmap
 
-The MVP includes seeded curriculum, sound examples, video source slots, visual references, SOPs, troubleshooting flows, equipment records, and certification data. The next major phase is to deepen every lesson with church-specific screenshots, real service recordings, approved Logic templates, X32 showfile references, Dante diagrams, Waves chains, and mentor rubrics.
+The MVP includes seeded curriculum, sound examples, video source slots, visual references, SOPs, troubleshooting flows, equipment records, and certification data.
+
+Per Phase 0, the next content step is not bulk lesson generation. First approve the curriculum hierarchy, certification requirements, competency framework, progression rules and assessment architecture. Then populate full lessons with church-specific screenshots, real service recordings, approved Logic templates, X32 showfile references, Dante diagrams, Waves chains and mentor rubrics.

@@ -3,13 +3,19 @@
 @tailwind utilities;
 
 :root {
-  --background: #f6f8f7;
-  --ink: #17211f;
-  --muted: #5b6662;
-  --line: #dce4e0;
-  --accent: #0f766e;
-  --accent-strong: #115e59;
-  --warning: #b45309;
+  --background: #050711;
+  --panel: rgba(13, 18, 34, 0.82);
+  --panel-strong: rgba(17, 24, 45, 0.95);
+  --ink: #f7f8ff;
+  --muted: #9aa6c4;
+  --line: rgba(134, 148, 190, 0.18);
+  --accent: #7c3aed;
+  --accent-strong: #a855f7;
+  --teal: #22d3ee;
+  --green: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --glow: 0 0 38px rgba(124, 58, 237, 0.22);
 }
 
 * {
@@ -20,6 +26,11 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--ink);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at 16% 8%, rgba(124, 58, 237, 0.22), transparent 26rem),
+    radial-gradient(circle at 84% 18%, rgba(34, 211, 238, 0.16), transparent 24rem),
+    linear-gradient(135deg, #050711 0%, #070b18 44%, #090d1d 100%);
 }
 
 a {
@@ -32,7 +43,29 @@ a {
 }
 
 .focus-ring:focus-visible {
-  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.35);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.45);
+}
+
+.glass-panel {
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.82), rgba(7, 10, 24, 0.88));
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(18px);
+}
+
+.neon-text {
+  background: linear-gradient(90deg, #ffffff, #c4b5fd 52%, #67e8f9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.meter-gradient {
+  background: linear-gradient(90deg, #22c55e 0%, #84cc16 46%, #f59e0b 72%, #ef4444 100%);
+}
+
+.purple-gradient {
+  background: linear-gradient(135deg, #4c1d95, #6d28d9 45%, #0891b2);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -105,3 +105,49 @@ export type TrainingVideo = {
   linkedLessons: string[];
   reviewStatus: "Confirmed source" | "Needs final video selection";
 };
+
+export type SystemHealth = {
+  name: string;
+  status: "Connected" | "Healthy" | "Ready" | "Warning" | "Offline";
+  detail: string;
+  metric: string;
+};
+
+export type ActivityItem = {
+  title: string;
+  detail: string;
+  time: string;
+  tone: "success" | "warning" | "info";
+};
+
+export type RoadmapNode = {
+  moduleSlug: string;
+  completion: number;
+  state: "Complete" | "In Progress" | "Unlocked" | "Locked";
+  difficulty: "Beginner" | "Intermediate" | "Advanced";
+  linkedEquipment: string[];
+  serviceSkills: string[];
+  nextAction: string;
+};
+
+export type ServiceChecklistItem = {
+  title: string;
+  detail: string;
+  area: "Wireless" | "X32" | "Dante" | "Logic" | "P16" | "Stage" | "Talkback" | "Livestream";
+  status: "Done" | "Due" | "Check";
+};
+
+export type TrainingPanel = {
+  title: string;
+  summary: string;
+  status: "Ready" | "Practice" | "Needs Review";
+  checks: string[];
+  mistakes: string[];
+};
+
+export type CertificationEvidence = {
+  title: string;
+  type: "Quiz" | "Sound Lab" | "Practical" | "Service Observation" | "Mentor Note";
+  status: "Complete" | "Pending" | "Needs Review";
+  detail: string;
+};

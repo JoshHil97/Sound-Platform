@@ -1,4 +1,4 @@
-import type { AudioExample, Certification, Equipment, Lesson, LessonGuide, Module, Quiz, SOP, TrainingVideo, TroubleshootingFlow, User, VisualSource } from "@/lib/types";
+import type { ActivityItem, AudioExample, Certification, CertificationEvidence, Equipment, Lesson, LessonGuide, Module, Quiz, RoadmapNode, ServiceChecklistItem, SOP, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource } from "@/lib/types";
 
 export const modules: Module[] = [
   ["ministry-safety-signal-flow", "Ministry, Safety and Signal Flow", "Foundations", "Service mindset, safe operation and end-to-end signal flow.", "2-3 hrs"],
@@ -612,6 +612,73 @@ export const signalPaths = [
   { title: "Speech Mic to Livestream", source: "Wireless handheld", path: "Receiver -> X32 -> stream bus -> Dante -> DVS -> Logic speech chain -> OBS", destination: "Online stream", notes: "Verify Logic input and output meters." },
   { title: "Worship Team to P16", source: "Band and vocal channels", path: "X32 channels -> Ultranet source assignment -> P16 units", destination: "Personal monitors", notes: "Keep source order predictable." },
   { title: "Choir to Stream", source: "Choir mic pair", path: "X32 inputs -> stream bus -> Dante -> Logic choir processing -> master chain", destination: "Livestream mix", notes: "Watch spill, harshness and mono compatibility." }
+];
+
+export const systemHealth: SystemHealth[] = [
+  { name: "X32 Console", status: "Connected", detail: "Showfile loaded, 32 inputs visible", metric: "0 clipped preamps" },
+  { name: "Dante Network", status: "Healthy", detail: "X32 card, DVS and stream Mac discovered", metric: "48 kHz locked" },
+  { name: "Logic Stream", status: "Ready", detail: "Approved template open with stream master armed", metric: "-16 LUFS target" },
+  { name: "P16 Monitoring", status: "Connected", detail: "Ultranet source order verified", metric: "16 sources" },
+  { name: "Wireless Mics", status: "Warning", detail: "Two packs need fresh batteries before service", metric: "8/10 ready" },
+  { name: "Livestream Output", status: "Ready", detail: "OBS capture receiving Logic output", metric: "1080p / 6 Mbps" }
+];
+
+export const activityFeed: ActivityItem[] = [
+  { title: "Passed Sound Lab: Compression Control", detail: "Grace identified over-compression and chose bus input trim first.", time: "2h ago", tone: "success" },
+  { title: "Mentor sign-off requested", detail: "Daniel submitted X32 patch-name-gain evidence for review.", time: "Yesterday", tone: "info" },
+  { title: "Wireless battery warning", detail: "Two handhelds were returned without fresh batteries after rehearsal.", time: "2 days ago", tone: "warning" },
+  { title: "Dante route restored", detail: "Stream Mac subscription was corrected and logged after training lab.", time: "3 days ago", tone: "success" }
+];
+
+export const roadmapNodes: RoadmapNode[] = modules.map((module, index) => ({
+  moduleSlug: module.slug,
+  completion: index < 4 ? 100 : index < 9 ? 60 + (index % 3) * 10 : index < 15 ? 20 + (index % 4) * 8 : 0,
+  state: index < 4 ? "Complete" : index < 9 ? "In Progress" : index < 15 ? "Unlocked" : "Locked",
+  difficulty: module.level === "Foundations" ? "Beginner" : module.level === "Operator" ? "Intermediate" : "Advanced",
+  linkedEquipment: module.slug.includes("logic") ? ["Logic Pro", "DVS", "Waves"] : module.slug.includes("dante") ? ["Dante Controller", "X-DANTE", "Network switch"] : module.slug.includes("x32") ? ["Behringer X32", "P16", "Stagebox"] : ["X32", "Wireless", "Service workflow"],
+  serviceSkills: module.slug.includes("troubleshooting") ? ["Fault isolation", "Incident logging"] : module.slug.includes("monitoring") ? ["P16 setup", "Talkback"] : module.slug.includes("livestream") || module.slug.includes("logic") ? ["Stream mix", "OBS handoff"] : ["Line check", "Safe operation"],
+  nextAction: index < 4 ? "Review for spaced repetition" : index < 9 ? "Complete mentor drill" : index < 15 ? "Start guided walkthrough" : "Complete previous level"
+}));
+
+export const serviceChecklist: ServiceChecklistItem[] = [
+  { title: "Wireless Mic Check", detail: "Fresh batteries, labels, RF/audio verified", area: "Wireless", status: "Done" },
+  { title: "X32 Console Check", detail: "Sunday showfile loaded, key inputs named", area: "X32", status: "Done" },
+  { title: "Dante Network Check", detail: "DVS running, green subscriptions, 48 kHz", area: "Dante", status: "Done" },
+  { title: "Logic Stream Check", detail: "Template open, DVS selected, loudness meter active", area: "Logic", status: "Due" },
+  { title: "P16 Personal Monitoring", detail: "Ultranet source order and musician requests checked", area: "P16", status: "Done" },
+  { title: "Stage and Monitors Check", detail: "Wedges safe, stage volume under control", area: "Stage", status: "Check" },
+  { title: "Talkback Check", detail: "Talkback mic routed only to intended destinations", area: "Talkback", status: "Done" },
+  { title: "Livestream Output Check", detail: "OBS receives Logic output, short test record complete", area: "Livestream", status: "Due" }
+];
+
+export const x32Panels: TrainingPanel[] = [
+  { title: "Input Channel", summary: "Select the channel, confirm source, set preamp gain, check meter and name the scribble strip.", status: "Practice", checks: ["Correct layer selected", "Input meter active", "No red clipping", "Source name is meaningful"], mistakes: ["Setting gain from a quiet test voice", "Editing a bus instead of an input", "Leaving mystery channel names"] },
+  { title: "EQ and HPF", summary: "Use HPF and small corrective moves before boosting. Bypass to compare.", status: "Ready", checks: ["HPF engaged for speech", "Narrow harshness cuts", "Bypass comparison"], mistakes: ["Boosting highs for every unclear vocal", "EQing around bad mic placement"] },
+  { title: "Gate and Compressor", summary: "Use dynamics to control noise and level movement without chopping speech or flattening worship.", status: "Practice", checks: ["Threshold from real source", "Gain reduction visible", "Natural release"], mistakes: ["Gate eats consonants", "Compression hides bad gain"] },
+  { title: "Sends on Fader", summary: "Build monitor and stream sends intentionally without disturbing FOH balance.", status: "Ready", checks: ["Correct bus selected", "Pre/post tap understood", "Monitor request documented"], mistakes: ["Changing FOH to fix monitors", "Wrong bus destination"] },
+  { title: "Scenes and Snippets", summary: "Recall service states safely, protect routing and document anything that changes.", status: "Needs Review", checks: ["Safe scene scope", "Rollback plan", "Pastor mic protected"], mistakes: ["Panic recall during service", "Overwriting approved showfile"] }
+];
+
+export const logicPanels: TrainingPanel[] = [
+  { title: "Dante Into Logic", summary: "Confirm DVS, sample rate, subscriptions and Logic input meters before plugins.", status: "Practice", checks: ["Wired interface selected", "DVS running", "Logic audio device correct", "Input meter follows source"], mistakes: ["Starting in Logic when Dante is broken", "Wrong input order"] },
+  { title: "Stream Template", summary: "Use named inputs, speech/vocal/choir/worship auxes, output routing and dated session saves.", status: "Ready", checks: ["Inputs named", "Aux buses visible", "Master chain active", "Save as template"], mistakes: ["Blank project on Sunday", "No dated archive"] },
+  { title: "Waves Chains", summary: "Apply purpose-first processing: dynamic EQ, compression, de-essing, bus control and safe limiting.", status: "Practice", checks: ["F6 for dynamic harshness", "RComp for consistency", "Limiter last", "Latency watched"], mistakes: ["Plugin because it looks good", "Fixing bad gain in Logic"] },
+  { title: "Translation Checks", summary: "Compare phone, headphones, laptop and TV-style playback before trusting the stream mix.", status: "Ready", checks: ["Speech clear on phone", "Worship not crushed", "Room mics intentional"], mistakes: ["Only checking studio headphones", "Copying FOH balance"] }
+];
+
+export const dantePanels: TrainingPanel[] = [
+  { title: "Device Discovery", summary: "Confirm X32 Dante card, stream Mac/DVS and any network devices are visible before routing.", status: "Ready", checks: ["Correct wired interface", "Device names stable", "No missing endpoints"], mistakes: ["Using Wi-Fi", "Renaming devices casually"] },
+  { title: "Routing Matrix", summary: "Read transmit and receive channels, then confirm green subscription status.", status: "Practice", checks: ["Tx source correct", "Rx destination correct", "Green tick", "Channel count expected"], mistakes: ["Routing from memory", "Wrong receive device"] },
+  { title: "Clock and Sample Rate", summary: "Verify 48 kHz policy, leader clock and latency warnings before service.", status: "Ready", checks: ["Clock synced", "Sample rate aligned", "No latency warnings"], mistakes: ["Changing clock during pressure", "Ignoring sample-rate mismatch"] },
+  { title: "DVS Status", summary: "DVS must run on the correct Ethernet interface before Logic receives network audio.", status: "Practice", checks: ["DVS started", "Correct NIC", "Core Audio available"], mistakes: ["DVS stopped", "USB/Bluetooth bridge confusion"] }
+];
+
+export const certificationEvidence: CertificationEvidence[] = [
+  { title: "Foundations quiz average", type: "Quiz", status: "Complete", detail: "92% across signal flow, gain and routing basics." },
+  { title: "Sound Lab: clipped mic diagnosis", type: "Sound Lab", status: "Complete", detail: "Identified preamp clipping and chose gain before fader." },
+  { title: "X32 patch-name-gain drill", type: "Practical", status: "Needs Review", detail: "Evidence uploaded; awaiting Senior Engineer sign-off." },
+  { title: "Sunday service shadowing", type: "Service Observation", status: "Pending", detail: "Needs one more observed line check and stream verification." },
+  { title: "Mentor note", type: "Mentor Note", status: "Complete", detail: "Ready for Dante subscription practice with supervision." }
 ];
 
 export const serviceLogs = [
