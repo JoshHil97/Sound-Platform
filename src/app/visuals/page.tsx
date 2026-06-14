@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { MetricCard, PageHeader, SectionHeader, SurfaceCard, Tag } from "@/components/ui";
 import { visualSources } from "@/lib/data";
+import { referenceLookAssets, vbciLogicTrainingAssets } from "@/lib/training-assets";
+import Image from "next/image";
 
 const categories = Array.from(new Set(visualSources.map((source) => source.category)));
 const rightsCounts = visualSources.reduce<Record<string, number>>((counts, source) => {
@@ -22,7 +24,7 @@ export default function VisualsPage() {
         <MetricCard label="Visual sources" value={visualSources.length} detail="Seeded references and production placeholders." />
         <MetricCard label="Official references" value={rightsCounts["Official vendor reference"] ?? 0} detail="Vendor and support pages for accurate UI/equipment examples." />
         <MetricCard label="Church captures needed" value={rightsCounts["Church-owned required"] ?? 0} detail="Exact room, rack, mic and software screenshots to capture." />
-        <MetricCard label="Original diagrams" value={rightsCounts["Create original diagram"] ?? 0} detail="Signal flow and chain diagrams to draw from church workflows." />
+        <MetricCard label="Imported assets" value={vbciLogicTrainingAssets.length + referenceLookAssets.length} detail="New Logic, X32, FX and desired-look visual boards." />
       </section>
 
       <SurfaceCard className="mb-6">
@@ -33,6 +35,43 @@ export default function VisualsPage() {
           <p>Original diagrams should explain your approved signal paths and decision points without copying vendor artwork.</p>
         </div>
       </SurfaceCard>
+
+      <section className="mb-6">
+        <SectionHeader title="Imported Training Asset Pack" description="The new VBCI Logic assets are now available to drive visual lesson pages, Logic Stream training and X32 livestream walkthroughs." />
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {vbciLogicTrainingAssets.map((asset) => (
+            <SurfaceCard key={asset.slug} className="overflow-hidden p-0">
+              <Image src={asset.src} alt={asset.title} width={asset.width} height={asset.height} className="h-44 w-full object-cover" />
+              <div className="p-4">
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <h3 className="font-black">{asset.title}</h3>
+                  <Tag>{asset.category}</Tag>
+                </div>
+                <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{asset.purpose}</p>
+                <p className="mt-3 text-xs font-bold uppercase tracking-[0.16em] text-violet-200">{asset.sourceName}</p>
+              </div>
+            </SurfaceCard>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-6">
+        <SectionHeader title="Desired Look References" description="These are the visual targets for the next UI pass: dense lesson boards, dark cards, waveform heroes, sidebars and large practical diagrams." />
+        <div className="grid gap-4 lg:grid-cols-2">
+          {referenceLookAssets.map((asset) => (
+            <SurfaceCard key={asset.slug} className="overflow-hidden p-0">
+              <Image src={asset.src} alt={asset.title} width={asset.width} height={asset.height} className="h-72 w-full object-cover object-top" />
+              <div className="p-4">
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <h3 className="font-black">{asset.title}</h3>
+                  <Tag>{asset.category}</Tag>
+                </div>
+                <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{asset.purpose}</p>
+              </div>
+            </SurfaceCard>
+          ))}
+        </div>
+      </section>
 
       <div className="grid gap-6">
         {categories.map((category) => (

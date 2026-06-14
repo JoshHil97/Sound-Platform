@@ -96,6 +96,19 @@ export type VisualSource = {
   notes: string;
 };
 
+export type TrainingVisualAsset = {
+  slug: string;
+  title: string;
+  src: string;
+  width: number;
+  height: number;
+  category: "Logic" | "X32" | "Foundations" | "FX" | "Reference Look";
+  purpose: string;
+  sourceName: string;
+  confidence: SourceConfidence;
+  linkedLessons: string[];
+};
+
 export type AudioExample = {
   slug: string;
   title: string;
@@ -576,4 +589,65 @@ export type DigitalSignalPath = {
   destinations: string[];
   relatedLessons: string[];
   relatedTroubleshooting: string[];
+};
+
+export type SignalNodeState = "OK" | "Fault" | "Unknown" | "Disabled";
+
+export type SignalFlowNode = {
+  id: string;
+  label: string;
+  detail: string;
+  state: SignalNodeState;
+  meterValue: number;
+};
+
+export type SignalFaultScenario = {
+  id: string;
+  label: string;
+  description: string;
+  faultNodeId: string;
+  symptom: string;
+  hint: string;
+  fix: string;
+};
+
+export type LessonTab = {
+  id: "overview" | "simulator" | "listening" | "setup" | "sop" | "notes";
+  label: string;
+  title: string;
+  body: string;
+  bullets: string[];
+};
+
+export type ChannelViewState = {
+  channelName: string;
+  input: string;
+  gain: string;
+  hpf: string;
+  route: string;
+  dca: string;
+};
+
+export type LessonExperience = {
+  slug: string;
+  title: string;
+  academyTitle: string;
+  moduleTitle: string;
+  lessonNumber: number;
+  totalLessons: number;
+  progress: number;
+  estimatedMinutes: number;
+  xpReward: number;
+  difficulty: "Beginner" | "Intermediate" | "Advanced";
+  objective: string;
+  sidebarLessons: Array<{ slug: string; title: string; status: "Complete" | "Active" | "Locked" | "Available"; duration: number }>;
+  tabs: LessonTab[];
+  nodes: SignalFlowNode[];
+  faultScenarios: SignalFaultScenario[];
+  channelView: ChannelViewState;
+  mission: {
+    title: string;
+    prompt: string;
+    success: string;
+  };
 };

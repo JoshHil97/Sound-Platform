@@ -1,14 +1,44 @@
+import Image from "next/image";
 import { PageHeader, Meter, StatusPill, SurfaceCard } from "@/components/ui";
 import { PracticalWorkflowMiniCard } from "@/components/practical-training";
 import { practicalTrainingWorkflows, x32InputChannels, x32Panels, x32SceneSnapshot } from "@/lib/data";
+import { referenceLookAssets, vbciLogicTrainingAssets } from "@/lib/training-assets";
 
 export default function X32ConsolePage() {
   const workflows = practicalTrainingWorkflows.filter((workflow) => workflow.domain === "X32" || workflow.domain === "P16");
   const featuredChannel = x32InputChannels[2] ?? x32InputChannels[0];
+  const x32Reference = referenceLookAssets.find((asset) => asset.slug === "reference-x32-orientation");
+  const livestreamDiagram = vbciLogicTrainingAssets.find((asset) => asset.slug === "x32-livestream-diagram");
 
   return (
     <>
       <PageHeader eyebrow="Virtual Console Training" title="X32 Console training mode" description="Training from the digital twin: practice repeatable operator jobs using the real channel map for patch, name, gain, shape, route, monitor, scene-safe operation and livestream handoff." />
+      <section className="mb-6 grid gap-4 xl:grid-cols-[1fr_0.72fr]">
+        {x32Reference ? (
+          <SurfaceCard className="overflow-hidden">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.16em] text-violet-300">Target Lesson Look</p>
+                <h2 className="mt-1 text-2xl font-black">X32 orientation board</h2>
+              </div>
+              <StatusPill>Reference</StatusPill>
+            </div>
+            <div className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-black/30">
+              <Image src={x32Reference.src} alt={x32Reference.title} width={x32Reference.width} height={x32Reference.height} className="h-auto w-full" priority />
+            </div>
+          </SurfaceCard>
+        ) : null}
+        {livestreamDiagram ? (
+          <SurfaceCard className="overflow-hidden">
+            <p className="text-sm font-black uppercase tracking-[0.16em] text-cyan-300">Scene Diagram Asset</p>
+            <h2 className="mt-1 text-2xl font-black">{livestreamDiagram.title}</h2>
+            <div className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-white">
+              <Image src={livestreamDiagram.src} alt={livestreamDiagram.title} width={livestreamDiagram.width} height={livestreamDiagram.height} className="h-auto w-full" />
+            </div>
+            <p className="mt-4 text-sm leading-6 text-[var(--muted)]">{livestreamDiagram.purpose}</p>
+          </SurfaceCard>
+        ) : null}
+      </section>
       <section className="mb-6 glass-panel rounded-3xl p-5">
         <div className="grid gap-4 xl:grid-cols-[1fr_360px]">
           <div className="rounded-3xl border border-white/10 bg-black/35 p-5">
