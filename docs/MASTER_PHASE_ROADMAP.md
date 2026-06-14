@@ -176,6 +176,8 @@ Outputs:
 - Sound Lab scenarios
 - SOPs and troubleshooting flows
 
+Status: initial rich lesson content population completed in [phase-11/CONTENT_POPULATION_BLUEPRINT.md](phase-11/CONTENT_POPULATION_BLUEPRINT.md).
+
 ## PHASE 12: Production Hardening
 
 Goal: make the app reliable, accessible and testable.

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { LinkedAction, PageHeader, SurfaceCard, Tag } from "@/components/ui";
+import { LinkedAction, PageHeader, StepCard, SurfaceCard, Tag } from "@/components/ui";
 import { QuizRunner } from "@/components/quiz-runner";
 import { PracticalTrainingWorkflowCard } from "@/components/practical-training";
-import { getLesson, getModule, getPracticalWorkflowsForLesson, getPracticalWorkflowsForModule, getQuizForLesson, lessonGuides } from "@/lib/data";
+import { getLesson, getModule, getPracticalWorkflowsForLesson, getPracticalWorkflowsForModule, getQuizForLesson, getRichLessonContent, lessonGuides } from "@/lib/data";
 
 export default async function LessonPage({ params }: { params: Promise<{ lessonSlug: string }> }) {
   const { lessonSlug } = await params;
@@ -14,6 +14,7 @@ export default async function LessonPage({ params }: { params: Promise<{ lessonS
   const academyModule = getModule(lesson.moduleSlug);
   const quiz = getQuizForLesson(lesson.slug);
   const guide = lessonGuides.find((item) => item.lessonSlug === lesson.slug);
+  const richContent = getRichLessonContent(lesson.slug);
   const exactWorkflows = getPracticalWorkflowsForLesson(lesson.slug);
   const relatedModuleWorkflows = exactWorkflows.length ? [] : getPracticalWorkflowsForModule(lesson.moduleSlug).slice(0, 1);
   const workflows = exactWorkflows.length ? exactWorkflows : relatedModuleWorkflows;
@@ -29,6 +30,36 @@ export default async function LessonPage({ params }: { params: Promise<{ lessonS
             <Tag>Mentor sign-off</Tag>
           </div>
           <div className="mt-5 grid gap-4">
+            {richContent ? (
+              <section className="grid gap-4">
+                <section className="rounded-2xl border border-violet-300/20 bg-violet-500/10 p-4">
+                  <h2 className="font-bold text-violet-100">Why This Matters in Ministry</h2>
+                  <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{richContent.ministryWhy}</p>
+                </section>
+                <section className="rounded-2xl border border-cyan-300/20 bg-cyan-300/10 p-4">
+                  <h2 className="font-bold text-cyan-100">Church Operator Context</h2>
+                  <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{richContent.operatorContext}</p>
+                </section>
+                <div className="grid gap-3 md:grid-cols-3">
+                  {richContent.keyConcepts.map((concept) => (
+                    <section key={concept.title} className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                      <h3 className="text-sm font-bold text-cyan-200">{concept.title}</h3>
+                      <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{concept.detail}</p>
+                    </section>
+                  ))}
+                </div>
+                <section className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                  <h2 className="font-bold">Step-by-Step Walkthrough</h2>
+                  <ol className="mt-4 grid gap-3">
+                    {richContent.walkthrough.map((step, index) => (
+                      <StepCard key={step.title} index={index + 1}>
+                        <strong>{step.title}:</strong> {step.action} <span className="text-cyan-200">Observe:</span> {step.observe} <span className="text-violet-200">Why:</span> {step.why}
+                      </StepCard>
+                    ))}
+                  </ol>
+                </section>
+              </section>
+            ) : null}
             <ContentBlock title="Beginner Explanation" body={lesson.beginner} />
             <ContentBlock title="Intermediate Explanation" body={lesson.intermediate} />
             <ContentBlock title="Advanced Explanation" body={lesson.advanced} />
@@ -48,6 +79,20 @@ export default async function LessonPage({ params }: { params: Promise<{ lessonS
               </section>
             ) : null}
             <ContentBlock title="Practical Exercise" body={lesson.practical} />
+            {richContent ? (
+              <section className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                <h2 className="font-bold">Good vs Bad Examples</h2>
+                <div className="mt-4 grid gap-3 md:grid-cols-2">
+                  {richContent.examples.map((example) => (
+                    <div key={example.label} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                      <h3 className="text-sm font-bold text-violet-200">{example.label}</h3>
+                      <p className="mt-2 text-sm leading-6 text-emerald-100"><strong>Good:</strong> {example.good}</p>
+                      <p className="mt-2 text-sm leading-6 text-amber-100"><strong>Bad:</strong> {example.bad}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
             <ContentBlock title="Active Recall" body={lesson.recall} />
             <ContentBlock title="Spaced Repetition" body={lesson.spaced} />
             <ContentBlock title="Certification Criteria" body={lesson.signoff} />
@@ -55,9 +100,13 @@ export default async function LessonPage({ params }: { params: Promise<{ lessonS
         </SurfaceCard>
         <SurfaceCard>
           <h2 className="text-xl font-bold">Church-specific notes</h2>
-          <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
-            Add local screenshots, exact X32 channels, Dante device names, Logic template links, Waves presets and room-specific warnings here.
-          </p>
+          <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{richContent?.practiceLab ?? "Add local screenshots, exact X32 channels, Dante device names, Logic template links, Waves presets and room-specific warnings here."}</p>
+          {richContent ? (
+            <div className="mt-5 grid gap-4">
+              <ListBlock title="Mentor rubric" items={richContent.mentorRubric} />
+              <ListBlock title="Visual/audio source backlog" items={richContent.sourceBacklog} />
+            </div>
+          ) : null}
           <div className="mt-4"><LinkedAction href="/sound-lab">Open Sound Lab listening examples</LinkedAction></div>
           {lesson.troubleshootingLinks.length ? (
             <div className="mt-5">

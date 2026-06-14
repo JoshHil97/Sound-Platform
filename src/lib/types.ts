@@ -39,6 +39,18 @@ export type LessonGuide = {
   mentorPrompt: string;
 };
 
+export type RichLessonContent = {
+  lessonSlug: string;
+  ministryWhy: string;
+  operatorContext: string;
+  keyConcepts: Array<{ title: string; detail: string }>;
+  walkthrough: Array<{ title: string; action: string; observe: string; why: string }>;
+  examples: Array<{ label: string; good: string; bad: string }>;
+  practiceLab: string;
+  mentorRubric: string[];
+  sourceBacklog: string[];
+};
+
 export type QuizQuestion = { prompt: string; options: string[]; answer: string; rationale: string };
 export type Quiz = { lessonSlug: string; title: string; passScore: number; questions: QuizQuestion[] };
 export type TroubleshootingStep = { key: string; prompt: string; helpText: string; yes?: string; no?: string; resolution?: string };

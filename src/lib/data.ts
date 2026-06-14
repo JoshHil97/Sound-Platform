@@ -1,4 +1,4 @@
-import type { Academy, ActivityItem, AdminContentArea, AdminWorkQueueItem, AudioExample, Certification, CertificationDefinition, CertificationEvidence, CertificationPassport, Competency, CurriculumAssessment, DanteDeviceTwin, DanteSubscription, DigitalSignalPath, Equipment, EvidenceRecord, GovernanceStatus, LearningOutcome, Lesson, LessonGuide, LogicChannelStrip, MentorSignOffTask, Module, OfflineResource, P16Source, PracticalExercise, PracticalTrainingWorkflow, ProgressionRule, Quiz, RoadmapNode, ServiceChecklistItem, ServiceEscalationContact, ServiceExperienceRecord, ServiceQuickFault, ServiceScheduleItem, Skill, SkillTree, SOP, StageZone, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource, WirelessAssignment, X32Bus, X32InputChannel } from "@/lib/types";
+import type { Academy, ActivityItem, AdminContentArea, AdminWorkQueueItem, AudioExample, Certification, CertificationDefinition, CertificationEvidence, CertificationPassport, Competency, CurriculumAssessment, DanteDeviceTwin, DanteSubscription, DigitalSignalPath, Equipment, EvidenceRecord, GovernanceStatus, LearningOutcome, Lesson, LessonGuide, LogicChannelStrip, MentorSignOffTask, Module, OfflineResource, P16Source, PracticalExercise, PracticalTrainingWorkflow, ProgressionRule, Quiz, RichLessonContent, RoadmapNode, ServiceChecklistItem, ServiceEscalationContact, ServiceExperienceRecord, ServiceQuickFault, ServiceScheduleItem, Skill, SkillTree, SOP, StageZone, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource, WirelessAssignment, X32Bus, X32InputChannel } from "@/lib/types";
 
 export const modules: Module[] = [
   ["ministry-safety-signal-flow", "Ministry, Safety and Signal Flow", "Foundations", "Service mindset, safe operation and end-to-end signal flow.", "2-3 hrs"],
@@ -438,6 +438,239 @@ export const lessonGuides: LessonGuide[] = [
     listeningTargets: ["A good stream has stable speech and worship impact without clipping.", "Plugin delay feels like the stream is detached from video.", "Over-limiting makes worship feel small and tiring."],
     commonMistakes: ["Using FOH balance as the stream balance.", "Adding Waves plugins without checking latency or CPU.", "Only listening on studio headphones."],
     mentorPrompt: "Ask the trainee to compare a clean master, clipped master and over-limited master in the Sound Lab."
+  }
+];
+
+export const richLessonContent: RichLessonContent[] = [
+  {
+    lessonSlug: "basic-signal-flow",
+    ministryWhy: "Signal flow is how we protect clarity. If the team can trace sound from a person speaking to the congregation and livestream, they can fix problems calmly instead of guessing during worship.",
+    operatorContext: "Use the church path: source, microphone or DI, stagebox or wireless receiver, X32 input channel, processing, buses, main LR, Dante, Logic, OBS and final listener.",
+    keyConcepts: [
+      { title: "Source first", detail: "Every fault begins by asking whether the actual source is producing usable sound at the expected level." },
+      { title: "One handoff at a time", detail: "A signal path is a chain of handoffs. Verify the last known good point before changing the next thing." },
+      { title: "FOH and stream split", detail: "The room and livestream share sources but not the same mix decisions, listening environment or failure points." }
+    ],
+    walkthrough: [
+      { title: "Name the source", action: "Point to the person, instrument or playback source.", observe: "You know what sound should exist before touching the console.", why: "This prevents chasing a dead channel when the source itself is silent." },
+      { title: "Find the capture point", action: "Identify the mic, DI, wireless receiver or playback input.", observe: "The physical input matches the patch list.", why: "Wrong source assumptions create wrong console changes." },
+      { title: "Trace to the X32", action: "Find the matching channel number, scribble strip and meter.", observe: "The input meter moves when the source is active.", why: "Meter before fader tells you if audio reaches the console." },
+      { title: "Trace destinations", action: "Check LR, buses, P16, Dante and Logic depending on who needs the signal.", observe: "The destination meter or listener receives the source.", why: "A source can work in the room and still be missing online or in monitors." }
+    ],
+    examples: [
+      { label: "Pastor mic", good: "Receiver shows RF/audio, X32 CH 1 meters, Speech DCA open, LR and stream bus active.", bad: "Receiver works but CH 1 is unpatched or missing from the stream bus." },
+      { label: "Lead vocal to P16", good: "CH 3 meters, Ultranet slot is stable, vocalist confirms safe level.", bad: "FOH hears vocal but P16 source order changed without telling the team." }
+    ],
+    practiceLab: "Pick one source from the Digital Twin and trace it to room, P16 and livestream. Say the first check you would make if it disappeared.",
+    mentorRubric: ["Names every major handoff without guessing", "Uses meters before changing output level", "Separates room, monitor and livestream destinations", "Documents any uncertainty as a follow-up"],
+    sourceBacklog: ["Church-owned signal flow diagram", "Photo of FOH rack and stagebox", "Screenshot of X32 routing page", "Dante Controller subscription screenshot"]
+  },
+  {
+    lessonSlug: "gain-structure-basics",
+    ministryWhy: "Good gain keeps speech and worship clear without distortion, hiss or panic volume changes. It is one of the first habits that makes volunteers trustworthy on a live service.",
+    operatorContext: "Set gain on the X32 preamp while the source performs at real level. Do this before EQ, compression, fader balancing or Logic processing.",
+    keyConcepts: [
+      { title: "Preamp is not fader", detail: "The preamp sets signal quality entering the channel. The fader places that clean signal in the mix." },
+      { title: "Real level matters", detail: "A whisper line check lies. Ask for the loudest expected speech or singing level." },
+      { title: "Headroom protects moments", detail: "Leave space for excitement, louder singing, prayer transitions and unexpected emphasis." }
+    ],
+    walkthrough: [
+      { title: "Select the correct channel", action: "Use the X32 layer and scribble strip, then confirm the source with PFL or meter.", observe: "The meter follows the source you are testing.", why: "Wrong-channel gain changes can break the service." },
+      { title: "Ask for service level", action: "Have the speaker or singer perform at realistic volume.", observe: "Meter movement represents actual use.", why: "Gain set too low or hot at line check becomes a Sunday problem." },
+      { title: "Set preamp gain", action: "Adjust preamp until the meter is strong with headroom and no red clipping.", observe: "Green/yellow movement with clean PFL sound.", why: "Clean input level gives EQ, compression and stream sends something stable to work with." },
+      { title: "Engage HPF if appropriate", action: "Filter rumble on speech and vocals without thinning the source.", observe: "Low thumps reduce, clarity remains.", why: "Unneeded lows eat headroom and trigger processing." }
+    ],
+    examples: [
+      { label: "Clean gain", good: "Strong input, no red, fader has useful travel, stream receives detail.", bad: "Fader is high but the input meter barely moves, so hiss rises later." },
+      { label: "Clipped gain", good: "Loud words peak safely below red.", bad: "Crunch remains even when the fader is lowered because the preamp is overloaded." }
+    ],
+    practiceLab: "Use Sound Lab examples Clean Mic Gain, Too Much Gain and Too Little Gain. Identify which stage you would fix first and why.",
+    mentorRubric: ["Asks for real performance level", "Sets preamp before fader", "Recognizes clipping by sound and meter", "Explains headroom in plain language"],
+    sourceBacklog: ["X32 channel meter screenshot", "Church-owned vocal mic gain before/after clip", "Short X32 gain tutorial video selection"]
+  },
+  {
+    lessonSlug: "x32-navigation",
+    ministryWhy: "Fast navigation reduces fear. A volunteer who can confidently find channels, buses, DCAs, mute groups and scenes can serve calmly under pressure.",
+    operatorContext: "Use the X32 as the central live-service control point for FOH, monitors, P16, stream sends and emergency troubleshooting.",
+    keyConcepts: [
+      { title: "Layers", detail: "Inputs, auxes, buses, matrices and DCAs live on different layers. Always know what layer you are touching." },
+      { title: "Selected channel", detail: "The screen and encoders change the currently selected channel or bus." },
+      { title: "Scenes and snippets", detail: "Recall tools are powerful and risky. Know what they affect before using them." }
+    ],
+    walkthrough: [
+      { title: "Locate CH 1 Pastor Mic", action: "Select the input layer and press the channel select button.", observe: "Scribble strip and screen identify the Pastor Mic channel.", why: "Speech channels are high-priority service sources." },
+      { title: "Check processing", action: "Open home/channel, gate, dynamics and EQ views.", observe: "You can inspect without changing settings.", why: "Troubleshooting often starts by looking, not turning knobs." },
+      { title: "Find sends", action: "Use sends-on-fader for a bus or inspect send levels from the channel.", observe: "You know whether the source is feeding monitors or stream.", why: "Monitors and stream can fail while FOH is fine." },
+      { title: "Return safely", action: "Exit sends-on-fader and confirm you are back on normal mix view.", observe: "Faders control the intended layer again.", why: "Many mistakes happen when operators forget the active mode." }
+    ],
+    examples: [
+      { label: "Safe inspection", good: "Operator selects channel, checks meter/mute/sends, changes nothing until cause is clear.", bad: "Operator grabs a fader while still in sends-on-fader and changes monitor mix by accident." },
+      { label: "Scene recall", good: "Operator confirms approved scene scope and has rollback plan.", bad: "Operator recalls a scene during service and wipes current routing." }
+    ],
+    practiceLab: "On the virtual console page, find the Lead Vocal channel, name its DCA, stream bus and normal state from the Digital Twin.",
+    mentorRubric: ["Moves between layers confidently", "Identifies selected channel vs bus", "Exits sends-on-fader safely", "Explains scene/snippet risk"],
+    sourceBacklog: ["Church-owned X32 top panel photo", "X32 channel view screenshot", "Short X32 navigation video"]
+  },
+  {
+    lessonSlug: "p16-monitor-basics",
+    ministryWhy: "Good monitoring helps the worship team play confidently without forcing the room mix louder. Safe monitor practice also protects hearing and reduces feedback.",
+    operatorContext: "P16 source order should be predictable. Operators support musicians by confirming source signal, Ultranet assignment and safe listening level.",
+    keyConcepts: [
+      { title: "Source order", detail: "Musicians learn where sources live. Changing order without communication causes confusion." },
+      { title: "Pre-fader thinking", detail: "Monitor feeds should not depend on FOH fader moves unless intentionally designed." },
+      { title: "Hearing safety", detail: "Never make sudden large level changes while someone is wearing headphones or in-ears." }
+    ],
+    walkthrough: [
+      { title: "Clarify the request", action: "Ask who needs what source and where they expect it on P16.", observe: "The request maps to a named channel or group.", why: "Clear language avoids changing the wrong mix." },
+      { title: "Check input first", action: "Confirm the source meters on X32.", observe: "The problem is not a dead mic or DI.", why: "Monitor routing cannot fix no input signal." },
+      { title: "Verify Ultranet slot", action: "Compare the P16 source order with the Digital Twin.", observe: "The source is in the approved slot.", why: "Stable order is part of church-specific knowledge." },
+      { title: "Adjust safely", action: "Make small level changes and ask the performer to confirm.", observe: "The performer hears the source without sudden jumps.", why: "Confidence matters, but hearing safety comes first." }
+    ],
+    examples: [
+      { label: "More me", good: "Operator confirms source, slot and safe level before adjusting.", bad: "Operator raises a wedge or FOH fader to solve a P16 request." },
+      { label: "No vocal in P16", good: "X32 input meters, Ultranet slot and P16 unit are checked in order.", bad: "Operator changes global routing without verifying the channel has signal." }
+    ],
+    practiceLab: "Use the P16 source order in the Digital Twin and explain how you would restore Lead Vocal to a performer who cannot hear themselves.",
+    mentorRubric: ["Clarifies performer request", "Checks source before routing", "Protects P16 source order", "Makes safe level changes"],
+    sourceBacklog: ["Church P16 source-order photo", "P16 setup walkthrough clip", "Stage monitor safety SOP screenshot"]
+  },
+  {
+    lessonSlug: "hpf-eq-cuts",
+    ministryWhy: "EQ should help people understand speech and worship without drawing attention to the sound system. Clear, natural tone serves the room and the stream.",
+    operatorContext: "Use HPF and corrective cuts on X32 and Logic before boosting. Pair EQ decisions with listening targets and the actual source problem.",
+    keyConcepts: [
+      { title: "Filter first", detail: "Remove rumble and non-musical lows before chasing clarity elsewhere." },
+      { title: "Cut before boost", detail: "Reducing mud or harshness is often cleaner than adding more top end." },
+      { title: "Context wins", detail: "A source that sounds impressive solo may not serve the full worship mix." }
+    ],
+    walkthrough: [
+      { title: "Listen without EQ", action: "PFL or solo briefly, then listen in context.", observe: "Name the actual problem: rumble, mud, harshness, boxiness or dullness.", why: "EQ needs a diagnosis." },
+      { title: "Set HPF", action: "Raise HPF until rumble reduces, then stop before the source thins.", observe: "Low thumps leave but body remains.", why: "Headroom improves without hurting tone." },
+      { title: "Make one cut", action: "Use a small cut in the problem range.", observe: "Clarity improves without sounding processed.", why: "Small changes are safer and easier to reverse." },
+      { title: "Bypass compare", action: "Toggle EQ and compare at similar loudness.", observe: "The processed version serves the mix better.", why: "Louder can fool you into thinking it is better." }
+    ],
+    examples: [
+      { label: "Muddy speech", good: "HPF plus gentle low-mid cut makes words clearer.", bad: "Large high boost makes consonants sharp while mud remains." },
+      { label: "Harsh vocal", good: "Small presence cut or dynamic EQ controls bite.", bad: "Cutting all highs makes the vocal dull and buried." }
+    ],
+    practiceLab: "Run Sound Lab examples Rumble Before and After HPF, Harsh Presence Boost and Muddy Low-Mid Build-Up.",
+    mentorRubric: ["Names the EQ problem first", "Uses HPF intentionally", "Makes small reversible cuts", "Compares in context"],
+    sourceBacklog: ["EQ curve diagrams for speech/vocal/choir", "X32 EQ screenshot", "Logic Channel EQ screenshot"]
+  },
+  {
+    lessonSlug: "dante-into-logic",
+    ministryWhy: "Livestream audio depends on multiple systems agreeing. Dante into Logic training helps operators restore stream sound without disturbing the room.",
+    operatorContext: "Trace X32 stream sources through Dante Controller, DVS, Logic channel strips and the encoder handoff.",
+    keyConcepts: [
+      { title: "Dante is the patch cable", detail: "Dante subscriptions replace physical cables between X32 and the stream Mac." },
+      { title: "DVS is the audio device", detail: "Logic receives Dante through Dante Virtual Soundcard on the correct wired network interface." },
+      { title: "Named inputs prevent guessing", detail: "Logic templates should label channels by church source, not just input number." }
+    ],
+    walkthrough: [
+      { title: "Verify X32 send", action: "Check that the source leaves X32 on the expected direct out or stream bus.", observe: "X32 meter shows signal at the send point.", why: "Dante cannot receive what the console never sends." },
+      { title: "Open Dante Controller", action: "Confirm X32-DANTE and STREAM-MAC-DVS are visible.", observe: "Devices show correct sample rate and no clock warnings.", why: "Device visibility comes before subscriptions." },
+      { title: "Check subscription", action: "Verify transmit channel to receive channel.", observe: "Subscription is healthy and named as expected.", why: "Wrong receive channel creates silent or swapped Logic inputs." },
+      { title: "Check Logic", action: "Open the approved template and watch the named channel strip.", observe: "Meter follows the source and routes to Stream Master.", why: "A working network route still needs correct DAW input/output." }
+    ],
+    examples: [
+      { label: "Pastor to Logic", good: "X32 CH 1 -> Dante 01 -> DVS 01 -> Logic Pastor Mic -> Speech Bus.", bad: "Dante route is green but Logic is using a different audio device." },
+      { label: "Stream silence", good: "Operator checks X32, Dante, DVS, Logic and OBS in order.", bad: "Operator randomly changes Logic outputs without checking X32 send." }
+    ],
+    practiceLab: "Use the Digital Twin Pastor Mic to Livestream path and say what you would observe at each checkpoint.",
+    mentorRubric: ["Checks X32 before Dante", "Confirms wired DVS interface", "Reads subscription health", "Verifies Logic input and output meters"],
+    sourceBacklog: ["Dante Controller church screenshot", "DVS settings screenshot", "Logic template input naming screenshot"]
+  },
+  {
+    lessonSlug: "logic-latency-loudness",
+    ministryWhy: "Online listeners hear the mix through phones, TVs, headphones and laptops. Latency and loudness discipline keep the livestream clear, stable and comfortable.",
+    operatorContext: "Use Logic Pro as the dedicated stream mix environment with approved buses, Waves/Logic processing, loudness metering and encoder handoff.",
+    keyConcepts: [
+      { title: "Latency stacks", detail: "Dante, buffers and plugins all add delay. Heavy plugins can make audio feel detached from video." },
+      { title: "Loudness is average energy", detail: "A stream can avoid clipping and still be too quiet. Meter loudness over time." },
+      { title: "Limiter is safety, not mix", detail: "A limiter catches peaks. It should not be forced to fix bad balance." }
+    ],
+    walkthrough: [
+      { title: "Confirm audio device", action: "Check Logic input/output device and sample rate.", observe: "DVS is selected and the template meters correctly.", why: "Wrong device breaks the stream before mixing starts." },
+      { title: "Check plugin delay", action: "Bypass high-latency plugins or use low-latency mode when needed.", observe: "Audio/video feel aligned and monitoring is responsive.", why: "Delay hurts confidence and viewer experience." },
+      { title: "Read loudness", action: "Watch loudness and true peak on the stream master.", observe: "Average level is controlled and true peak stays safe.", why: "Consistent stream level helps viewers avoid volume chasing." },
+      { title: "Translate", action: "Check phone, headphones, laptop and larger speakers.", observe: "Speech remains clear on every playback system.", why: "Studio headphones can hide problems online listeners will hear." }
+    ],
+    examples: [
+      { label: "Good stream master", good: "Speech is stable, worship has impact, limiter moves occasionally.", bad: "Limiter clamps constantly and worship feels small." },
+      { label: "Latency problem", good: "Plugins are checked and bypassed if they delay live monitoring.", bad: "Operator adds a heavy chain during service without checking delay." }
+    ],
+    practiceLab: "Run Stream Too Quiet, Stream Clipping and Livestream Limiter Working Too Hard in Sound Lab.",
+    mentorRubric: ["Checks device and sample rate", "Explains plugin delay", "Uses loudness and true peak meters", "Performs translation checks"],
+    sourceBacklog: ["Logic loudness meter screenshot", "Approved stream master chain", "Short Logic livestream loudness video"]
+  },
+  {
+    lessonSlug: "waves-vocal-speech-chains",
+    ministryWhy: "Waves plugins should make speech and vocals clearer, not show off processing. Every plugin must serve intelligibility, worship support or stream translation.",
+    operatorContext: "Build purpose-first chains in Logic for speech, lead vocal, choir, worship bus and stream master using F6, C6, RComp, CLA Vocals and limiter tools where appropriate.",
+    keyConcepts: [
+      { title: "Purpose before plugin", detail: "Choose by audible problem: harshness, sibilance, uneven dynamics, mud, lack of presence or bus control." },
+      { title: "Less is safer", detail: "Small moves across a simple chain beat dramatic settings that create latency or artifacts." },
+      { title: "Bypass often", detail: "If bypass does not prove improvement, remove or simplify the plugin." }
+    ],
+    walkthrough: [
+      { title: "Name the problem", action: "Listen dry and choose one primary issue.", observe: "The issue can be described without plugin names.", why: "This prevents stacking plugins by habit." },
+      { title: "Set dynamic EQ", action: "Use F6 or C6 only on changing harsh or muddy areas.", observe: "Processing reacts when the problem appears.", why: "Dynamic EQ avoids hollowing the whole source." },
+      { title: "Control dynamics", action: "Use RComp or C6 for consistency with moderate gain reduction.", observe: "Speech or vocal becomes easier to follow.", why: "Compression should stabilize, not flatten." },
+      { title: "Compare in context", action: "Bypass the whole chain while the mix plays.", observe: "The chain helps the source sit naturally.", why: "Soloed plugin decisions can mislead." }
+    ],
+    examples: [
+      { label: "Speech chain", good: "HPF/EQ, light compression, de-essing if needed, bus to stream master.", bad: "CLA Vocals preset makes speech hyped and unnatural." },
+      { label: "Vocal chain", good: "F6 controls harshness, RComp smooths, CLA Vocals adds polish if subtle.", bad: "Multiple compressors crush worship expression." }
+    ],
+    practiceLab: "Compare Sibilance and De-Essing, Harsh Presence Boost and Over-Compressed Vocal in Sound Lab.",
+    mentorRubric: ["Explains every plugin by audible purpose", "Checks latency and CPU risk", "Uses bypass comparison", "Removes unnecessary processing"],
+    sourceBacklog: ["Church-approved Waves chain screenshots", "Before/after vocal clips", "Short Waves vocal chain tutorial"]
+  },
+  {
+    lessonSlug: "gain-before-feedback",
+    ministryWhy: "Feedback breaks focus and can damage trust. Senior operators need a calm method that fixes the loop without overreacting or destroying the mix.",
+    operatorContext: "Use mic placement, monitor discipline, gain structure, open-mic control and narrow EQ in that order where possible.",
+    keyConcepts: [
+      { title: "Feedback is a loop", detail: "A mic hears a speaker or monitor, gets amplified, and repeats until it rings." },
+      { title: "Find the path", detail: "Identify which mic and which output are creating the loop before cutting the whole mix." },
+      { title: "Physical fixes matter", detail: "Moving the mic, reducing monitor level or closing unused mics often beats EQ." }
+    ],
+    walkthrough: [
+      { title: "Stabilize", action: "Lower the likely monitor or channel enough to stop the ring safely.", observe: "The room calms without muting everything.", why: "Protect the service first." },
+      { title: "Identify", action: "Find the open mic and output path.", observe: "One source/path reacts when controlled.", why: "Specific fixes preserve the mix." },
+      { title: "Correct placement or gain", action: "Move mic, reduce monitor send or adjust gain if needed.", observe: "More headroom before ringing.", why: "Better geometry improves the system before EQ." },
+      { title: "Use narrow EQ", action: "Apply a small cut only if physical and level checks are not enough.", observe: "Ringing frequency reduces without killing tone.", why: "EQ is the final polish, not the first panic move." }
+    ],
+    examples: [
+      { label: "Choir mic feedback", good: "Lower choir wedge/monitor path, improve mic aim, then use narrow EQ.", bad: "Cut main LR heavily while choir mic still points at the speaker." },
+      { label: "Pastor mic ring", good: "Check open monitors, mic position and gain before global EQ.", bad: "Mute random channels until something stops." }
+    ],
+    practiceLab: "Use Feedback Ringing in Sound Lab and run the feedback decision tree without touching EQ first.",
+    mentorRubric: ["Stabilizes service safely", "Identifies mic and output path", "Prioritizes placement/level", "Uses narrow EQ only when justified"],
+    sourceBacklog: ["Room speaker/mic placement diagram", "Feedback RTA example", "Choir mic placement photo"]
+  },
+  {
+    lessonSlug: "writing-sops",
+    ministryWhy: "SOPs preserve what the team learns so Sunday does not depend on one person remembering everything. Good documentation is pastoral care for future volunteers.",
+    operatorContext: "Write short, versioned procedures for repeatable service tasks: wireless prep, line check, Dante verification, Logic startup, P16 setup and shutdown.",
+    keyConcepts: [
+      { title: "Procedure not essay", detail: "An SOP should tell an operator what to do, in order, during a real service context." },
+      { title: "Normal and exception", detail: "Document normal state and what to do when it is not normal." },
+      { title: "Owner and version", detail: "Every SOP needs an owner, review date and approval path." }
+    ],
+    walkthrough: [
+      { title: "Pick one task", action: "Choose a repeated workflow that affects service readiness.", observe: "The task has clear start and finish conditions.", why: "SOPs are strongest when scoped." },
+      { title: "Write steps", action: "Use verbs and ordered checks.", observe: "A new operator can follow it under light pressure.", why: "Clear action language reduces confusion." },
+      { title: "Add failure checks", action: "List what to observe if the normal result is missing.", observe: "The SOP links to troubleshooting instead of guessing.", why: "Exceptions are where documentation earns its keep." },
+      { title: "Assign review", action: "Add owner, version and next review date.", observe: "The team knows who can approve changes.", why: "Uncontrolled SOPs drift away from reality." }
+    ],
+    examples: [
+      { label: "Good SOP", good: "Check DVS running on wired Ethernet, confirm 48 kHz, verify X32-DANTE subscriptions.", bad: "Make sure Dante works." },
+      { label: "Good change note", good: "Updated Logic startup v2 to include limiter bypass check before stream test.", bad: "Changed Logic stuff." }
+    ],
+    practiceLab: "Rewrite one existing service checklist item into a six-step SOP with owner, normal state and escalation point.",
+    mentorRubric: ["Uses clear ordered steps", "Includes normal operating state", "Links exceptions to troubleshooting", "Includes owner/version/review"],
+    sourceBacklog: ["Church SOP template", "Approved change log format", "Admin CMS publishing workflow"]
   }
 ];
 
@@ -1460,6 +1693,10 @@ export function getSkillTreeForAcademy(academySlug: string) {
 
 export function getLesson(slug: string) {
   return lessons.find((lesson) => lesson.slug === slug);
+}
+
+export function getRichLessonContent(lessonSlug: string) {
+  return richLessonContent.find((content) => content.lessonSlug === lessonSlug);
 }
 
 export function getLessonsForModule(moduleSlug: string) {
