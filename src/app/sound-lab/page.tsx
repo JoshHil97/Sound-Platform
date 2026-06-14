@@ -1,10 +1,12 @@
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
-import { PageHeader, StatCard, SurfaceCard, Tag } from "@/components/ui";
+import { ExternalLink, Headphones, RadioTower, ScanSearch, Target } from "lucide-react";
+import { MetricCard, PageHeader, ProgressBar, SurfaceCard, Tag } from "@/components/ui";
 import { SoundLabPlayer } from "@/components/sound-lab-player";
 import { audioExamples, lessonGuides, trainingVideos } from "@/lib/data";
 
 export default function SoundLabPage() {
+  const hardScenarios = audioExamples.filter((example) => example.difficulty === "Hard").length;
+
   return (
     <>
       <PageHeader
@@ -13,10 +15,34 @@ export default function SoundLabPage() {
         description="Train your ears, diagnose the fault, read the meters, choose the first safe board check, and connect every sound back to a real service workflow."
       />
 
-      <section className="mb-6 grid gap-4 md:grid-cols-3">
-        <StatCard label="Scenarios" value={String(audioExamples.length)} detail="Generated examples for gain, EQ, dynamics, feedback and stream faults." />
-        <StatCard label="Mentor Playbooks" value={String(lessonGuides.length)} detail="Board checks and listening targets for practical lessons." />
-        <StatCard label="Video References" value={String(trainingVideos.length)} detail="Short YouTube companion lesson slots." />
+      <section className="mb-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <MetricCard label="Scenarios" value={audioExamples.length} detail="Generated examples for gain, EQ, dynamics, feedback and stream faults." />
+        <MetricCard label="Hard drills" value={hardScenarios} detail="Feedback, clipping and limiter decisions under pressure." />
+        <MetricCard label="Mentor playbooks" value={lessonGuides.length} detail="Board checks and listening targets for practical lessons." />
+        <MetricCard label="Video references" value={trainingVideos.length} detail="Sourced companion lesson slots." />
+      </section>
+
+      <section className="mb-6 grid gap-4 lg:grid-cols-4">
+        <SurfaceCard>
+          <Headphones className="text-violet-300" />
+          <h2 className="mt-3 text-xl font-black">Listen first</h2>
+          <p className="mt-2 text-sm leading-6 text-[var(--muted)]">Use A/B/C playback to hear the difference before reading the answer.</p>
+        </SurfaceCard>
+        <SurfaceCard>
+          <ScanSearch className="text-cyan-300" />
+          <h2 className="mt-3 text-xl font-black">Read the clues</h2>
+          <p className="mt-2 text-sm leading-6 text-[var(--muted)]">Meters, waveform, spectrum and board symptoms point to the likely fault.</p>
+        </SurfaceCard>
+        <SurfaceCard>
+          <Target className="text-emerald-300" />
+          <h2 className="mt-3 text-xl font-black">Choose first check</h2>
+          <p className="mt-2 text-sm leading-6 text-[var(--muted)]">Train the safest first move instead of guessing with random board changes.</p>
+        </SurfaceCard>
+        <SurfaceCard>
+          <RadioTower className="text-amber-300" />
+          <h2 className="mt-3 text-xl font-black">Connect to service</h2>
+          <p className="mt-2 text-sm leading-6 text-[var(--muted)]">Every scenario links back to lessons, workflows or troubleshooting flows.</p>
+        </SurfaceCard>
       </section>
 
       <SoundLabPlayer examples={audioExamples} />
@@ -33,6 +59,10 @@ export default function SoundLabPage() {
         <SurfaceCard>
           <h2 className="text-xl font-bold">Mentor review mode</h2>
           <p className="mt-2 text-sm leading-6 text-[var(--muted)]">A mentor should ask the trainee to name the fault, point to the meter clue, choose the first safe check, then explain what they would document after service.</p>
+          <div className="mt-4">
+            <div className="mb-2 flex justify-between text-xs font-bold text-[var(--muted)]"><span>Phase 6 persistence readiness</span><span>45%</span></div>
+            <ProgressBar value={45} />
+          </div>
         </SurfaceCard>
       </section>
 

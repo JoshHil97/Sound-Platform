@@ -103,6 +103,8 @@ Outputs:
 - Attempt scoring
 - Review queue integration
 
+Status: initial interactive diagnostic Sound Lab completed in [phase-6/SOUND_LAB_BLUEPRINT.md](phase-6/SOUND_LAB_BLUEPRINT.md).
+
 ## PHASE 7: Service Mode
 
 Goal: create the one-handed mobile workflow for Sunday operation.

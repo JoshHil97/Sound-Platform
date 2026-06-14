@@ -449,7 +449,19 @@ export const audioExamples: AudioExample[] = [
     whatYouHear: "A steady speech-like tone with transient detail and no crackle.",
     boardSymptoms: ["Input meter moves clearly below red", "Fader has useful travel", "PFL sounds natural"],
     checks: ["Set preamp first", "Confirm source is speaking at real level", "Leave headroom for loud moments"],
-    linkedLessons: ["gain-structure-basics", "line-check-method"]
+    linkedLessons: ["gain-structure-basics", "line-check-method"],
+    diagnosis: "Healthy gain structure",
+    difficulty: "Easy",
+    variants: [
+      { key: "A", label: "Clean", description: "Healthy speech with headroom." },
+      { key: "B", label: "Low", description: "Weak signal raised later with hiss." },
+      { key: "C", label: "Hot", description: "Input clips before the fader." }
+    ],
+    meterProfile: { input: 68, output: 62, gainReduction: 18, noiseFloor: 14, clipping: false },
+    spectrumHint: "Balanced speech energy with no excessive sub rumble or harsh spike.",
+    firstSafeCheck: "Confirm the source is at real performance level before setting preamp gain.",
+    recommendedFix: "Keep this as the reference. Document the gain target and move to HPF/EQ only after the source is clean.",
+    relatedTroubleshooting: ["no-sound-from-microphone"]
   },
   {
     slug: "too-hot-clipping",
@@ -458,7 +470,19 @@ export const audioExamples: AudioExample[] = [
     whatYouHear: "Crunchy, flattened peaks that stay ugly even if the fader is pulled down.",
     boardSymptoms: ["Input meter touches red", "Channel sounds distorted in PFL", "Compression may react too hard"],
     checks: ["Lower preamp gain", "Check pad if available", "Ask for real performance level again"],
-    linkedLessons: ["gain-structure-basics", "no-sound-from-microphone"]
+    linkedLessons: ["gain-structure-basics", "no-sound-from-microphone"],
+    diagnosis: "Input clipping",
+    difficulty: "Easy",
+    variants: [
+      { key: "A", label: "Reference", description: "Clean gain at normal service level." },
+      { key: "B", label: "Clipped", description: "Preamp overloaded before the mix." },
+      { key: "C", label: "Compressed", description: "Dynamics processing reacts to bad gain." }
+    ],
+    meterProfile: { input: 98, output: 84, gainReduction: 58, noiseFloor: 18, clipping: true },
+    spectrumHint: "Flattened waveform peaks and extra harsh upper harmonics.",
+    firstSafeCheck: "Lower preamp gain before touching the channel fader.",
+    recommendedFix: "Reset input gain from real performance level, then re-check HPF, compression and stream bus send.",
+    relatedTroubleshooting: ["no-sound-from-microphone"]
   },
   {
     slug: "too-low-noisy",
@@ -467,7 +491,14 @@ export const audioExamples: AudioExample[] = [
     whatYouHear: "The useful signal is weak, then hiss becomes obvious when the channel is turned up later.",
     boardSymptoms: ["Input meter barely moves", "Fader pushed high", "Stream sounds distant or noisy"],
     checks: ["Raise preamp gain safely", "Check mic distance", "Confirm correct input patch"],
-    linkedLessons: ["gain-structure-basics", "dante-into-logic"]
+    linkedLessons: ["gain-structure-basics", "dante-into-logic"],
+    diagnosis: "Low gain and raised noise floor",
+    difficulty: "Easy",
+    meterProfile: { input: 24, output: 52, gainReduction: 6, noiseFloor: 72, clipping: false },
+    spectrumHint: "Low useful waveform with broadband hiss visible between words.",
+    firstSafeCheck: "Raise preamp gain safely while the source speaks at real level.",
+    recommendedFix: "Improve mic distance and preamp gain before boosting fader, bus or Logic input trim.",
+    relatedTroubleshooting: ["livestream-has-no-sound"]
   },
   {
     slug: "rumble-hpf",
@@ -476,7 +507,14 @@ export const audioExamples: AudioExample[] = [
     whatYouHear: "Low thumps and room rumble clear up when the high-pass filter is applied.",
     boardSymptoms: ["Low meter activity with no useful voice content", "Muddy stream", "Sub energy on speech"],
     checks: ["Engage HPF", "Do not thin the voice", "Compare in the mix"],
-    linkedLessons: ["hpf-eq-cuts", "speech-first-mixing"]
+    linkedLessons: ["hpf-eq-cuts", "speech-first-mixing"],
+    diagnosis: "Unfiltered low-frequency rumble",
+    difficulty: "Easy",
+    meterProfile: { input: 72, output: 66, gainReduction: 12, noiseFloor: 30, clipping: false },
+    spectrumHint: "Large low-frequency energy below the useful vocal range.",
+    firstSafeCheck: "Engage HPF and compare before/after in context.",
+    recommendedFix: "Use HPF to remove rumble while preserving body. Do not over-filter the voice.",
+    relatedTroubleshooting: ["feedback"]
   },
   {
     slug: "harsh-presence",
@@ -485,7 +523,30 @@ export const audioExamples: AudioExample[] = [
     whatYouHear: "A voice becomes sharp and tiring when upper-mid presence is pushed too far.",
     boardSymptoms: ["Listeners complain it is piercing", "Sibilance jumps forward", "Stream hurts on small speakers"],
     checks: ["Try a small upper-mid cut", "Check de-essing only if needed", "Compare phone and headphones"],
-    linkedLessons: ["hpf-eq-cuts", "logic-vocal-clarity"]
+    linkedLessons: ["hpf-eq-cuts", "logic-vocal-clarity"],
+    diagnosis: "Harsh upper-mid EQ",
+    difficulty: "Medium",
+    meterProfile: { input: 70, output: 74, gainReduction: 24, noiseFloor: 18, clipping: false },
+    spectrumHint: "Strong presence spike around the intelligibility and harshness range.",
+    firstSafeCheck: "Bypass EQ or reduce the upper-mid boost before adding more plugins.",
+    recommendedFix: "Use a small cut or dynamic EQ around the harsh range, then check phone and headphones.",
+    relatedTroubleshooting: ["feedback"]
+  },
+  {
+    slug: "muddy-low-mids",
+    title: "Muddy Low-Mid Build-Up",
+    category: "EQ",
+    whatYouHear: "The vocal or worship bus feels cloudy, thick and hard to understand even though it is loud enough.",
+    boardSymptoms: ["Low-mid spectrum is crowded", "Speech consonants are masked", "Adding highs makes it harsher but not clearer"],
+    checks: ["Check HPF first", "Cut low-mid mud gently", "Compare with band in context"],
+    linkedLessons: ["hpf-eq-cuts", "foh-vs-stream"],
+    diagnosis: "Low-mid masking",
+    difficulty: "Medium",
+    meterProfile: { input: 74, output: 76, gainReduction: 20, noiseFloor: 22, clipping: false },
+    spectrumHint: "Build-up in the low-mid range masks clarity.",
+    firstSafeCheck: "Confirm HPF, then make a small low-mid cut instead of boosting highs.",
+    recommendedFix: "Reduce mud at the source or bus, then re-check speech clarity in the full mix.",
+    relatedTroubleshooting: ["livestream-has-no-sound"]
   },
   {
     slug: "compression-control",
@@ -494,7 +555,30 @@ export const audioExamples: AudioExample[] = [
     whatYouHear: "Soft and loud phrases become easier to follow, but too much control can flatten expression.",
     boardSymptoms: ["Gain reduction moves on loud words", "Speech sits more consistently", "Overdone settings sound squeezed"],
     checks: ["Set threshold from real speech", "Use moderate ratio", "Bypass and compare"],
-    linkedLessons: ["gates-compression-fx", "waves-vocal-speech-chains"]
+    linkedLessons: ["gates-compression-fx", "waves-vocal-speech-chains"],
+    diagnosis: "Healthy compression control",
+    difficulty: "Medium",
+    meterProfile: { input: 66, output: 68, gainReduction: 42, noiseFloor: 16, clipping: false },
+    spectrumHint: "Waveform is more even but still breathes naturally.",
+    firstSafeCheck: "Watch gain reduction while listening to whether words still feel natural.",
+    recommendedFix: "Keep compression moderate. Bypass and compare to confirm it helps rather than merely sounding louder.",
+    relatedTroubleshooting: []
+  },
+  {
+    slug: "over-compressed-vocal",
+    title: "Over-Compressed Vocal",
+    category: "Dynamics",
+    whatYouHear: "The vocal is loud and forward but flat, squeezed and tiring with breath and room noise pulled up.",
+    boardSymptoms: ["Gain reduction is constant", "Makeup gain raises room noise", "The vocal no longer follows the worship moment"],
+    checks: ["Reduce ratio or threshold depth", "Lower makeup gain", "Bypass and compare"],
+    linkedLessons: ["gates-compression-fx", "waves-vocal-speech-chains"],
+    diagnosis: "Over-compression",
+    difficulty: "Medium",
+    meterProfile: { input: 70, output: 82, gainReduction: 86, noiseFloor: 48, clipping: false },
+    spectrumHint: "Waveform looks dense and uniform with little dynamic movement.",
+    firstSafeCheck: "Bypass compressor or reduce threshold before changing EQ.",
+    recommendedFix: "Use less gain reduction and rebalance output level so compression supports clarity without flattening worship.",
+    relatedTroubleshooting: ["feedback"]
   },
   {
     slug: "gate-chatter",
@@ -503,7 +587,14 @@ export const audioExamples: AudioExample[] = [
     whatYouHear: "Noise disappears between phrases, but a bad threshold chops consonants and word endings.",
     boardSymptoms: ["Gate closes while person is still speaking", "Words feel clipped", "Noise pumps in and out"],
     checks: ["Lower threshold", "Adjust release", "Use less gate on speech"],
-    linkedLessons: ["gates-compression-fx", "wireless-prep"]
+    linkedLessons: ["gates-compression-fx", "wireless-prep"],
+    diagnosis: "Gate threshold too aggressive",
+    difficulty: "Medium",
+    meterProfile: { input: 58, output: 48, gainReduction: 78, noiseFloor: 38, clipping: false },
+    spectrumHint: "Waveform abruptly disappears between words rather than fading naturally.",
+    firstSafeCheck: "Lower gate threshold or bypass the gate while speech is active.",
+    recommendedFix: "Use a gentler threshold/release or avoid gating important speech mics.",
+    relatedTroubleshooting: ["wireless-mic-cutting-out"]
   },
   {
     slug: "feedback-ring",
@@ -512,7 +603,14 @@ export const audioExamples: AudioExample[] = [
     whatYouHear: "A narrow tone grows quickly, like a warning before full feedback.",
     boardSymptoms: ["One mic or monitor path starts ringing", "RTA would show one strong frequency", "Monitor send may be too hot"],
     checks: ["Identify mic", "Lower monitor or channel safely", "Check mic position", "Use narrow EQ only after level and placement checks"],
-    linkedLessons: ["gain-before-feedback", "feedback"]
+    linkedLessons: ["gain-before-feedback", "feedback"],
+    diagnosis: "Feedback build-up",
+    difficulty: "Hard",
+    meterProfile: { input: 86, output: 90, gainReduction: 16, noiseFloor: 28, clipping: false },
+    spectrumHint: "Narrow frequency spike grows faster than the rest of the source.",
+    firstSafeCheck: "Identify the mic and lower the monitor or channel safely before reaching for EQ.",
+    recommendedFix: "Improve mic position and monitor level first, then use narrow EQ only if needed.",
+    relatedTroubleshooting: ["feedback"]
   },
   {
     slug: "stream-limiter",
@@ -521,7 +619,94 @@ export const audioExamples: AudioExample[] = [
     whatYouHear: "The stream gets loud but smaller, flatter and tiring when the limiter is pushed.",
     boardSymptoms: ["Master limiter gain reduction is constant", "True peak may be safe but worship loses impact", "Phone speaker sounds dense"],
     checks: ["Reduce bus level into limiter", "Fix mix balance before master limiting", "Check loudness over time"],
-    linkedLessons: ["logic-latency-loudness", "translation-checks"]
+    linkedLessons: ["logic-latency-loudness", "translation-checks"],
+    diagnosis: "Limiter pushed too hard",
+    difficulty: "Hard",
+    meterProfile: { input: 88, output: 94, gainReduction: 90, noiseFloor: 30, clipping: false },
+    spectrumHint: "Dense waveform with flattened musical peaks.",
+    firstSafeCheck: "Lower the mix feeding the limiter before changing the limiter ceiling.",
+    recommendedFix: "Rebalance the stream mix and reduce limiter drive so loudness is controlled without crushing worship.",
+    relatedTroubleshooting: ["livestream-has-no-sound"]
+  },
+  {
+    slug: "stream-too-dry",
+    title: "Stream Too Dry",
+    category: "Livestream",
+    whatYouHear: "The stream is clean but disconnected, like close mics with no room or congregation around them.",
+    boardSymptoms: ["Audience mics are muted or too low", "FX returns absent from stream", "FOH feels more alive than online"],
+    checks: ["Check audience mic bus", "Add tasteful room or FX return", "Compare headphones and phone"],
+    linkedLessons: ["foh-vs-stream", "translation-checks"],
+    diagnosis: "Livestream lacks space",
+    difficulty: "Medium",
+    meterProfile: { input: 62, output: 58, gainReduction: 18, noiseFloor: 10, clipping: false },
+    spectrumHint: "Clean close-mic signal with little room tail between phrases.",
+    firstSafeCheck: "Verify audience mics and FX returns are intentionally included in the stream bus.",
+    recommendedFix: "Blend controlled ambience so online listeners feel the room without losing clarity.",
+    relatedTroubleshooting: ["livestream-has-no-sound"]
+  },
+  {
+    slug: "stream-too-roomy",
+    title: "Stream Too Roomy",
+    category: "Livestream",
+    whatYouHear: "Speech and worship feel distant, washy and hard to understand because room mics dominate.",
+    boardSymptoms: ["Audience mics too loud", "Direct vocal bus feels low", "Reverb/room masks consonants"],
+    checks: ["Lower audience mics", "Raise direct speech/vocal path", "Check stream bus balance"],
+    linkedLessons: ["foh-vs-stream", "logic-vocal-clarity"],
+    diagnosis: "Too much room in stream",
+    difficulty: "Medium",
+    meterProfile: { input: 66, output: 70, gainReduction: 22, noiseFloor: 52, clipping: false },
+    spectrumHint: "Long decay and smeared midrange between phrases.",
+    firstSafeCheck: "Lower audience mic bus and confirm direct speech is clear.",
+    recommendedFix: "Use room mics as support, not the foundation of the stream mix.",
+    relatedTroubleshooting: ["livestream-has-no-sound"]
+  },
+  {
+    slug: "stream-too-quiet",
+    title: "Stream Too Quiet",
+    category: "Livestream",
+    whatYouHear: "The mix balance is usable, but everything feels low compared with normal online content.",
+    boardSymptoms: ["Logic master meter is low", "Limiter barely works", "OBS input level is conservative"],
+    checks: ["Check Logic output", "Check loudness meter", "Check OBS/audio capture level"],
+    linkedLessons: ["logic-latency-loudness", "translation-checks"],
+    diagnosis: "Low livestream loudness",
+    difficulty: "Medium",
+    meterProfile: { input: 48, output: 36, gainReduction: 4, noiseFloor: 18, clipping: false },
+    spectrumHint: "Healthy shape but low average level.",
+    firstSafeCheck: "Check the Logic master and loudness meter before boosting OBS blindly.",
+    recommendedFix: "Raise controlled mix level into the master chain while preserving true peak safety.",
+    relatedTroubleshooting: ["livestream-has-no-sound"]
+  },
+  {
+    slug: "stream-clipping",
+    title: "Stream Clipping",
+    category: "Livestream",
+    whatYouHear: "The stream breaks up on loud worship moments even when FOH sounds fine.",
+    boardSymptoms: ["Logic or OBS meter hits red", "Limiter cannot catch all peaks", "Distortion appears only online"],
+    checks: ["Check Logic master", "Check plugin output levels", "Check OBS input/capture gain"],
+    linkedLessons: ["logic-latency-loudness", "stream-bus-design"],
+    diagnosis: "Digital stream clipping",
+    difficulty: "Hard",
+    meterProfile: { input: 92, output: 99, gainReduction: 72, noiseFloor: 20, clipping: true },
+    spectrumHint: "Flat-topped output waveform after the stream chain.",
+    firstSafeCheck: "Lower the clipped stage of the stream path, starting at Logic master/plugin output.",
+    recommendedFix: "Find the first red meter in the stream chain and lower that stage, then re-check loudness.",
+    relatedTroubleshooting: ["livestream-has-no-sound"]
+  },
+  {
+    slug: "sibilance-deess",
+    title: "Sibilance and De-Essing",
+    category: "Dynamics",
+    whatYouHear: "S and T sounds jump forward sharply until de-essing controls them.",
+    boardSymptoms: ["Small speakers sound piercing", "Vocal clarity becomes painful", "Dynamic EQ or de-esser reacts on consonants"],
+    checks: ["Confirm it is sibilance, not global brightness", "Set de-esser target frequency", "Avoid lisping"],
+    linkedLessons: ["waves-vocal-speech-chains", "logic-vocal-clarity"],
+    diagnosis: "Excessive sibilance",
+    difficulty: "Medium",
+    meterProfile: { input: 70, output: 68, gainReduction: 48, noiseFloor: 16, clipping: false },
+    spectrumHint: "Fast high-frequency spikes appear on consonants.",
+    firstSafeCheck: "Use de-essing only on the harsh consonant range, not the whole vocal tone.",
+    recommendedFix: "Set de-esser range gently and compare before/after on headphones and phone.",
+    relatedTroubleshooting: []
   }
 ];
 

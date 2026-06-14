@@ -92,6 +92,20 @@ export type AudioExample = {
   boardSymptoms: string[];
   checks: string[];
   linkedLessons: string[];
+  diagnosis?: string;
+  difficulty?: "Easy" | "Medium" | "Hard";
+  variants?: Array<{ key: "A" | "B" | "C"; label: string; description: string }>;
+  meterProfile?: {
+    input: number;
+    output: number;
+    gainReduction: number;
+    noiseFloor: number;
+    clipping: boolean;
+  };
+  spectrumHint?: string;
+  firstSafeCheck?: string;
+  recommendedFix?: string;
+  relatedTroubleshooting?: string[];
 };
 
 export type TrainingVideo = {
