@@ -75,6 +75,8 @@ Outputs:
 - Module pages
 - Lesson architecture rendering
 
+Status: initial academy pathway experience completed in [phase-4/ACADEMY_EXPERIENCE_BLUEPRINT.md](phase-4/ACADEMY_EXPERIENCE_BLUEPRINT.md).
+
 ## PHASE 5: Practical Training Systems
 
 Goal: build task-based learning for X32, Logic, Dante, Waves, wireless, P16 and troubleshooting.

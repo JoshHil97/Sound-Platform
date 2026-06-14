@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHeader, StepCard, SurfaceCard, Tag } from "@/components/ui";
-import { getLessonsForModule, getModule } from "@/lib/data";
+import { getAcademyForModule, getLessonsForModule, getModule } from "@/lib/data";
 
 export default async function ModulePage({ params }: { params: Promise<{ moduleSlug: string }> }) {
   const { moduleSlug } = await params;
@@ -10,10 +10,16 @@ export default async function ModulePage({ params }: { params: Promise<{ moduleS
     notFound();
   }
   const lessons = getLessonsForModule(academyModule.slug);
+  const parentAcademy = getAcademyForModule(academyModule.slug);
 
   return (
     <>
-      <PageHeader eyebrow={academyModule.level} title={academyModule.title} description={academyModule.summary} action={{ href: "/academy", label: "All Modules" }} />
+      <PageHeader
+        eyebrow={parentAcademy?.title ?? academyModule.level}
+        title={academyModule.title}
+        description={academyModule.summary}
+        action={{ href: parentAcademy ? `/academy/paths/${parentAcademy.slug}` : "/academy", label: parentAcademy ? "Back to Path" : "All Modules" }}
+      />
       <section className="mb-6 grid gap-4 lg:grid-cols-3">
         <SurfaceCard className="lg:col-span-2">
           <h2 className="text-xl font-bold">Learning objectives</h2>

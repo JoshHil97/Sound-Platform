@@ -839,6 +839,37 @@ export function getModule(slug: string) {
   return modules.find((module) => module.slug === slug);
 }
 
+export function getAcademy(slug: string) {
+  return academies.find((academy) => academy.slug === slug);
+}
+
+export function getModulesForAcademy(academySlug: string) {
+  const academy = getAcademy(academySlug);
+  return academy ? academy.moduleSlugs.map((slug) => getModule(slug)).filter((module): module is Module => Boolean(module)) : [];
+}
+
+export function getAcademyForModule(moduleSlug: string) {
+  return academies.find((academy) => academy.moduleSlugs.includes(moduleSlug));
+}
+
+export function getCertificationDefinitionForAcademy(academySlug: string) {
+  return certificationDefinitions.find((definition) => definition.academySlug === academySlug);
+}
+
+export function getCompetenciesForAcademy(academySlug: string) {
+  return competencies.filter((competency) => competency.academySlugs.includes(academySlug));
+}
+
+export function getSkillsForAcademy(academySlug: string) {
+  const academyCompetencies = getCompetenciesForAcademy(academySlug);
+  const skillSlugs = new Set(academyCompetencies.flatMap((competency) => competency.skillSlugs));
+  return skills.filter((skill) => skillSlugs.has(skill.slug));
+}
+
+export function getSkillTreeForAcademy(academySlug: string) {
+  return skillTrees.find((tree) => tree.academySlug === academySlug);
+}
+
 export function getLesson(slug: string) {
   return lessons.find((lesson) => lesson.slug === slug);
 }
