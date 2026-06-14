@@ -132,6 +132,8 @@ Outputs:
 - Wireless and stage layout
 - Signal path map powering lessons and troubleshooting
 
+Status: initial church production Digital Twin completed in [phase-8/DIGITAL_TWIN_BLUEPRINT.md](phase-8/DIGITAL_TWIN_BLUEPRINT.md).
+
 ## PHASE 9: Certification
 
 Goal: implement competency passport and evidence-based awards.

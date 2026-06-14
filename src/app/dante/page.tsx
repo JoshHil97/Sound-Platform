@@ -1,14 +1,14 @@
 import { PageHeader, StatusPill, SurfaceCard } from "@/components/ui";
 import { PracticalWorkflowMiniCard } from "@/components/practical-training";
-import { dantePanels, practicalTrainingWorkflows } from "@/lib/data";
+import { danteDevices, dantePanels, danteSubscriptions, practicalTrainingWorkflows } from "@/lib/data";
 
 export default function DantePage() {
-  const devices = ["X32-DANTE", "STREAM-MAC-DVS", "LOGIC-MIX", "RECORDING-MAC"];
+  const devices = danteDevices.map((device) => device.name);
   const workflows = practicalTrainingWorkflows.filter((workflow) => workflow.domain === "Dante" || workflow.slug === "dante-logic-signal-drill");
 
   return (
     <>
-      <PageHeader eyebrow="Network Audio Simulator" title="Dante training mode" description="Learn device discovery, routing subscriptions, clocking, sample rate, latency, DVS and service-day Dante fault isolation." />
+      <PageHeader eyebrow="Network Audio Simulator" title="Dante training mode" description="Known Dante Devices and Subscription Map training for discovery, routing subscriptions, clocking, sample rate, latency, DVS and service-day Dante fault isolation." />
       <section className="mb-6 grid gap-4 xl:grid-cols-[1fr_360px]">
         <SurfaceCard>
           <h2 className="text-xl font-bold">Routing matrix mock</h2>
@@ -18,10 +18,10 @@ export default function DantePage() {
                 <span className="p-3">Transmit / Receive</span>
                 {devices.map((d) => <span key={d} className="p-3">{d}</span>)}
               </div>
-              {["Lead Vocal", "Speech", "Choir L", "Choir R", "Stream Bus"].map((source, row) => (
-                <div key={source} className="grid grid-cols-5 border-b border-white/10 text-sm last:border-0">
-                  <span className="p-3 font-bold">{source}</span>
-                  {devices.map((device, col) => <span key={device} className="p-3">{(row + col) % 3 === 0 ? <StatusPill tone="success">subscribed</StatusPill> : <span className="text-slate-600">empty</span>}</span>)}
+              {danteSubscriptions.slice(0, 5).map((subscription) => (
+                <div key={`${subscription.transmitChannel}-${subscription.receiveChannel}`} className="grid grid-cols-5 border-b border-white/10 text-sm last:border-0">
+                  <span className="p-3 font-bold">{subscription.transmitChannel}</span>
+                  {devices.map((device) => <span key={device} className="p-3">{device === subscription.receiveDevice || device === subscription.transmitDevice ? <StatusPill tone="success">{subscription.status}</StatusPill> : <span className="text-slate-600">empty</span>}</span>)}
                 </div>
               ))}
             </div>

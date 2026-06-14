@@ -1,4 +1,4 @@
-import type { Academy, ActivityItem, AudioExample, Certification, CertificationDefinition, CertificationEvidence, Competency, CurriculumAssessment, Equipment, EvidenceRecord, LearningOutcome, Lesson, LessonGuide, Module, OfflineResource, PracticalExercise, PracticalTrainingWorkflow, ProgressionRule, Quiz, RoadmapNode, ServiceChecklistItem, ServiceEscalationContact, ServiceExperienceRecord, ServiceQuickFault, ServiceScheduleItem, Skill, SkillTree, SOP, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource } from "@/lib/types";
+import type { Academy, ActivityItem, AudioExample, Certification, CertificationDefinition, CertificationEvidence, Competency, CurriculumAssessment, DanteDeviceTwin, DanteSubscription, DigitalSignalPath, Equipment, EvidenceRecord, LearningOutcome, Lesson, LessonGuide, LogicChannelStrip, Module, OfflineResource, P16Source, PracticalExercise, PracticalTrainingWorkflow, ProgressionRule, Quiz, RoadmapNode, ServiceChecklistItem, ServiceEscalationContact, ServiceExperienceRecord, ServiceQuickFault, ServiceScheduleItem, Skill, SkillTree, SOP, StageZone, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource, WirelessAssignment, X32Bus, X32InputChannel } from "@/lib/types";
 
 export const modules: Module[] = [
   ["ministry-safety-signal-flow", "Ministry, Safety and Signal Flow", "Foundations", "Service mindset, safe operation and end-to-end signal flow.", "2-3 hrs"],
@@ -1170,6 +1170,90 @@ export const offlineResources: OfflineResource[] = [
   { title: "No Sound Decision Tree", detail: "Source-to-output recovery flow for silent channels.", route: "/troubleshooting/no-sound-from-microphone", status: "Cached" },
   { title: "Livestream No Sound", detail: "X32, Dante, DVS, Logic and OBS verification path.", route: "/troubleshooting/livestream-has-no-sound", status: "Cached" },
   { title: "Dante Verification SOP", detail: "Device visibility, subscriptions, clock and sample rate.", route: "/sops", status: "Needs Sync" }
+];
+
+export const x32InputChannels: X32InputChannel[] = [
+  { number: 1, name: "Pastor Mic", source: "Wireless lav or handheld", stageInput: "Wireless RX 1", category: "Speech", phantom: false, p16Slot: 1, streamBus: "Bus 15/16 Stream", dca: "Speech", normalState: "Muted until pastor handoff; speech-first priority.", commonFaults: ["Flat battery", "Muted pack", "Input clipping", "Not in stream bus"] },
+  { number: 2, name: "Host Mic", source: "Wireless handheld", stageInput: "Wireless RX 2", category: "Speech", phantom: false, p16Slot: 2, streamBus: "Bus 15/16 Stream", dca: "Speech", normalState: "Ready for announcements and transitions.", commonFaults: ["Wrong handheld", "Muted DCA", "Low gain"] },
+  { number: 3, name: "Lead Vocal", source: "Wireless handheld", stageInput: "Wireless RX 3", category: "Vocal", phantom: false, p16Slot: 3, streamBus: "Bus 15/16 Stream", dca: "Vocals", normalState: "Present in FOH, monitors, P16 and stream.", commonFaults: ["Too much monitor send", "Harsh EQ", "P16 source request"] },
+  { number: 4, name: "BV 1", source: "Vocal mic", stageInput: "Stagebox 04", category: "Vocal", phantom: false, p16Slot: 4, streamBus: "Bus 15/16 Stream", dca: "Vocals", normalState: "Blended under lead vocal.", commonFaults: ["Low gain", "Wrong stand position", "Not in P16"] },
+  { number: 5, name: "BV 2", source: "Vocal mic", stageInput: "Stagebox 05", category: "Vocal", phantom: false, p16Slot: 5, streamBus: "Bus 15/16 Stream", dca: "Vocals", normalState: "Blended under lead vocal.", commonFaults: ["Low gain", "Wrong stand position", "Not in P16"] },
+  { number: 6, name: "Choir L", source: "Choir condenser left", stageInput: "Stagebox 06", category: "Choir", phantom: true, p16Slot: 6, streamBus: "Bus 15/16 Stream", dca: "Choir", normalState: "Used lightly in room, stronger in stream.", commonFaults: ["Feedback", "Too much room", "Phantom off"] },
+  { number: 7, name: "Choir R", source: "Choir condenser right", stageInput: "Stagebox 07", category: "Choir", phantom: true, p16Slot: 7, streamBus: "Bus 15/16 Stream", dca: "Choir", normalState: "Stereo choir pickup for stream image.", commonFaults: ["Feedback", "Phase mismatch", "Phantom off"] },
+  { number: 8, name: "Keys L", source: "Keyboard DI left", stageInput: "Stagebox 08", category: "Instrument", phantom: false, p16Slot: 8, streamBus: "Bus 15/16 Stream", dca: "Band", normalState: "Paired with Keys R.", commonFaults: ["DI unplugged", "Mono only", "P16 balance"] },
+  { number: 9, name: "Keys R", source: "Keyboard DI right", stageInput: "Stagebox 09", category: "Instrument", phantom: false, p16Slot: 9, streamBus: "Bus 15/16 Stream", dca: "Band", normalState: "Paired with Keys L.", commonFaults: ["DI unplugged", "Mono only", "P16 balance"] },
+  { number: 10, name: "Acoustic Guitar", source: "Acoustic DI", stageInput: "Stagebox 10", category: "Instrument", phantom: false, p16Slot: 10, streamBus: "Bus 15/16 Stream", dca: "Band", normalState: "High-passed and blended with worship team.", commonFaults: ["Low battery/preamp", "Boomy low mids", "DI buzz"] },
+  { number: 11, name: "Drums L", source: "Drum submix left", stageInput: "Stagebox 11", category: "Instrument", phantom: false, p16Slot: 11, streamBus: "Bus 15/16 Stream", dca: "Band", normalState: "Stereo drum feed into room and stream.", commonFaults: ["Too loud in stream", "No P16 feed", "Submix clipping"] },
+  { number: 12, name: "Drums R", source: "Drum submix right", stageInput: "Stagebox 12", category: "Instrument", phantom: false, p16Slot: 12, streamBus: "Bus 15/16 Stream", dca: "Band", normalState: "Stereo drum feed into room and stream.", commonFaults: ["Too loud in stream", "No P16 feed", "Submix clipping"] },
+  { number: 13, name: "Audience L", source: "Room mic left", stageInput: "Stagebox 13", category: "Audience", phantom: true, streamBus: "Bus 15/16 Stream", dca: "Stream", normalState: "Stream only, controlled for congregation response.", commonFaults: ["Too roomy", "Feedback risk", "Phantom off"] },
+  { number: 14, name: "Audience R", source: "Room mic right", stageInput: "Stagebox 14", category: "Audience", phantom: true, streamBus: "Bus 15/16 Stream", dca: "Stream", normalState: "Stream only, controlled for congregation response.", commonFaults: ["Too roomy", "Feedback risk", "Phantom off"] },
+  { number: 15, name: "Playback L", source: "Playback computer left", stageInput: "USB/Card 15", category: "Playback", phantom: false, streamBus: "Bus 15/16 Stream", dca: "Playback", normalState: "Used for tracks, videos and walk-in music.", commonFaults: ["Wrong computer output", "Too loud in stream", "Muted playback DCA"] },
+  { number: 16, name: "Playback R", source: "Playback computer right", stageInput: "USB/Card 16", category: "Playback", phantom: false, streamBus: "Bus 15/16 Stream", dca: "Playback", normalState: "Paired with Playback L.", commonFaults: ["Wrong computer output", "Too loud in stream", "Muted playback DCA"] }
+];
+
+export const x32Buses: X32Bus[] = [
+  { number: 1, name: "Wedge 1", purpose: "Monitor", tapPoint: "Pre-fader", destination: "Front wedge", owner: "Sound Operator" },
+  { number: 2, name: "Wedge 2", purpose: "Monitor", tapPoint: "Pre-fader", destination: "Choir/side wedge", owner: "Sound Operator" },
+  { number: 5, name: "Vocal FX Send", purpose: "FX", tapPoint: "Post-fader", destination: "Vocal reverb", owner: "Engineer" },
+  { number: 13, name: "Record Feed", purpose: "Recording", tapPoint: "Post-fader", destination: "Recorder/virtual soundcheck", owner: "Engineer" },
+  { number: 15, name: "Stream L", purpose: "Livestream", tapPoint: "Post-fader", destination: "Dante to Logic input pair", owner: "Engineer" },
+  { number: 16, name: "Stream R", purpose: "Livestream", tapPoint: "Post-fader", destination: "Dante to Logic input pair", owner: "Engineer" }
+];
+
+export const danteDevices: DanteDeviceTwin[] = [
+  { slug: "x32-dante-card", name: "X32-DANTE", type: "Console Card", ipHint: "DHCP/reserved", sampleRate: "48 kHz", clockRole: "Preferred Leader", status: "Healthy", connectedTo: ["audio-network-switch", "stream-mac-dvs"] },
+  { slug: "stream-mac-dvs", name: "STREAM-MAC-DVS", type: "Computer", ipHint: "Wired Ethernet", sampleRate: "48 kHz", clockRole: "Follower", status: "Healthy", connectedTo: ["x32-dante-card", "logic-pro-stream"] },
+  { slug: "logic-pro-stream", name: "Logic Pro", type: "Software", ipHint: "Core Audio via DVS", sampleRate: "48 kHz", clockRole: "Not Clocked", status: "Healthy", connectedTo: ["stream-mac-dvs", "obs-capture"] },
+  { slug: "audio-network-switch", name: "Audio Network Switch", type: "Network Switch", ipHint: "Tech rack", sampleRate: "N/A", clockRole: "Not Clocked", status: "Healthy", connectedTo: ["x32-dante-card", "stream-mac-dvs"] }
+];
+
+export const danteSubscriptions: DanteSubscription[] = [
+  { transmitDevice: "X32-DANTE", transmitChannel: "01 Pastor Mic", receiveDevice: "STREAM-MAC-DVS", receiveChannel: "Logic 01 Pastor", status: "Subscribed", purpose: "Speech clarity in livestream" },
+  { transmitDevice: "X32-DANTE", transmitChannel: "03 Lead Vocal", receiveDevice: "STREAM-MAC-DVS", receiveChannel: "Logic 03 Lead Vocal", status: "Subscribed", purpose: "Lead vocal livestream processing" },
+  { transmitDevice: "X32-DANTE", transmitChannel: "06 Choir L", receiveDevice: "STREAM-MAC-DVS", receiveChannel: "Logic 06 Choir L", status: "Subscribed", purpose: "Choir stereo image" },
+  { transmitDevice: "X32-DANTE", transmitChannel: "07 Choir R", receiveDevice: "STREAM-MAC-DVS", receiveChannel: "Logic 07 Choir R", status: "Subscribed", purpose: "Choir stereo image" },
+  { transmitDevice: "X32-DANTE", transmitChannel: "15 Stream L", receiveDevice: "STREAM-MAC-DVS", receiveChannel: "Logic Stream L", status: "Subscribed", purpose: "Console stream bus" },
+  { transmitDevice: "X32-DANTE", transmitChannel: "16 Stream R", receiveDevice: "STREAM-MAC-DVS", receiveChannel: "Logic Stream R", status: "Subscribed", purpose: "Console stream bus" }
+];
+
+export const logicChannelStrips: LogicChannelStrip[] = [
+  { name: "Pastor Mic", input: "DVS 1", bus: "Speech Bus", plugins: ["Channel EQ", "RComp", "DeEsser"], output: "Stream Master", target: "Natural, intelligible speech", normalMeter: "-18 dBFS average, peaks below -6 dBFS" },
+  { name: "Lead Vocal", input: "DVS 3", bus: "Vocal Bus", plugins: ["F6 Dynamic EQ", "RComp", "CLA Vocals"], output: "Stream Master", target: "Clear vocal above worship band", normalMeter: "Healthy peaks with 2-4 dB compression" },
+  { name: "Choir Bus", input: "DVS 6/7", bus: "Choir Bus", plugins: ["Channel EQ", "C6", "Stereo spread"], output: "Stream Master", target: "Wide choir support without feedback harshness", normalMeter: "Blended under lead vocal" },
+  { name: "Audience Mics", input: "DVS 13/14", bus: "Audience Bus", plugins: ["HPF", "Gentle compression"], output: "Stream Master", target: "Room energy between songs and response moments", normalMeter: "Low during speech, raised for response" },
+  { name: "Stream Master", input: "Buses", bus: "Master", plugins: ["Loudness Meter", "Limiter"], output: "OBS Capture", target: "Consistent stream loudness without pumping", normalMeter: "True peak safe, limiter not constant" }
+];
+
+export const p16Sources: P16Source[] = [
+  { slot: 1, label: "Pastor/Host", x32Source: "CH 1-2 Speech group", usedBy: ["Worship leader", "Band"], notes: "Keep speech available for stage cues." },
+  { slot: 2, label: "Lead Vocal", x32Source: "CH 3", usedBy: ["Lead vocalist", "BVs"], notes: "Primary vocal confidence source." },
+  { slot: 3, label: "BVs", x32Source: "CH 4-5", usedBy: ["Vocal team"], notes: "Grouped backing vocals." },
+  { slot: 4, label: "Choir", x32Source: "CH 6-7", usedBy: ["Choir lead", "Worship leader"], notes: "Use carefully to avoid room wash." },
+  { slot: 5, label: "Keys", x32Source: "CH 8-9", usedBy: ["Band"], notes: "Stereo source folded as needed." },
+  { slot: 6, label: "Acoustic", x32Source: "CH 10", usedBy: ["Band"], notes: "Check DI before raising." },
+  { slot: 7, label: "Drums", x32Source: "CH 11-12", usedBy: ["Band"], notes: "Control level to protect ears." },
+  { slot: 8, label: "Playback", x32Source: "CH 15-16", usedBy: ["Band", "FOH"], notes: "Tracks/click only if approved for P16 users." }
+];
+
+export const stageZones: StageZone[] = [
+  { name: "Lectern / Pastor Zone", sources: ["Pastor Mic", "Host Mic"], monitorFeeds: ["Speech foldback if required"], risks: ["Open mic during transitions", "Battery failure", "Handling noise"] },
+  { name: "Worship Front Line", sources: ["Lead Vocal", "BV 1", "BV 2", "Acoustic Guitar"], monitorFeeds: ["P16", "Wedge 1"], risks: ["Feedback from wedges", "Wrong P16 request", "Harsh vocal EQ"] },
+  { name: "Choir Area", sources: ["Choir L", "Choir R"], monitorFeeds: ["Choir side wedge"], risks: ["Gain before feedback", "Too much room in stream", "Phantom off"] },
+  { name: "Band Area", sources: ["Keys L/R", "Drums L/R", "Playback L/R"], monitorFeeds: ["P16", "Wedge 2"], risks: ["Stage volume", "DI/cable faults", "Track level surprises"] },
+  { name: "Room / Audience", sources: ["Audience L", "Audience R"], monitorFeeds: ["None"], risks: ["Stream too roomy", "Congregation mics too loud during speech"] }
+];
+
+export const wirelessAssignments: WirelessAssignment[] = [
+  { pack: "Wireless RX 1", assignedTo: "Pastor", channel: "CH 1 Pastor Mic", batteryPolicy: "Fresh before every Sunday service", backupPlan: "Spare handheld on CH 2 or wired lectern mic." },
+  { pack: "Wireless RX 2", assignedTo: "Host / Announcements", channel: "CH 2 Host Mic", batteryPolicy: "Fresh before service and checked at handoff", backupPlan: "Use Pastor spare handheld after transition." },
+  { pack: "Wireless RX 3", assignedTo: "Lead Vocal", channel: "CH 3 Lead Vocal", batteryPolicy: "Fresh before rehearsal and service", backupPlan: "Wired vocal mic on Stagebox 03." }
+];
+
+export const digitalSignalPaths: DigitalSignalPath[] = [
+  { slug: "pastor-to-room", title: "Pastor Mic to Room", source: "Pastor wireless mic", checkpoints: ["Wireless RX 1", "X32 CH 1", "Speech DCA", "Main LR", "Matrix/PA"], destinations: ["Room speakers"], relatedLessons: ["gain-structure-basics", "speech-first-mixing"], relatedTroubleshooting: ["no-sound-from-microphone", "feedback"] },
+  { slug: "pastor-to-stream", title: "Pastor Mic to Livestream", source: "Pastor wireless mic", checkpoints: ["Wireless RX 1", "X32 CH 1", "Bus 15/16 Stream", "Dante X32-DANTE", "DVS", "Logic Pastor Mic", "Stream Master", "OBS Capture"], destinations: ["YouTube/Facebook stream"], relatedLessons: ["dante-into-logic", "logic-vocal-clarity"], relatedTroubleshooting: ["livestream-has-no-sound", "dante-issue"] },
+  { slug: "lead-vocal-to-p16", title: "Lead Vocal to P16", source: "Lead vocal handheld", checkpoints: ["Wireless RX 3", "X32 CH 3", "Ultranet/P16 Slot 2", "P16 personal mixer"], destinations: ["Vocalist in-ear/monitor"], relatedLessons: ["p16-monitor-basics", "x32-mix-buses"], relatedTroubleshooting: ["no-sound-from-microphone"] },
+  { slug: "choir-to-stream", title: "Choir Mics to Stream", source: "Choir condenser pair", checkpoints: ["Stagebox 06/07", "X32 CH 6/7", "Choir DCA", "Dante", "Logic Choir Bus", "Stream Master"], destinations: ["Livestream mix"], relatedLessons: ["choir-mic-placement", "logic-vocal-clarity"], relatedTroubleshooting: ["feedback", "livestream-has-no-sound"] }
 ];
 
 export const x32Panels: TrainingPanel[] = [

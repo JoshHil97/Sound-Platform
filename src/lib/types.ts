@@ -351,3 +351,89 @@ export type EvidenceRecord = {
   assessmentSlug?: string;
   status: "Submitted" | "Needs Review" | "Approved" | "Revision Requested" | "Rejected";
 };
+
+export type X32InputChannel = {
+  number: number;
+  name: string;
+  source: string;
+  stageInput: string;
+  category: "Speech" | "Vocal" | "Choir" | "Instrument" | "Playback" | "Audience";
+  phantom: boolean;
+  p16Slot?: number;
+  streamBus: string;
+  dca: string;
+  normalState: string;
+  commonFaults: string[];
+};
+
+export type X32Bus = {
+  number: number;
+  name: string;
+  purpose: "Monitor" | "FX" | "Livestream" | "Recording" | "Matrix";
+  tapPoint: string;
+  destination: string;
+  owner: Role;
+};
+
+export type DanteDeviceTwin = {
+  slug: string;
+  name: string;
+  type: "Console Card" | "Computer" | "Software" | "Network Switch";
+  ipHint: string;
+  sampleRate: string;
+  clockRole: "Leader" | "Follower" | "Preferred Leader" | "Not Clocked";
+  status: "Healthy" | "Warning" | "Offline";
+  connectedTo: string[];
+};
+
+export type DanteSubscription = {
+  transmitDevice: string;
+  transmitChannel: string;
+  receiveDevice: string;
+  receiveChannel: string;
+  status: "Subscribed" | "Warning" | "Missing";
+  purpose: string;
+};
+
+export type LogicChannelStrip = {
+  name: string;
+  input: string;
+  bus: string;
+  plugins: string[];
+  output: string;
+  target: string;
+  normalMeter: string;
+};
+
+export type P16Source = {
+  slot: number;
+  label: string;
+  x32Source: string;
+  usedBy: string[];
+  notes: string;
+};
+
+export type StageZone = {
+  name: string;
+  sources: string[];
+  monitorFeeds: string[];
+  risks: string[];
+};
+
+export type WirelessAssignment = {
+  pack: string;
+  assignedTo: string;
+  channel: string;
+  batteryPolicy: string;
+  backupPlan: string;
+};
+
+export type DigitalSignalPath = {
+  slug: string;
+  title: string;
+  source: string;
+  checkpoints: string[];
+  destinations: string[];
+  relatedLessons: string[];
+  relatedTroubleshooting: string[];
+};

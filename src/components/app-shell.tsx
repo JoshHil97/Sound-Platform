@@ -7,6 +7,7 @@ const navItems = [
   { href: "/practical-training", label: "Practice", icon: ClipboardCheck },
   { href: "/sound-lab", label: "Sound Lab", icon: Headphones },
   { href: "/service-mode", label: "Service Mode", icon: ListChecks },
+  { href: "/digital-twin", label: "Digital Twin", icon: Network },
   { href: "/x32-console", label: "X32 Console", icon: SlidersHorizontal },
   { href: "/logic-stream", label: "Logic Stream", icon: MonitorCog },
   { href: "/dante", label: "Dante", icon: Network },

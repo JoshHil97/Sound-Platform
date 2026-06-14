@@ -1,18 +1,19 @@
 import { PageHeader, Meter, StatusPill, SurfaceCard } from "@/components/ui";
 import { PracticalWorkflowMiniCard } from "@/components/practical-training";
-import { practicalTrainingWorkflows, x32Panels } from "@/lib/data";
+import { practicalTrainingWorkflows, x32InputChannels, x32Panels } from "@/lib/data";
 
 export default function X32ConsolePage() {
   const workflows = practicalTrainingWorkflows.filter((workflow) => workflow.domain === "X32" || workflow.domain === "P16");
+  const featuredChannel = x32InputChannels[2] ?? x32InputChannels[0];
 
   return (
     <>
-      <PageHeader eyebrow="Virtual Console Training" title="X32 Console training mode" description="Practice repeatable operator jobs: patch, name, gain, shape, route, monitor, scene-safe operation and livestream handoff." />
+      <PageHeader eyebrow="Virtual Console Training" title="X32 Console training mode" description="Training from the digital twin: practice repeatable operator jobs using the real channel map for patch, name, gain, shape, route, monitor, scene-safe operation and livestream handoff." />
       <section className="mb-6 glass-panel rounded-3xl p-5">
         <div className="grid gap-4 xl:grid-cols-[1fr_360px]">
           <div className="rounded-3xl border border-white/10 bg-black/35 p-5">
             <div className="rounded-2xl border border-white/10 bg-[#0b1020] p-4">
-              <div className="mb-4 flex justify-between text-xs text-slate-400"><span>CH 01 LEAD VOCAL</span><span>Input 01 · Main LR · Bus 5</span></div>
+              <div className="mb-4 flex justify-between text-xs text-slate-400"><span>CH {featuredChannel.number.toString().padStart(2, "0")} {featuredChannel.name.toUpperCase()}</span><span>{featuredChannel.stageInput} · {featuredChannel.streamBus} · {featuredChannel.dca}</span></div>
               <div className="grid gap-4 md:grid-cols-[1fr_90px]">
                 <div className="rounded-xl border border-white/10 bg-black/35 p-4">
                   <div className="h-28 rounded-lg bg-[radial-gradient(circle_at_40%_35%,rgba(34,211,238,0.22),transparent_40%),linear-gradient(135deg,#111827,#020617)]" />
@@ -28,6 +29,10 @@ export default function X32ConsolePage() {
               <Meter label="Input gain" value={72} />
               <Meter label="Bus send" value={58} />
               <Meter label="Main LR" value={64} />
+            </div>
+            <div className="mt-5 rounded-2xl border border-white/10 bg-black/20 p-4">
+              <p className="text-sm font-black text-cyan-200">Digital Twin normal state</p>
+              <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{featuredChannel.normalState}</p>
             </div>
           </SurfaceCard>
         </div>

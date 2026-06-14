@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { InfoTile, PageHeader, SearchField, SectionHeader, SurfaceCard, Tag } from "@/components/ui";
-import { equipment } from "@/lib/data";
+import { danteDevices, equipment, logicChannelStrips, p16Sources, x32InputChannels } from "@/lib/data";
 
 export default function EquipmentPage() {
   return (
@@ -12,7 +13,30 @@ export default function EquipmentPage() {
       <div className="mb-5">
         <SearchField placeholder="Search equipment by X32, Dante, Logic, Waves, P16, wireless, choir or network..." />
       </div>
-      <SectionHeader title="System inventory" description="Every record should explain what normal looks like, what usually fails, and which live-service workflow depends on it." />
+      <SectionHeader title="System inventory" description="Digital Twin Coverage: every record should explain what normal looks like, what usually fails, and which live-service workflow depends on it." />
+      <section className="mb-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <SurfaceCard>
+          <p className="text-sm font-black uppercase tracking-[0.16em] text-cyan-300">Digital Twin</p>
+          <h2 className="mt-2 text-2xl font-black">{x32InputChannels.length} X32 inputs</h2>
+          <p className="mt-2 text-sm text-[var(--muted)]">Mapped X32 inputs, sources, P16 slots and common faults.</p>
+          <Link href="/digital-twin" className="mt-4 inline-flex text-sm font-black text-violet-200">Open twin map</Link>
+        </SurfaceCard>
+        <SurfaceCard>
+          <p className="text-sm font-black uppercase tracking-[0.16em] text-violet-300">Dante</p>
+          <h2 className="mt-2 text-2xl font-black">{danteDevices.length} devices</h2>
+          <p className="mt-2 text-sm text-[var(--muted)]">Clock roles, sample rate and route health.</p>
+        </SurfaceCard>
+        <SurfaceCard>
+          <p className="text-sm font-black uppercase tracking-[0.16em] text-emerald-300">P16</p>
+          <h2 className="mt-2 text-2xl font-black">{p16Sources.length} source slots</h2>
+          <p className="mt-2 text-sm text-[var(--muted)]">Personal monitoring order and user notes.</p>
+        </SurfaceCard>
+        <SurfaceCard>
+          <p className="text-sm font-black uppercase tracking-[0.16em] text-amber-300">Logic</p>
+          <h2 className="mt-2 text-2xl font-black">{logicChannelStrips.length} strips</h2>
+          <p className="mt-2 text-sm text-[var(--muted)]">Stream template channels and plugin intent.</p>
+        </SurfaceCard>
+      </section>
       <div className="grid gap-4 lg:grid-cols-2">
         {equipment.map((item) => (
           <SurfaceCard key={item.slug}>
