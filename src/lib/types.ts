@@ -245,6 +245,36 @@ export type CertificationPassport = {
   competencyProgress: CompetencyProgress[];
 };
 
+export type AdminContentArea = {
+  title: string;
+  description: string;
+  count: number;
+  ownerRole: Role;
+  status: "Healthy" | "Needs Review" | "Drafting" | "Blocked";
+  primaryAction: string;
+  risk: "Low" | "Medium" | "High";
+};
+
+export type AdminWorkQueueItem = {
+  title: string;
+  area: "Curriculum" | "Equipment" | "SOP" | "Troubleshooting" | "Assets" | "Certification" | "Users";
+  requester: string;
+  ownerRole: Role;
+  priority: "Low" | "Normal" | "High" | "Critical";
+  status: "Draft" | "Review" | "Approved" | "Changes Requested" | "Scheduled";
+  dueDate: string;
+  detail: string;
+};
+
+export type GovernanceStatus = {
+  name: string;
+  status: "Compliant" | "Attention" | "At Risk";
+  cadence: string;
+  ownerRole: Role;
+  nextReview: string;
+  notes: string;
+};
+
 export type Academy = {
   slug: string;
   title: string;

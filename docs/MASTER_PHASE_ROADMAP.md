@@ -161,6 +161,8 @@ Outputs:
 - Certification approval cockpit
 - Governance status views
 
+Status: initial Admin CMS command centre completed in [phase-10/ADMIN_CMS_BLUEPRINT.md](phase-10/ADMIN_CMS_BLUEPRINT.md).
+
 ## PHASE 11: Content Population
 
 Goal: populate approved content after architecture approval.

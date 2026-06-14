@@ -1,4 +1,4 @@
-import type { Academy, ActivityItem, AudioExample, Certification, CertificationDefinition, CertificationEvidence, CertificationPassport, Competency, CurriculumAssessment, DanteDeviceTwin, DanteSubscription, DigitalSignalPath, Equipment, EvidenceRecord, LearningOutcome, Lesson, LessonGuide, LogicChannelStrip, MentorSignOffTask, Module, OfflineResource, P16Source, PracticalExercise, PracticalTrainingWorkflow, ProgressionRule, Quiz, RoadmapNode, ServiceChecklistItem, ServiceEscalationContact, ServiceExperienceRecord, ServiceQuickFault, ServiceScheduleItem, Skill, SkillTree, SOP, StageZone, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource, WirelessAssignment, X32Bus, X32InputChannel } from "@/lib/types";
+import type { Academy, ActivityItem, AdminContentArea, AdminWorkQueueItem, AudioExample, Certification, CertificationDefinition, CertificationEvidence, CertificationPassport, Competency, CurriculumAssessment, DanteDeviceTwin, DanteSubscription, DigitalSignalPath, Equipment, EvidenceRecord, GovernanceStatus, LearningOutcome, Lesson, LessonGuide, LogicChannelStrip, MentorSignOffTask, Module, OfflineResource, P16Source, PracticalExercise, PracticalTrainingWorkflow, ProgressionRule, Quiz, RoadmapNode, ServiceChecklistItem, ServiceEscalationContact, ServiceExperienceRecord, ServiceQuickFault, ServiceScheduleItem, Skill, SkillTree, SOP, StageZone, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource, WirelessAssignment, X32Bus, X32InputChannel } from "@/lib/types";
 
 export const modules: Module[] = [
   ["ministry-safety-signal-flow", "Ministry, Safety and Signal Flow", "Foundations", "Service mindset, safe operation and end-to-end signal flow.", "2-3 hrs"],
@@ -1387,6 +1387,34 @@ export const mentorSignOffTasks: MentorSignOffTask[] = [
     status: "Observed",
     rubric: "Approve Dante-to-Logic signal verification, Logic template discipline, stream loudness and encoder handoff."
   }
+];
+
+export const adminContentAreas: AdminContentArea[] = [
+  { title: "Curriculum Editor", description: "Academies, modules, lessons, quizzes, practical exercises and learning outcomes.", count: modules.length + lessons.length + quizzes.length + practicalExercises.length, ownerRole: "Admin", status: "Drafting", primaryAction: "Review lesson map before content population", risk: "Medium" },
+  { title: "Equipment Knowledge Base", description: "X32, Dante, Logic, wireless, P16, stage and network equipment records.", count: equipment.length, ownerRole: "Senior Engineer", status: "Needs Review", primaryAction: "Verify records against the Digital Twin", risk: "High" },
+  { title: "SOP Library", description: "Before-service, line-check, Dante, Logic, P16, wireless and shutdown procedures.", count: sops.length, ownerRole: "Technical Director", status: "Healthy", primaryAction: "Approve next SOP version", risk: "High" },
+  { title: "Troubleshooting Flows", description: "Decision trees for live-service faults and incident recovery.", count: troubleshootingFlows.length, ownerRole: "Senior Engineer", status: "Healthy", primaryAction: "Test flows during rehearsal", risk: "High" },
+  { title: "Visual Asset Registry", description: "Vendor references, church-owned photo requirements, original diagrams and screenshots.", count: visualSources.length, ownerRole: "Admin", status: "Needs Review", primaryAction: "Replace placeholders with church-owned captures", risk: "Medium" },
+  { title: "Audio and Video Examples", description: "Sound Lab clips, generated examples, YouTube training references and review status.", count: audioExamples.length + trainingVideos.length, ownerRole: "Engineer", status: "Drafting", primaryAction: "Source and approve short lesson videos", risk: "Medium" },
+  { title: "Certification Approval", description: "Credential definitions, mentor sign-offs, evidence records and service observations.", count: certificationDefinitions.length + evidenceRecords.length + mentorSignOffTasks.length, ownerRole: "Technical Director", status: "Needs Review", primaryAction: "Approve pending mentor reviews", risk: "High" },
+  { title: "Users and Roles", description: "Trainee, operator, engineer, senior engineer, technical director and admin access.", count: users.length, ownerRole: "Admin", status: "Blocked", primaryAction: "Connect auth before live role enforcement", risk: "High" }
+];
+
+export const adminWorkQueue: AdminWorkQueueItem[] = [
+  { title: "Approve FOH Operator certification for Daniel", area: "Certification", requester: "Samuel Brooks", ownerRole: "Technical Director", priority: "High", status: "Review", dueDate: "2026-06-23", detail: "Wireless prep and choir feedback evidence are waiting for final mentor review." },
+  { title: "Capture church-owned X32 input screenshots", area: "Assets", requester: "Admin User", ownerRole: "Admin", priority: "Normal", status: "Scheduled", dueDate: "2026-06-25", detail: "Replace generic console visuals with approved local screenshots for X32 channel lessons." },
+  { title: "Verify Dante device names against Sunday network", area: "Equipment", requester: "Grace Chen", ownerRole: "Senior Engineer", priority: "High", status: "Review", dueDate: "2026-06-20", detail: "Digital Twin names should match Dante Controller and DVS exactly before Content Population." },
+  { title: "Draft Logic livestream startup SOP v2", area: "SOP", requester: "Naomi Patel", ownerRole: "Technical Director", priority: "Critical", status: "Draft", dueDate: "2026-06-18", detail: "Add plugin delay, loudness meter and OBS capture verification before next live training." },
+  { title: "Review no-sound troubleshooting flow after rehearsal", area: "Troubleshooting", requester: "Daniel Mensah", ownerRole: "Senior Engineer", priority: "Normal", status: "Changes Requested", dueDate: "2026-06-27", detail: "Add a clearer P16 branch and a stronger escalation point for unknown routing changes." },
+  { title: "Expand Foundations lesson content outline", area: "Curriculum", requester: "Ava Williams", ownerRole: "Admin", priority: "Normal", status: "Draft", dueDate: "2026-07-02", detail: "Use Phase 0 lesson architecture before generating full content in Phase 11." }
+];
+
+export const governanceStatuses: GovernanceStatus[] = [
+  { name: "Curriculum Versioning", status: "Compliant", cadence: "Monthly", ownerRole: "Admin", nextReview: "2026-07-01", notes: "Phase roadmap and blueprints are versioned in docs." },
+  { name: "Certification Authority", status: "Attention", cadence: "Weekly", ownerRole: "Technical Director", nextReview: "2026-06-23", notes: "Visual approval cockpit exists; role-gated actions wait for auth." },
+  { name: "SOP Change Control", status: "Compliant", cadence: "Monthly", ownerRole: "Technical Director", nextReview: "2026-07-05", notes: "SOPs carry owners and versions; next step is audit history." },
+  { name: "Digital Twin Accuracy", status: "Attention", cadence: "Before major services", ownerRole: "Senior Engineer", nextReview: "2026-06-20", notes: "Seeded model needs live patch-list confirmation." },
+  { name: "Asset Rights and Sources", status: "At Risk", cadence: "Before publishing lessons", ownerRole: "Admin", nextReview: "2026-06-28", notes: "Visual registry identifies sourced references and church-owned capture requirements." }
 ];
 
 export const serviceLogs = [
