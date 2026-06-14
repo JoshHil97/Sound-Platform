@@ -117,6 +117,8 @@ Outputs:
 - Escalation contact placeholder
 - Offline-ready critical content structure
 
+Status: initial mobile-first Service Mode completed in [phase-7/SERVICE_MODE_BLUEPRINT.md](phase-7/SERVICE_MODE_BLUEPRINT.md).
+
 ## PHASE 8: Digital Twin
 
 Goal: model the actual church production system.

@@ -1,4 +1,4 @@
-import type { Academy, ActivityItem, AudioExample, Certification, CertificationDefinition, CertificationEvidence, Competency, CurriculumAssessment, Equipment, EvidenceRecord, LearningOutcome, Lesson, LessonGuide, Module, PracticalExercise, PracticalTrainingWorkflow, ProgressionRule, Quiz, RoadmapNode, ServiceChecklistItem, ServiceExperienceRecord, Skill, SkillTree, SOP, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource } from "@/lib/types";
+import type { Academy, ActivityItem, AudioExample, Certification, CertificationDefinition, CertificationEvidence, Competency, CurriculumAssessment, Equipment, EvidenceRecord, LearningOutcome, Lesson, LessonGuide, Module, OfflineResource, PracticalExercise, PracticalTrainingWorkflow, ProgressionRule, Quiz, RoadmapNode, ServiceChecklistItem, ServiceEscalationContact, ServiceExperienceRecord, ServiceQuickFault, ServiceScheduleItem, Skill, SkillTree, SOP, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource } from "@/lib/types";
 
 export const modules: Module[] = [
   ["ministry-safety-signal-flow", "Ministry, Safety and Signal Flow", "Foundations", "Service mindset, safe operation and end-to-end signal flow.", "2-3 hrs"],
@@ -1132,14 +1132,44 @@ export const roadmapNodes: RoadmapNode[] = modules.map((module, index) => ({
 }));
 
 export const serviceChecklist: ServiceChecklistItem[] = [
-  { title: "Wireless Mic Check", detail: "Fresh batteries, labels, RF/audio verified", area: "Wireless", status: "Done" },
-  { title: "X32 Console Check", detail: "Sunday showfile loaded, key inputs named", area: "X32", status: "Done" },
-  { title: "Dante Network Check", detail: "DVS running, green subscriptions, 48 kHz", area: "Dante", status: "Done" },
-  { title: "Logic Stream Check", detail: "Template open, DVS selected, loudness meter active", area: "Logic", status: "Due" },
-  { title: "P16 Personal Monitoring", detail: "Ultranet source order and musician requests checked", area: "P16", status: "Done" },
-  { title: "Stage and Monitors Check", detail: "Wedges safe, stage volume under control", area: "Stage", status: "Check" },
-  { title: "Talkback Check", detail: "Talkback mic routed only to intended destinations", area: "Talkback", status: "Done" },
-  { title: "Livestream Output Check", detail: "OBS receives Logic output, short test record complete", area: "Livestream", status: "Due" }
+  { title: "Wireless Mic Check", detail: "Fresh batteries, labels, RF/audio verified", area: "Wireless", status: "Done", priority: "Critical", section: "Pre-Service", owner: "Sound Operator", dueTime: "08:15", fallback: "Swap to spare handheld or wired podium mic.", relatedSop: "wireless-mic-preparation", quickFaultSlug: "no-sound-from-microphone" },
+  { title: "X32 Console Check", detail: "Sunday showfile loaded, key inputs named", area: "X32", status: "Done", priority: "Critical", section: "Pre-Service", owner: "Engineer", dueTime: "08:20", fallback: "Load approved backup scene and notify Senior Engineer.", relatedSop: "before-service-checklist", quickFaultSlug: "no-sound-from-microphone" },
+  { title: "Dante Network Check", detail: "DVS running, green subscriptions, 48 kHz", area: "Dante", status: "Done", priority: "Critical", section: "Livestream", owner: "Engineer", dueTime: "08:25", fallback: "Use backup stereo stream feed from X32 until network route is restored.", relatedSop: "dante-verification", quickFaultSlug: "dante-route-broken" },
+  { title: "Logic Stream Check", detail: "Template open, DVS selected, loudness meter active", area: "Logic", status: "Due", priority: "Critical", section: "Livestream", owner: "Engineer", dueTime: "08:30", fallback: "Open last known good template and bypass heavy plugins.", relatedSop: "logic-livestream-startup", quickFaultSlug: "livestream-has-no-sound" },
+  { title: "P16 Personal Monitoring", detail: "Ultranet source order and musician requests checked", area: "P16", status: "Done", priority: "High", section: "Stage", owner: "Sound Operator", dueTime: "08:35", fallback: "Provide key source through wedge or musician shared mix.", relatedSop: "p16-setup", quickFaultSlug: "no-sound-from-microphone" },
+  { title: "Stage and Monitors Check", detail: "Wedges safe, stage volume under control", area: "Stage", status: "Check", priority: "High", section: "Line Check", owner: "Sound Operator", dueTime: "08:40", fallback: "Reduce wedge level and prioritize speech clarity.", relatedSop: "sound-check-checklist", quickFaultSlug: "feedback" },
+  { title: "Talkback Check", detail: "Talkback mic routed only to intended destinations", area: "Talkback", status: "Done", priority: "Normal", section: "Line Check", owner: "Sound Operator", dueTime: "08:45", fallback: "Use stage lead relay until talkback path is restored.", relatedSop: "line-check-checklist", quickFaultSlug: "no-sound-from-microphone" },
+  { title: "Livestream Output Check", detail: "OBS receives Logic output, short test record complete", area: "Livestream", status: "Due", priority: "Critical", section: "Livestream", owner: "Engineer", dueTime: "08:50", fallback: "Switch encoder capture to backup X32 stereo feed.", relatedSop: "logic-livestream-startup", quickFaultSlug: "livestream-has-no-sound" }
+];
+
+export const serviceQuickFaults: ServiceQuickFault[] = [
+  { title: "No sound from mic", symptom: "A source is expected in FOH or stream but no signal is heard.", urgency: "High", firstSafeCheck: "Check source power/mute and X32 input meter before raising output level.", flowSlug: "no-sound-from-microphone", area: "X32" },
+  { title: "Stream has no sound", symptom: "Room audio is fine but livestream receives silence.", urgency: "Emergency", firstSafeCheck: "Check X32 stream send, Dante route, Logic input and encoder capture in order.", flowSlug: "livestream-has-no-sound", area: "Livestream" },
+  { title: "Feedback building", symptom: "A narrow ringing tone starts growing in room or monitors.", urgency: "Emergency", firstSafeCheck: "Identify the mic and lower monitor or channel safely before EQ.", flowSlug: "feedback", area: "Stage" },
+  { title: "Dante route broken", symptom: "DVS or Logic is not receiving expected network audio.", urgency: "High", firstSafeCheck: "Confirm wired interface, device visibility, sample rate, clock and subscription.", flowSlug: "dante-issue", area: "Dante" },
+  { title: "Wireless cutting out", symptom: "A handheld or beltpack drops intermittently.", urgency: "High", firstSafeCheck: "Check battery, mute, RF/audio at receiver and swap mic if service is active.", flowSlug: "no-sound-from-microphone", area: "Wireless" },
+  { title: "P16 source missing", symptom: "A musician cannot hear themselves in personal monitoring.", urgency: "Medium", firstSafeCheck: "Confirm the source has input signal before changing Ultranet routing.", flowSlug: "no-sound-from-microphone", area: "P16" }
+];
+
+export const serviceEscalationContacts: ServiceEscalationContact[] = [
+  { name: "Samuel Brooks", role: "Senior Engineer", availability: "On call until post-service handover", contactAction: "Message senior engineer", whenToEscalate: "Routing, scene recall, Dante clock, feedback that cannot be stabilized quickly." },
+  { name: "Grace Chen", role: "Engineer", availability: "Livestream desk during service", contactAction: "Message livestream engineer", whenToEscalate: "Logic, Waves, OBS, DVS or stream output problems." },
+  { name: "Technical Director", role: "Technical Director", availability: "Escalate after service unless service is blocked", contactAction: "Create incident for TD review", whenToEscalate: "Equipment failure, procurement, architecture changes or repeated incidents." }
+];
+
+export const serviceSchedule: ServiceScheduleItem[] = [
+  { time: "08:00", title: "Team arrival", location: "FOH booth", operatorFocus: "Power order, showfile, service plan.", status: "Done" },
+  { time: "08:30", title: "Band line check", location: "Stage", operatorFocus: "Gain, patch, P16 source order, talkback.", status: "Now" },
+  { time: "09:15", title: "Livestream test", location: "Stream desk", operatorFocus: "Logic, loudness, OBS capture, phone check.", status: "Upcoming" },
+  { time: "10:00", title: "Worship service", location: "Sanctuary", operatorFocus: "Speech priority, safe monitors, fault logging.", status: "Upcoming" },
+  { time: "11:45", title: "Shutdown and handover", location: "FOH booth", operatorFocus: "Save notes, archive Logic, return mics.", status: "Upcoming" }
+];
+
+export const offlineResources: OfflineResource[] = [
+  { title: "Before Service Checklist", detail: "Core setup steps for X32, wireless, Dante, Logic and P16.", route: "/sops", status: "Cached" },
+  { title: "No Sound Decision Tree", detail: "Source-to-output recovery flow for silent channels.", route: "/troubleshooting/no-sound-from-microphone", status: "Cached" },
+  { title: "Livestream No Sound", detail: "X32, Dante, DVS, Logic and OBS verification path.", route: "/troubleshooting/livestream-has-no-sound", status: "Cached" },
+  { title: "Dante Verification SOP", detail: "Device visibility, subscriptions, clock and sample rate.", route: "/sops", status: "Needs Sync" }
 ];
 
 export const x32Panels: TrainingPanel[] = [

@@ -149,6 +149,45 @@ export type ServiceChecklistItem = {
   detail: string;
   area: "Wireless" | "X32" | "Dante" | "Logic" | "P16" | "Stage" | "Talkback" | "Livestream";
   status: "Done" | "Due" | "Check";
+  priority?: "Critical" | "High" | "Normal";
+  section?: "Pre-Service" | "Line Check" | "Livestream" | "Stage" | "Shutdown";
+  owner?: Role;
+  dueTime?: string;
+  fallback?: string;
+  relatedSop?: string;
+  quickFaultSlug?: string;
+};
+
+export type ServiceQuickFault = {
+  title: string;
+  symptom: string;
+  urgency: "Emergency" | "High" | "Medium";
+  firstSafeCheck: string;
+  flowSlug: string;
+  area: ServiceChecklistItem["area"];
+};
+
+export type ServiceEscalationContact = {
+  name: string;
+  role: Role;
+  availability: string;
+  contactAction: string;
+  whenToEscalate: string;
+};
+
+export type ServiceScheduleItem = {
+  time: string;
+  title: string;
+  location: string;
+  operatorFocus: string;
+  status: "Upcoming" | "Now" | "Done";
+};
+
+export type OfflineResource = {
+  title: string;
+  detail: string;
+  route: string;
+  status: "Cached" | "Needs Sync";
 };
 
 export type TrainingPanel = {
