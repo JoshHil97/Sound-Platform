@@ -4,6 +4,7 @@ import { Bell, BookOpen, ClipboardCheck, Gauge, GraduationCap, Headphones, ListC
 const navItems = [
   { href: "/", label: "Dashboard", icon: Gauge },
   { href: "/academy", label: "Academy", icon: BookOpen },
+  { href: "/practical-training", label: "Practice", icon: ClipboardCheck },
   { href: "/sound-lab", label: "Sound Lab", icon: Headphones },
   { href: "/service-mode", label: "Service Mode", icon: ListChecks },
   { href: "/x32-console", label: "X32 Console", icon: SlidersHorizontal },

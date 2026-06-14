@@ -1,7 +1,10 @@
 import { PageHeader, Meter, StatusPill, SurfaceCard } from "@/components/ui";
-import { logicPanels } from "@/lib/data";
+import { PracticalWorkflowMiniCard } from "@/components/practical-training";
+import { logicPanels, practicalTrainingWorkflows } from "@/lib/data";
 
 export default function LogicStreamPage() {
+  const workflows = practicalTrainingWorkflows.filter((workflow) => workflow.domain === "Logic" || workflow.domain === "Waves");
+
   return (
     <>
       <PageHeader eyebrow="Livestream Mixing" title="Logic Stream training mode" description="Practical livestream workflow from Dante input to Logic template, Waves chains, loudness metering, translation checks and OBS handoff." />
@@ -40,6 +43,15 @@ export default function LogicStreamPage() {
             <ul className="mt-4 grid gap-2 text-sm text-slate-300">{panel.checks.map((item) => <li key={item}>- {item}</li>)}</ul>
           </SurfaceCard>
         ))}
+      </section>
+      <section className="mt-6">
+        <div className="mb-4">
+          <p className="text-sm font-black uppercase tracking-[0.16em] text-violet-300">Practical Drills</p>
+          <h2 className="mt-1 text-2xl font-black">Livestream tasks to practice</h2>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          {workflows.map((workflow) => <PracticalWorkflowMiniCard key={workflow.slug} workflow={workflow} />)}
+        </div>
       </section>
     </>
   );

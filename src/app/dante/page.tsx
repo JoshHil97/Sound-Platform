@@ -1,8 +1,11 @@
 import { PageHeader, StatusPill, SurfaceCard } from "@/components/ui";
-import { dantePanels } from "@/lib/data";
+import { PracticalWorkflowMiniCard } from "@/components/practical-training";
+import { dantePanels, practicalTrainingWorkflows } from "@/lib/data";
 
 export default function DantePage() {
   const devices = ["X32-DANTE", "STREAM-MAC-DVS", "LOGIC-MIX", "RECORDING-MAC"];
+  const workflows = practicalTrainingWorkflows.filter((workflow) => workflow.domain === "Dante" || workflow.slug === "dante-logic-signal-drill");
+
   return (
     <>
       <PageHeader eyebrow="Network Audio Simulator" title="Dante training mode" description="Learn device discovery, routing subscriptions, clocking, sample rate, latency, DVS and service-day Dante fault isolation." />
@@ -42,6 +45,15 @@ export default function DantePage() {
             <ul className="mt-4 grid gap-2 text-sm text-slate-300">{panel.checks.map((item) => <li key={item}>- {item}</li>)}</ul>
           </SurfaceCard>
         ))}
+      </section>
+      <section className="mt-6">
+        <div className="mb-4">
+          <p className="text-sm font-black uppercase tracking-[0.16em] text-violet-300">Practical Drills</p>
+          <h2 className="mt-1 text-2xl font-black">Network audio tasks to practice</h2>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          {workflows.map((workflow) => <PracticalWorkflowMiniCard key={workflow.slug} workflow={workflow} />)}
+        </div>
       </section>
     </>
   );

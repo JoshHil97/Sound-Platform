@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHeader, StepCard, SurfaceCard, Tag } from "@/components/ui";
-import { getAcademyForModule, getLessonsForModule, getModule } from "@/lib/data";
+import { PracticalWorkflowMiniCard } from "@/components/practical-training";
+import { getAcademyForModule, getLessonsForModule, getModule, getPracticalWorkflowsForModule } from "@/lib/data";
 
 export default async function ModulePage({ params }: { params: Promise<{ moduleSlug: string }> }) {
   const { moduleSlug } = await params;
@@ -11,6 +12,7 @@ export default async function ModulePage({ params }: { params: Promise<{ moduleS
   }
   const lessons = getLessonsForModule(academyModule.slug);
   const parentAcademy = getAcademyForModule(academyModule.slug);
+  const practicalWorkflows = getPracticalWorkflowsForModule(academyModule.slug);
 
   return (
     <>
@@ -53,6 +55,19 @@ export default async function ModulePage({ params }: { params: Promise<{ moduleS
           ))}
         </div>
       </SurfaceCard>
+      {practicalWorkflows.length ? (
+        <section className="mt-6">
+          <div className="mb-4">
+            <p className="text-sm font-black uppercase tracking-[0.16em] text-violet-300">Practical Training Systems</p>
+            <h2 className="mt-1 text-2xl font-black">Operator drills in this module</h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {practicalWorkflows.map((workflow) => (
+              <PracticalWorkflowMiniCard key={workflow.slug} workflow={workflow} />
+            ))}
+          </div>
+        </section>
+      ) : null}
     </>
   );
 }

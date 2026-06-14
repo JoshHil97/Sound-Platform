@@ -88,6 +88,8 @@ Outputs:
 - Mentor sign-off panels
 - Evidence capture flow
 
+Status: initial practical training workflow engine completed in [phase-5/PRACTICAL_TRAINING_SYSTEMS_BLUEPRINT.md](phase-5/PRACTICAL_TRAINING_SYSTEMS_BLUEPRINT.md).
+
 ## PHASE 6: Sound Lab
 
 Goal: make Sound Lab a diagnosis and ear-training simulator.

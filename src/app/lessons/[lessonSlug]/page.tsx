@@ -2,7 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LinkedAction, PageHeader, SurfaceCard, Tag } from "@/components/ui";
 import { QuizRunner } from "@/components/quiz-runner";
-import { getLesson, getModule, getQuizForLesson, lessonGuides } from "@/lib/data";
+import { PracticalTrainingWorkflowCard } from "@/components/practical-training";
+import { getLesson, getModule, getPracticalWorkflowsForLesson, getPracticalWorkflowsForModule, getQuizForLesson, lessonGuides } from "@/lib/data";
 
 export default async function LessonPage({ params }: { params: Promise<{ lessonSlug: string }> }) {
   const { lessonSlug } = await params;
@@ -13,6 +14,9 @@ export default async function LessonPage({ params }: { params: Promise<{ lessonS
   const academyModule = getModule(lesson.moduleSlug);
   const quiz = getQuizForLesson(lesson.slug);
   const guide = lessonGuides.find((item) => item.lessonSlug === lesson.slug);
+  const exactWorkflows = getPracticalWorkflowsForLesson(lesson.slug);
+  const relatedModuleWorkflows = exactWorkflows.length ? [] : getPracticalWorkflowsForModule(lesson.moduleSlug).slice(0, 1);
+  const workflows = exactWorkflows.length ? exactWorkflows : relatedModuleWorkflows;
 
   return (
     <>
@@ -69,6 +73,13 @@ export default async function LessonPage({ params }: { params: Promise<{ lessonS
           ) : null}
         </SurfaceCard>
       </section>
+      {workflows.length ? (
+        <section className="mb-6 grid gap-5">
+          {workflows.map((workflow) => (
+            <PracticalTrainingWorkflowCard key={workflow.slug} workflow={workflow} />
+          ))}
+        </section>
+      ) : null}
       {quiz ? <QuizRunner quiz={quiz} /> : null}
     </>
   );

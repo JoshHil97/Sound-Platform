@@ -1,4 +1,4 @@
-import type { Academy, ActivityItem, AudioExample, Certification, CertificationDefinition, CertificationEvidence, Competency, CurriculumAssessment, Equipment, EvidenceRecord, LearningOutcome, Lesson, LessonGuide, Module, PracticalExercise, ProgressionRule, Quiz, RoadmapNode, ServiceChecklistItem, ServiceExperienceRecord, Skill, SkillTree, SOP, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource } from "@/lib/types";
+import type { Academy, ActivityItem, AudioExample, Certification, CertificationDefinition, CertificationEvidence, Competency, CurriculumAssessment, Equipment, EvidenceRecord, LearningOutcome, Lesson, LessonGuide, Module, PracticalExercise, PracticalTrainingWorkflow, ProgressionRule, Quiz, RoadmapNode, ServiceChecklistItem, ServiceExperienceRecord, Skill, SkillTree, SOP, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource } from "@/lib/types";
 
 export const modules: Module[] = [
   ["ministry-safety-signal-flow", "Ministry, Safety and Signal Flow", "Foundations", "Service mindset, safe operation and end-to-end signal flow.", "2-3 hrs"],
@@ -153,6 +153,164 @@ export const practicalExercises: PracticalExercise[] = [
   { moduleSlug: "logic-pro-livestream-mixing", lessonSlug: "dante-into-logic", title: "Dante to Logic Checkpoint", setup: "Approved Logic template and Dante Controller open.", task: "Verify one speech channel from X32 send to Logic input and stream output.", expectedResult: "Signal is visible and named correctly at every stage.", evidenceRequired: "Screenshot or mentor note with route confirmed.", safetyConstraints: "Do not change clock leader without senior approval." },
   { moduleSlug: "waves-workflows-livestream", lessonSlug: "waves-vocal-speech-chains", title: "Purpose-First Vocal Chain", setup: "Use Sound Lab or virtual soundcheck vocal sample.", task: "Choose F6/C6/RComp/CLA Vocals only when the audible problem justifies it.", expectedResult: "Processing improves clarity without harshness or over-compression.", evidenceRequired: "Before/after note and chain purpose explanation.", safetyConstraints: "Do not insert heavy plugins during service without checking latency." },
   { moduleSlug: "troubleshooting-fault-isolation", lessonSlug: "fault-isolation-method", title: "No Sound Decision Tree Drill", setup: "Simulated no-sound microphone fault.", task: "Run through safe first checks and identify root cause.", expectedResult: "Trainee tests one point at a time and logs the final cause.", evidenceRequired: "Scenario result and mentor sign-off.", safetyConstraints: "Do not repeatedly unmute unknown paths at show volume." }
+];
+
+export const practicalTrainingWorkflows: PracticalTrainingWorkflow[] = [
+  {
+    slug: "x32-vocal-gain-drill",
+    moduleSlug: "church-layout-gain-structure",
+    lessonSlug: "gain-structure-basics",
+    domain: "X32",
+    title: "Set Clean Gain on a Vocal Mic",
+    scenario: "A vocalist arrives for rehearsal and the channel is either too quiet or clipping. Set the preamp correctly before touching EQ, compression or the main fader.",
+    operatorTarget: "Create a strong, clean input signal with headroom and no red clipping.",
+    estimatedMinutes: 12,
+    safetyRule: "Keep the channel muted in LR until the input is stable and the mentor confirms the source is safe.",
+    steps: [
+      { title: "Select the correct input", action: "Use the channel layer and scribble strip to select the vocal channel.", observe: "The meter follows the actual vocalist, not another source.", why: "Wrong-channel edits are one of the fastest ways to create service confusion.", ifWrong: "Stop and trace the patch from mic, receiver or stage input before changing gain." },
+      { title: "Ask for real level", action: "Have the singer perform at service volume, not a quiet test phrase.", observe: "The meter moves with realistic peaks.", why: "Gain set from a whisper will clip when the song starts.", ifWrong: "Reset the test and ask for the loudest expected section." },
+      { title: "Set preamp gain", action: "Raise or lower preamp gain until peaks are healthy with headroom.", observe: "Green and occasional yellow movement, no red clip indicator.", why: "Clean preamp level gives every later mix decision a stable starting point.", ifWrong: "If red appears, reduce gain before lowering the fader." },
+      { title: "Engage HPF", action: "Enable a high-pass filter appropriate for the vocal.", observe: "Low rumble drops without making the voice thin.", why: "Removing non-musical low energy protects headroom and clarity.", ifWrong: "If the voice loses body, lower the HPF point and listen again." },
+      { title: "Document the result", action: "Note the channel, source and any unusual gain setting.", observe: "Mentor can see what changed and why.", why: "Church-specific knowledge survives when operators document exceptions.", ifWrong: "Add the note before moving to EQ or dynamics." }
+    ],
+    boardChecks: ["Correct channel selected", "Input meter active", "No red clipping", "HPF engaged intentionally", "Fader not used to hide bad gain"],
+    listeningTargets: ["Clean vocal with detail and headroom", "No crunchy consonants", "No hiss jump when the fader rises"],
+    evidenceRequired: ["Mentor observation", "Before/after gain note", "One sentence explaining preamp vs fader"],
+    mentorSignoff: "Trainee sets gain from real source level, explains the meter target and corrects clipping without disrupting LR.",
+    relatedRoutes: [
+      { label: "Open X32 Console", href: "/x32-console" },
+      { label: "Open Sound Lab", href: "/sound-lab" }
+    ]
+  },
+  {
+    slug: "p16-vocal-routing-drill",
+    moduleSlug: "monitoring-p16-talkback",
+    lessonSlug: "p16-monitor-basics",
+    domain: "P16",
+    title: "Route a Vocal Source to P16",
+    scenario: "A singer cannot hear themselves in their personal monitor. Verify source order and send level without changing FOH balance.",
+    operatorTarget: "Confirm the vocal reaches the correct P16 slot at a safe, usable level.",
+    estimatedMinutes: 10,
+    safetyRule: "Do not raise stage monitor or P16 levels aggressively while a performer is wearing in-ears.",
+    steps: [
+      { title: "Confirm the request", action: "Ask which performer, which source and which P16 channel they expect.", observe: "The request maps to a named source, not a vague 'more me'.", why: "Clear communication prevents the wrong musician's mix from changing.", ifWrong: "Clarify on talkback or with the stage lead before changing sends." },
+      { title: "Check source signal", action: "Select the source channel and confirm input meter activity.", observe: "The vocal has signal before monitor routing is blamed.", why: "No monitor send can fix a dead source.", ifWrong: "Run the normal no-sound source check first." },
+      { title: "Verify Ultranet assignment", action: "Check the P16/Ultranet source slot assigned to that vocal.", observe: "The source appears in the expected slot and name order.", why: "P16 users rely on stable source positions from week to week.", ifWrong: "Restore approved source order or escalate before changing global routing." },
+      { title: "Adjust send safely", action: "Raise the send only after the source and slot are confirmed.", observe: "The performer hears the source without sudden jumps.", why: "Monitor confidence matters, but hearing safety comes first.", ifWrong: "Lower the send, confirm pre/post tap and retry slowly." }
+    ],
+    boardChecks: ["Input signal present", "Correct P16 source slot", "Safe level change", "Performer confirms", "Change documented"],
+    listeningTargets: ["Performer hears their voice clearly", "No feedback from wedges", "No FOH balance change"],
+    evidenceRequired: ["P16 slot confirmed", "Mentor note", "Performer confirmation"],
+    mentorSignoff: "Trainee restores a P16 source calmly without altering FOH or breaking source order.",
+    relatedRoutes: [
+      { label: "Open Service Mode", href: "/service-mode" },
+      { label: "Open SOPs", href: "/sops" }
+    ]
+  },
+  {
+    slug: "dante-logic-signal-drill",
+    moduleSlug: "logic-pro-livestream-mixing",
+    lessonSlug: "dante-into-logic",
+    domain: "Logic",
+    title: "Verify Dante Into Logic",
+    scenario: "The room mix is fine, but the livestream engineer needs to prove the speech mic reaches Logic before service starts.",
+    operatorTarget: "Trace one source from X32 stream send through Dante, DVS, Logic input and stream output.",
+    estimatedMinutes: 15,
+    safetyRule: "Do not change Dante clock leader, sample rate or global routing without senior approval.",
+    steps: [
+      { title: "Check X32 send", action: "Confirm the source is assigned to the stream bus or direct output.", observe: "X32 shows signal at the intended send point.", why: "Logic cannot receive a source that never leaves the console.", ifWrong: "Fix the X32 send assignment before opening Dante Controller." },
+      { title: "Check Dante subscription", action: "Open Dante Controller and verify the X32 transmit channel routes to the stream Mac receive channel.", observe: "The route shows a healthy subscription indicator.", why: "Dante is the network patch cable in this system.", ifWrong: "Check device visibility, sample rate and subscription state." },
+      { title: "Check DVS", action: "Verify Dante Virtual Soundcard is running on the wired network interface.", observe: "DVS shows active channels and the expected sample rate.", why: "Logic sees DVS as the audio device.", ifWrong: "Start DVS or select the correct Ethernet interface." },
+      { title: "Check Logic input", action: "Open the approved Logic template and select the named speech channel.", observe: "The channel meter follows the source.", why: "Input naming prevents Sunday-morning guessing.", ifWrong: "Check Logic audio device, input number and template mapping." },
+      { title: "Check output handoff", action: "Confirm Logic output is routed to the encoder or OBS capture path.", observe: "Stream output meter moves when the source is active.", why: "A working input still fails if the output handoff is wrong.", ifWrong: "Check output device, bus assignment and encoder capture source." }
+    ],
+    boardChecks: ["X32 stream send active", "Dante subscription green", "DVS running on Ethernet", "Logic input meter active", "Stream output meter active"],
+    listeningTargets: ["Speech clear in Logic", "No doubled latency slap", "No distorted stream master"],
+    evidenceRequired: ["Signal path note", "Dante subscription screenshot placeholder", "Logic channel name confirmed"],
+    mentorSignoff: "Trainee verifies every handoff in order and resists random changes.",
+    relatedRoutes: [
+      { label: "Open Logic Stream", href: "/logic-stream" },
+      { label: "Open Dante", href: "/dante" },
+      { label: "Troubleshoot livestream", href: "/troubleshooting/livestream-has-no-sound" }
+    ]
+  },
+  {
+    slug: "waves-vocal-chain-drill",
+    moduleSlug: "waves-workflows-livestream",
+    lessonSlug: "waves-vocal-speech-chains",
+    domain: "Waves",
+    title: "Build a Purpose-First Vocal Chain",
+    scenario: "A livestream vocal sounds harsh on phones and inconsistent in headphones. Build a simple Waves chain based on the audible problem.",
+    operatorTarget: "Use dynamic EQ, compression and de-essing only where the vocal needs them.",
+    estimatedMinutes: 18,
+    safetyRule: "Check plugin latency and bypass before inserting heavy processing during a live service.",
+    steps: [
+      { title: "Name the audible problem", action: "Listen before inserting plugins and choose one primary issue.", observe: "The issue is described as harsh, sibilant, uneven or dull.", why: "Purpose-first processing avoids plugin stacking by habit.", ifWrong: "Return to the dry vocal and compare on a smaller speaker." },
+      { title: "Control harshness", action: "Use Waves F6 or similar dynamic EQ on the harsh range.", observe: "Harsh peaks reduce only when they appear.", why: "Dynamic EQ fixes changing problems without hollowing the whole vocal.", ifWrong: "Reduce threshold depth or narrow the band." },
+      { title: "Smooth dynamics", action: "Use RComp or C6 gently for level consistency.", observe: "Gain reduction moves musically and speech remains natural.", why: "Compression should stabilize, not flatten worship expression.", ifWrong: "Back off threshold or ratio and compare bypass." },
+      { title: "Check sibilance", action: "Use de-essing only if S sounds jump forward.", observe: "Sibilance softens without lisping.", why: "De-essing protects phone listeners from piercing consonants.", ifWrong: "Reduce range or move the detector frequency." },
+      { title: "Compare in context", action: "Bypass the chain and listen with music, choir and speech bus.", observe: "The vocal sits better without sounding processed.", why: "A soloed vocal can lie about the mix.", ifWrong: "Remove any plugin that does not solve a real problem." }
+    ],
+    boardChecks: ["Dry problem identified", "F6 band purposeful", "Compression not pumping", "De-esser natural", "Bypass comparison complete"],
+    listeningTargets: ["Clear vocal on phone", "No harsh bite", "No crushed dynamics", "Natural consonants"],
+    evidenceRequired: ["Before/after note", "Plugin purpose list", "Mentor listening confirmation"],
+    mentorSignoff: "Trainee explains every plugin by audible purpose and removes anything unnecessary.",
+    relatedRoutes: [
+      { label: "Open Logic Stream", href: "/logic-stream" },
+      { label: "Open Sound Lab", href: "/sound-lab" }
+    ]
+  },
+  {
+    slug: "wireless-prep-drill",
+    moduleSlug: "wireless-choir-worship-mixing",
+    lessonSlug: "wireless-prep",
+    domain: "Wireless",
+    title: "Prepare Wireless Mics for Service",
+    scenario: "Wireless handhelds and beltpacks need to be ready for pastor, worship leader and announcements before doors open.",
+    operatorTarget: "Prepare, label, battery-check and hand off wireless mics with predictable mute discipline.",
+    estimatedMinutes: 14,
+    safetyRule: "Never hand out an unmuted mic at show level without confirming destination and operator readiness.",
+    steps: [
+      { title: "Check assignment list", action: "Match each mic or beltpack to the service plan.", observe: "Pastor, worship leader and announcements are clearly assigned.", why: "Wrong handoff creates avoidable pressure during transitions.", ifWrong: "Ask the service lead before labeling or distributing." },
+      { title: "Check battery state", action: "Install fresh or approved batteries and record status.", observe: "Battery indicators are healthy on transmitter and receiver.", why: "Wireless failure mid-message is usually preventable.", ifWrong: "Replace batteries and tag the faulty pack for review." },
+      { title: "Confirm receiver signal", action: "Power on and check RF/audio at the receiver and X32 channel.", observe: "RF is stable and audio meters follow the mic.", why: "A working transmitter still needs a stable receiver path.", ifWrong: "Check mute state, frequency coordination and receiver patch." },
+      { title: "Set mute and handoff", action: "Mute appropriately, label the mic and brief the user.", observe: "User knows how to hold and when it will be live.", why: "Good handoff prevents handling noise and accidental open mics.", ifWrong: "Repeat the handoff and document special instructions." }
+    ],
+    boardChecks: ["Assignment list confirmed", "Battery healthy", "RF stable", "X32 audio present", "Handoff documented"],
+    listeningTargets: ["No crackle or dropouts", "Natural speech level", "No handling overload"],
+    evidenceRequired: ["Wireless prep checklist", "Mentor observation", "Service handoff note"],
+    mentorSignoff: "Trainee prepares all assigned wireless mics and explains the failure checks.",
+    relatedRoutes: [
+      { label: "Open Service Mode", href: "/service-mode" },
+      { label: "Open Equipment", href: "/equipment" }
+    ]
+  },
+  {
+    slug: "no-sound-fault-isolation-drill",
+    moduleSlug: "troubleshooting-fault-isolation",
+    lessonSlug: "fault-isolation-method",
+    domain: "Troubleshooting",
+    title: "Recover a No-Sound Source",
+    scenario: "A microphone has no sound during line check. Recover it without panic changes or unsafe volume jumps.",
+    operatorTarget: "Find the first broken point in the signal path and restore signal safely.",
+    estimatedMinutes: 12,
+    safetyRule: "Make one change at a time and keep unknown outputs muted until signal is understood.",
+    steps: [
+      { title: "Start at the source", action: "Check mic power, mute switch, battery or cable.", observe: "The physical source is capable of sending signal.", why: "The simplest failure is often before the console.", ifWrong: "Replace battery, cable or mic before changing routing." },
+      { title: "Check console input", action: "Select the X32 channel and watch input meter or PFL.", observe: "Input meter confirms whether signal reaches the console.", why: "This separates source/patch issues from routing issues.", ifWrong: "Check patch, stagebox, receiver or gain." },
+      { title: "Check channel state", action: "Confirm mute, DCA, fader and main assignment.", observe: "The channel is allowed to pass signal.", why: "A muted or unassigned channel can look like a broken mic.", ifWrong: "Correct only the specific blocked state." },
+      { title: "Check destination", action: "Verify bus, LR, stream or monitor destination as needed.", observe: "Signal exists at the needed output path.", why: "A source may work in FOH while missing from stream or monitors.", ifWrong: "Trace the relevant bus or matrix path." },
+      { title: "Log root cause", action: "Record the failed point and fix after service if temporary.", observe: "The team knows what happened and what remains to repair.", why: "Incident memory becomes church-specific training data.", ifWrong: "Add the log before leaving the issue behind." }
+    ],
+    boardChecks: ["Source powered", "Input meter checked", "Mute/DCA/fader verified", "Destination checked", "Incident logged"],
+    listeningTargets: ["Signal returns without a blast", "No feedback from rushed gain", "FOH and stream paths verified separately"],
+    evidenceRequired: ["Decision-tree result", "Root-cause note", "Mentor sign-off"],
+    mentorSignoff: "Trainee restores signal by testing one handoff at a time and documents the cause.",
+    relatedRoutes: [
+      { label: "Open Troubleshooting", href: "/troubleshooting/no-sound-from-microphone" },
+      { label: "Open X32 Console", href: "/x32-console" }
+    ]
+  }
 ];
 
 export const learningOutcomes: LearningOutcome[] = [
@@ -876,6 +1034,18 @@ export function getLesson(slug: string) {
 
 export function getLessonsForModule(moduleSlug: string) {
   return lessons.filter((lesson) => lesson.moduleSlug === moduleSlug);
+}
+
+export function getPracticalWorkflowsForLesson(lessonSlug: string) {
+  return practicalTrainingWorkflows.filter((workflow) => workflow.lessonSlug === lessonSlug);
+}
+
+export function getPracticalWorkflowsForModule(moduleSlug: string) {
+  return practicalTrainingWorkflows.filter((workflow) => workflow.moduleSlug === moduleSlug);
+}
+
+export function getPracticalWorkflow(slug: string) {
+  return practicalTrainingWorkflows.find((workflow) => workflow.slug === slug);
 }
 
 export function getQuizForLesson(lessonSlug: string) {

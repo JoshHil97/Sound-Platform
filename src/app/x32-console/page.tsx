@@ -1,7 +1,10 @@
 import { PageHeader, Meter, StatusPill, SurfaceCard } from "@/components/ui";
-import { x32Panels } from "@/lib/data";
+import { PracticalWorkflowMiniCard } from "@/components/practical-training";
+import { practicalTrainingWorkflows, x32Panels } from "@/lib/data";
 
 export default function X32ConsolePage() {
+  const workflows = practicalTrainingWorkflows.filter((workflow) => workflow.domain === "X32" || workflow.domain === "P16");
+
   return (
     <>
       <PageHeader eyebrow="Virtual Console Training" title="X32 Console training mode" description="Practice repeatable operator jobs: patch, name, gain, shape, route, monitor, scene-safe operation and livestream handoff." />
@@ -31,6 +34,15 @@ export default function X32ConsolePage() {
       </section>
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {x32Panels.map((panel) => <TrainingCard key={panel.title} panel={panel} />)}
+      </section>
+      <section className="mt-6">
+        <div className="mb-4">
+          <p className="text-sm font-black uppercase tracking-[0.16em] text-violet-300">Practical Drills</p>
+          <h2 className="mt-1 text-2xl font-black">Console tasks to practice</h2>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          {workflows.map((workflow) => <PracticalWorkflowMiniCard key={workflow.slug} workflow={workflow} />)}
+        </div>
       </section>
     </>
   );

@@ -233,6 +233,32 @@ export type PracticalExercise = {
   safetyConstraints: string;
 };
 
+export type PracticalWorkflowStep = {
+  title: string;
+  action: string;
+  observe: string;
+  why: string;
+  ifWrong: string;
+};
+
+export type PracticalTrainingWorkflow = {
+  slug: string;
+  lessonSlug?: string;
+  moduleSlug: string;
+  domain: "X32" | "Logic" | "Dante" | "Waves" | "Wireless" | "P16" | "Troubleshooting";
+  title: string;
+  scenario: string;
+  operatorTarget: string;
+  estimatedMinutes: number;
+  safetyRule: string;
+  steps: PracticalWorkflowStep[];
+  boardChecks: string[];
+  listeningTargets: string[];
+  evidenceRequired: string[];
+  mentorSignoff: string;
+  relatedRoutes: Array<{ label: string; href: string }>;
+};
+
 export type LearningOutcome = {
   text: string;
   outcomeType: "Academy" | "Module" | "Lesson";
