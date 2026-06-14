@@ -1,4 +1,4 @@
-import type { Academy, ActivityItem, AdminContentArea, AdminWorkQueueItem, AudioExample, Certification, CertificationDefinition, CertificationEvidence, CertificationPassport, Competency, CurriculumAssessment, DanteDeviceTwin, DanteSubscription, DigitalSignalPath, Equipment, EvidenceRecord, GovernanceStatus, LearningOutcome, Lesson, LessonGuide, LogicChannelStrip, MentorSignOffTask, Module, OfflineResource, P16Source, PracticalExercise, PracticalTrainingWorkflow, ProgressionRule, Quiz, RichLessonContent, RoadmapNode, ServiceChecklistItem, ServiceEscalationContact, ServiceExperienceRecord, ServiceQuickFault, ServiceScheduleItem, Skill, SkillTree, SOP, StageZone, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource, WirelessAssignment, X32Bus, X32InputChannel } from "@/lib/types";
+import type { Academy, ActivityItem, AdminContentArea, AdminWorkQueueItem, AudioExample, Certification, CertificationDefinition, CertificationEvidence, CertificationPassport, Competency, CurriculumAssessment, DanteDeviceTwin, DanteSubscription, DigitalSignalPath, Equipment, EvidenceRecord, GovernanceStatus, LearningOutcome, Lesson, LessonGuide, LogicChannelStrip, LogicTemplateSnapshot, MentorSignOffTask, Module, OfflineResource, P16Source, PracticalExercise, PracticalTrainingWorkflow, ProgressionRule, Quiz, RichLessonContent, RoadmapNode, ServiceChecklistItem, ServiceEscalationContact, ServiceExperienceRecord, ServiceQuickFault, ServiceScheduleItem, Skill, SkillTree, SOP, StageZone, SystemHealth, TrainingPanel, TrainingVideo, TroubleshootingFlow, User, VisualSource, WirelessAssignment, X32Bus, X32InputChannel, X32SceneSnapshot } from "@/lib/types";
 
 export const modules: Module[] = [
   ["ministry-safety-signal-flow", "Ministry, Safety and Signal Flow", "Foundations", "Service mindset, safe operation and end-to-end signal flow.", "2-3 hrs"],
@@ -1248,6 +1248,17 @@ export const visualSources: VisualSource[] = [
     notes: "Capture from the actual livestream Mac after sensitive names are reviewed."
   },
   {
+    slug: "nls-broadcast-template-mixer-capture",
+    title: "NLS Broadcast Template Mixer Capture",
+    category: "Software Screenshot",
+    trainingUse: "Use as the first church-owned Logic Pro livestream template reference: visible mixer channels, Waves processing, sends, outputs and stream bus habits.",
+    sourceName: "Church-owned Logic Pro capture: WindowImage.jpg",
+    sourceUrl: "/source-captures/nls-broadcast-template-mixer.jpg",
+    rights: "Church-owned required",
+    linkedTopics: ["logic-session-template", "waves-vocal-speech-chains", "logic-latency-loudness", "livestream-has-no-sound"],
+    notes: "Imported from /Users/joshuahilarion/Downloads/NLS Broadcast Template/Alternatives/000/WindowImage.jpg. Review cropped track/plugin labels before using this as an assessment answer key."
+  },
+  {
     slug: "obs-audio-capture-screenshot",
     title: "OBS Audio Capture Screenshot",
     category: "Software Screenshot",
@@ -1456,6 +1467,99 @@ export const logicChannelStrips: LogicChannelStrip[] = [
   { name: "Audience Mics", input: "DVS 13/14", bus: "Audience Bus", plugins: ["HPF", "Gentle compression"], output: "Stream Master", target: "Room energy between songs and response moments", normalMeter: "Low during speech, raised for response" },
   { name: "Stream Master", input: "Buses", bus: "Master", plugins: ["Loudness Meter", "Limiter"], output: "OBS Capture", target: "Consistent stream loudness without pumping", normalMeter: "True peak safe, limiter not constant" }
 ];
+
+export const logicTemplateSnapshot: LogicTemplateSnapshot = {
+  name: "NLS Broadcast Template",
+  sourceFiles: [
+    "/Users/joshuahilarion/Downloads/NLS Broadcast Template/Alternatives/000/MetaData.plist",
+    "/Users/joshuahilarion/Downloads/NLS Broadcast Template/Alternatives/000/DisplayState.plist",
+    "/Users/joshuahilarion/Downloads/NLS Broadcast Template/Alternatives/000/ProjectData",
+    "/Users/joshuahilarion/Downloads/NLS Broadcast Template/Alternatives/000/WindowImage.jpg"
+  ],
+  screenshotSrc: "/source-captures/nls-broadcast-template-mixer.jpg",
+  sampleRate: "48 kHz",
+  tempo: "120 BPM",
+  key: "C major",
+  timeSignature: "4/4",
+  trackCount: 43,
+  impulseResponses: ["3.9s Prince Hall One", "1.6s Short Vocal Hall", "0.7s Drum Plate", "0.4s Snare Chamber"],
+  observedPlugins: ["FabFilter Pro-Q 4", "FabFilter Pro-C 2", "Waves Tune", "Waves PSE", "Waves CLA MixHub", "Waves C1 comp-gate", "Waves SSL EQ", "Waves SSLComp", "Waves L1 Limiter", "Compressor", "Gate", "Channel EQ"],
+  observedChannelStrips: [
+    { name: "Rock Kick", input: "In 9", sends: ["Bus 7", "Bus 8"], output: "Bus 5", plugins: ["C1 comp-gate", "Channel EQ", "SSLComp", "Compressor"], confidence: "Observed from screenshot" },
+    { name: "Clean Snare", input: "In 10", sends: ["Bus 7", "Bus 8"], output: "Bus 9", plugins: ["C1 gate", "SSL EQ", "SSLComp", "Channel EQ"], confidence: "Observed from screenshot" },
+    { name: "Bottom Snare", input: "In 11", sends: ["Bus 7", "Bus 8"], output: "Bus 9", plugins: ["Gate", "Compressor", "Channel EQ"], confidence: "Observed from screenshot" },
+    { name: "Lead Vocal", input: "Bus 13", sends: ["Bus 17", "Bus 16"], output: "St Out", plugins: ["Pro-Q 4", "Butch Vig style vocal processing", "L1 Limiter"], confidence: "Observed from screenshot" },
+    { name: "Vocal / stream support strips", input: "Bus 14-15 range", sends: ["Bus 10"], output: "St Out / Bus outputs", plugins: ["Waves Tune", "PSE", "CLA MixHub", "Clarity Vx", "Channel EQ"], confidence: "Observed from screenshot" }
+  ],
+  trainingNotes: [
+    "The template is confirmed at 48 kHz, which matches the Dante training policy.",
+    "The mixer view shows purpose-based processing groups: drum control, vocal cleanup, Waves tuning/noise control and output limiting.",
+    "Lesson checks should teach operators to verify input, sends, output and plugin bypass before adjusting tone.",
+    "The screenshot should become the visual anchor for Logic livestream orientation and Waves chain walkthroughs."
+  ],
+  reviewNotes: [
+    "Logic ProjectData is binary/proprietary, so only metadata, strings and visible screenshot labels are imported.",
+    "Some plugin and channel names are cropped in the screenshot and should be confirmed on the livestream Mac before final assessment content is written.",
+    "Sensitive stream keys, account details and private project paths are not exposed in the public UI."
+  ]
+};
+
+export const x32SceneSnapshot: X32SceneSnapshot = {
+  sceneName: "2ND-NLS 2026",
+  sourceFile: "/Volumes/NO NAME/ 2ND-NLS 2026.scn",
+  routing: [
+    "Inputs: A1-8, A9-16, AN17-24, B1-8, AUX1-4",
+    "Card: A1-8, A9-16, AN17-24, B1-8",
+    "AES50 A/B: OUT1-8, OUT9-16, OUT1-8, OUT9-16, P16 1-8, P16 9-16",
+    "Outputs: OUT1-4, OUT5-8, OUT9-12, OUT13-16",
+    "Playback: A1-8, A9-16, AN17-24, AN25-32, AUX1-4"
+  ],
+  channels: [
+    { number: 1, name: "TRACK L", sourceGroup: "Playback", preampGain: "+5.3 dB", mainLevel: "-3.3 dB", pan: "L98", keySends: ["Bus 5/6 LiveStream -11.0 dB", "Bus 1/2 Stage Mon -12.5 dB"], dcaOrGroup: "Group mask %00010000", confidence: "Confirmed from file" },
+    { number: 2, name: "TRACK R", sourceGroup: "Playback", preampGain: "+5.3 dB", mainLevel: "-3.3 dB", pan: "R100", keySends: ["Bus 5/6 LiveStream -11.0 dB", "Bus 1/2 Stage Mon -12.5 dB"], dcaOrGroup: "Group mask %00010000", confidence: "Confirmed from file" },
+    { number: 3, name: "MOTIF L", sourceGroup: "Keys", preampGain: "+0.0 dB", mainLevel: "-5.0 dB", pan: "L100", keySends: ["Bus 5/6 LiveStream -12.5 dB", "Bus 1/2 Stage Mon -11.0 dB"], dcaOrGroup: "Group mask %00011000", confidence: "Confirmed from file" },
+    { number: 4, name: "MOTIF R", sourceGroup: "Keys", preampGain: "+0.0 dB", mainLevel: "-5.0 dB", pan: "R100", keySends: ["Bus 5/6 LiveStream -12.5 dB", "Bus 1/2 Stage Mon -11.0 dB"], dcaOrGroup: "Group mask %00011000", confidence: "Confirmed from file" },
+    { number: 7, name: "GTR", sourceGroup: "Guitar", preampGain: "-3.8 dB", mainLevel: "-5.8 dB", pan: "Center", keySends: ["Bus 5/6 LiveStream -28.0 dB", "Bus 1/2 Stage Mon -30.0 dB"], dcaOrGroup: "Group mask %10010000", confidence: "Confirmed from file" },
+    { number: 8, name: "BASS", sourceGroup: "Bass", preampGain: "+0.0 dB", mainLevel: "-4.9 dB", pan: "Center", keySends: ["Bus 5/6 LiveStream -8.8 dB", "Bus 1/2 Stage Mon -18.0 dB"], dcaOrGroup: "Group mask %00110000", confidence: "Confirmed from file" },
+    { number: 9, name: "Kick", sourceGroup: "Drums", preampGain: "+0.0 dB", mainLevel: "-4.6 dB", pan: "Center", keySends: ["Bus 5/6 LiveStream -7.5 dB", "Bus 11/12 Drum Mix P16 -5.5 dB", "Bus 13 Drum Verb -5.8 dB"], dcaOrGroup: "Drums group", confidence: "Confirmed from file" },
+    { number: 10, name: "Snr TOP", sourceGroup: "Drums", preampGain: "+0.0 dB", mainLevel: "-1.4 dB", pan: "Center", keySends: ["Bus 10 Snare P16 -1.0 dB", "Bus 13 Drum Verb -2.5 dB"], dcaOrGroup: "Drums group", confidence: "Confirmed from file" },
+    { number: 17, name: "BV-07", sourceGroup: "Backing vocals", preampGain: "+0.0 dB", mainLevel: "-7.4 dB", pan: "Center", keySends: ["Bus 5/6 LiveStream -2.8 dB", "Bus 9 BVS P16 -4.5 dB", "Bus 15 Vocal Reverb -6.3 dB"], dcaOrGroup: "DCA 1 BVS", confidence: "Confirmed from file" },
+    { number: 24, name: "LV S2", sourceGroup: "Lead vocals", preampGain: "+0.0 dB", mainLevel: "-4.6 dB", pan: "Center", keySends: ["Bus 5/6 LiveStream -3.5 dB", "Bus 9 BVS P16 -2.0 dB", "Bus 15 Vocal Reverb -6.3 dB"], dcaOrGroup: "Vocal group", confidence: "Confirmed from file" },
+    { number: 25, name: "LV S1", sourceGroup: "Lead vocals", preampGain: "+0.0 dB", mainLevel: "-3.6 dB", pan: "Center", keySends: ["Bus 4 LVS P16 +0.8 dB", "Bus 5/6 LiveStream -0.8 dB", "Bus 15/16 Vocal FX -5.8/-0.3 dB"], dcaOrGroup: "DCA 2 LVS", confidence: "Confirmed from file" },
+    { number: 26, name: "BishopHH", sourceGroup: "Speech", preampGain: "+0.0 dB", mainLevel: "-7.4 dB", pan: "Center", keySends: ["Bus 5/6 LiveStream +2.5 dB", "Bus 7 Bishop P16 +2.0 dB", "Bus 1/2 Stage Mon -4.0 dB"], dcaOrGroup: "DCA 3 Bishop Mics", confidence: "Confirmed from file" },
+    { number: 30, name: "DESK MIC", sourceGroup: "Talkback / desk", preampGain: "+3.5 dB", mainLevel: "Muted / -89.5 dB", pan: "Center", keySends: ["Bus 8 Talkback P16 +1.3 dB"], dcaOrGroup: "Utility", confidence: "Confirmed from file" },
+    { number: 32, name: "TALKBACK", sourceGroup: "Talkback", preampGain: "+10.0 dB", mainLevel: "Muted / -89.5 dB", pan: "Center", keySends: ["Bus 8 Talkback P16 +1.3 dB"], dcaOrGroup: "Utility", confidence: "Confirmed from file" }
+  ],
+  buses: [
+    { number: 1, name: "STAGE MON L", purpose: "Stage monitor", mixLevel: "-9.6 dB", pan: "L100", confidence: "Confirmed from file" },
+    { number: 2, name: "STAGE MON R", purpose: "Stage monitor", mixLevel: "-9.6 dB", pan: "R100", confidence: "Confirmed from file" },
+    { number: 4, name: "LVS P16", purpose: "Lead vocal P16 feed", mixLevel: "-inf", pan: "Center", confidence: "Confirmed from file" },
+    { number: 5, name: "LiveStream", purpose: "Livestream left bus", mixLevel: "-inf", pan: "L100", confidence: "Confirmed from file" },
+    { number: 6, name: "LiveStream", purpose: "Livestream right bus", mixLevel: "-inf", pan: "R100", confidence: "Confirmed from file" },
+    { number: 7, name: "BISHOP P16", purpose: "Speech personal monitor feed", mixLevel: "-inf", pan: "Center", confidence: "Confirmed from file" },
+    { number: 8, name: "TALKBACK P16", purpose: "Talkback to personal monitoring", mixLevel: "-inf", pan: "Center", confidence: "Confirmed from file" },
+    { number: 9, name: "BVS P16", purpose: "Backing vocal personal monitor feed", mixLevel: "-inf", pan: "L100", confidence: "Confirmed from file" },
+    { number: 10, name: "SNARE P16", purpose: "Snare personal monitor feed", mixLevel: "-inf", pan: "Slight left", confidence: "Confirmed from file" },
+    { number: 11, name: "DRUM MIX P16", purpose: "Drum P16 left", mixLevel: "-inf", pan: "L100", confidence: "Confirmed from file" },
+    { number: 12, name: "DRUM MIX P16", purpose: "Drum P16 right", mixLevel: "-inf", pan: "R100", confidence: "Confirmed from file" },
+    { number: 13, name: "DRUM VERB", purpose: "Drum effects", mixLevel: "-inf", pan: "Center", confidence: "Confirmed from file" },
+    { number: 15, name: "VOCAL REVERB", purpose: "Vocal effects", mixLevel: "-21.9 dB", pan: "Center", confidence: "Confirmed from file" },
+    { number: 16, name: "VOCAL DELAY", purpose: "Vocal effects", mixLevel: "-23.4 dB", pan: "Center", confidence: "Confirmed from file" }
+  ],
+  matrices: ["Matrix 2 SIDE FILL", "Matrix 3 OVERFLOW", "Matrix 4 VICTORYLAND", "Matrix 5 LiveStream L", "Matrix 6 LiveStream R"],
+  dcas: ["DCA 1 BVS", "DCA 2 LVS", "DCA 3 BISHOP MICS", "DCA 4 KEYS", "DCA 5 BAND", "DCA 6 BASS", "DCA 7 DRUMS", "DCA 8 GUITAR"],
+  trainingNotes: [
+    "The scene confirms a dedicated LiveStream bus pair on buses 5 and 6 plus livestream matrices 5 and 6.",
+    "P16 routing is specialized by role: lead vocals, Bishop mics, talkback, backing vocals, snare and drum mix each have named buses.",
+    "DCA labels are training-critical because troubleshooting should check source group control before deep processing changes.",
+    "Talkback and desk mic are intentionally muted at the main mix while feeding talkback/P16 paths."
+  ],
+  reviewNotes: [
+    "This is a scene snapshot from an attached USB volume. Verify against the console before treating it as the live Sunday standard.",
+    "Group masks are preserved as source evidence but should be mapped to human-readable mute groups during a future console import pass.",
+    "Only selected channel send levels are summarized for readability; the original .scn remains the source of truth."
+  ]
+};
 
 export const p16Sources: P16Source[] = [
   { slot: 1, label: "Pastor/Host", x32Source: "CH 1-2 Speech group", usedBy: ["Worship leader", "Band"], notes: "Keep speech available for stage cues." },

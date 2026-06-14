@@ -4,17 +4,18 @@ import {
   danteDevices,
   danteSubscriptions,
   digitalSignalPaths,
+  logicTemplateSnapshot,
   logicChannelStrips,
   p16Sources,
   stageZones,
   wirelessAssignments,
   x32Buses,
-  x32InputChannels
+  x32InputChannels,
+  x32SceneSnapshot
 } from "@/lib/data";
 import { InfoTile, MetricCard, PageHeader, StatusPill, SurfaceCard, Tag } from "@/components/ui";
 
 export default function DigitalTwinPage() {
-  const criticalPaths = digitalSignalPaths.filter((path) => path.relatedTroubleshooting.length > 1).length;
   const healthyDante = danteDevices.filter((device) => device.status === "Healthy").length;
 
   return (
@@ -28,9 +29,9 @@ export default function DigitalTwinPage() {
 
       <section className="mb-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <MetricCard label="X32 inputs" value={x32InputChannels.length} detail="Named church sources with stage inputs, P16 slots and common faults." />
+        <MetricCard label="Imported scene" value={x32SceneSnapshot.channels.length} detail={`${x32SceneSnapshot.sceneName} channels summarized from .scn.`} />
         <MetricCard label="Dante devices" value={`${healthyDante}/${danteDevices.length}`} detail="Device health, clock role and sample-rate model." />
-        <MetricCard label="Signal paths" value={digitalSignalPaths.length} detail={`${criticalPaths} paths linked to live troubleshooting.`} />
-        <MetricCard label="P16 slots" value={p16Sources.length} detail="Personal monitoring source order and user notes." />
+        <MetricCard label="Logic template" value={logicTemplateSnapshot.trackCount} detail={`${logicTemplateSnapshot.sampleRate}, ${logicTemplateSnapshot.tempo}, ${logicTemplateSnapshot.key}.`} />
       </section>
 
       <section className="mb-6 glass-panel overflow-hidden rounded-3xl p-5">
@@ -62,6 +63,53 @@ export default function DigitalTwinPage() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section className="mb-6 grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
+        <SurfaceCard>
+          <div className="mb-4 flex items-center gap-2">
+            <MonitorCog className="text-violet-300" />
+            <h2 className="text-xl font-black">Source Import Status</h2>
+          </div>
+          <div className="grid gap-3">
+            <article className="rounded-2xl border border-emerald-300/20 bg-emerald-400/10 p-4">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <h3 className="font-black">{x32SceneSnapshot.sceneName}</h3>
+                  <p className="mt-1 text-sm text-emerald-100">Routing, DCAs, buses and selected channel sends extracted from the attached X32 scene file.</p>
+                </div>
+                <StatusPill tone="success">Scene parsed</StatusPill>
+              </div>
+            </article>
+            <article className="rounded-2xl border border-cyan-300/20 bg-cyan-400/10 p-4">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <h3 className="font-black">{logicTemplateSnapshot.name}</h3>
+                  <p className="mt-1 text-sm text-cyan-100">Metadata, screenshot and visible mixer labels imported for Logic/Waves livestream training.</p>
+                </div>
+                <StatusPill tone="success">Capture added</StatusPill>
+              </div>
+            </article>
+          </div>
+        </SurfaceCard>
+
+        <SurfaceCard>
+          <h2 className="text-xl font-black">Real service routing checkpoints</h2>
+          <div className="mt-4 grid gap-3 md:grid-cols-2">
+            {x32SceneSnapshot.buses.slice(0, 8).map((bus) => (
+              <article key={bus.number} className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="font-mono text-sm text-cyan-200">Bus {bus.number}</p>
+                    <h3 className="mt-1 font-black">{bus.name || "Unnamed"}</h3>
+                  </div>
+                  <Tag>{bus.purpose}</Tag>
+                </div>
+                <p className="mt-2 text-sm text-[var(--muted)]">Level {bus.mixLevel} · Pan {bus.pan}</p>
+              </article>
+            ))}
+          </div>
+        </SurfaceCard>
       </section>
 
       <section className="mb-6 grid gap-4 xl:grid-cols-[1fr_0.8fr]">

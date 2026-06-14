@@ -1,6 +1,7 @@
+import Image from "next/image";
 import { PageHeader, Meter, StatusPill, SurfaceCard } from "@/components/ui";
 import { PracticalWorkflowMiniCard } from "@/components/practical-training";
-import { logicPanels, practicalTrainingWorkflows } from "@/lib/data";
+import { logicPanels, logicTemplateSnapshot, practicalTrainingWorkflows } from "@/lib/data";
 
 export default function LogicStreamPage() {
   const workflows = practicalTrainingWorkflows.filter((workflow) => workflow.domain === "Logic" || workflow.domain === "Waves");
@@ -35,6 +36,52 @@ export default function LogicStreamPage() {
           <p className="mt-5 rounded-xl border border-white/10 bg-white/[0.04] p-3 text-sm text-[var(--muted)]">A/B prompt: compare clean speech, over-bright speech and over-limited worship before touching the master chain.</p>
         </SurfaceCard>
       </section>
+
+      <section className="mb-6 grid gap-4 xl:grid-cols-[1.15fr_0.85fr]">
+        <SurfaceCard className="overflow-hidden">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.16em] text-cyan-300">Church-Owned Source Capture</p>
+              <h2 className="mt-1 text-2xl font-black">{logicTemplateSnapshot.name}</h2>
+              <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
+                Imported from the attached Logic template metadata and mixer screenshot. This is the visual anchor for real livestream template walkthroughs.
+              </p>
+            </div>
+            <StatusPill tone="success">Source-backed</StatusPill>
+          </div>
+          <div className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-black/30">
+            <Image src={logicTemplateSnapshot.screenshotSrc} alt="Logic Pro NLS Broadcast Template mixer capture" width={1913} height={605} className="h-auto w-full" priority />
+          </div>
+          <div className="mt-4 grid gap-3 text-sm md:grid-cols-4">
+            <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3"><p className="text-[var(--muted)]">Sample rate</p><p className="mt-1 font-black">{logicTemplateSnapshot.sampleRate}</p></div>
+            <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3"><p className="text-[var(--muted)]">Tracks</p><p className="mt-1 font-black">{logicTemplateSnapshot.trackCount}</p></div>
+            <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3"><p className="text-[var(--muted)]">Tempo</p><p className="mt-1 font-black">{logicTemplateSnapshot.tempo}</p></div>
+            <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3"><p className="text-[var(--muted)]">Key</p><p className="mt-1 font-black">{logicTemplateSnapshot.key}</p></div>
+          </div>
+        </SurfaceCard>
+
+        <SurfaceCard>
+          <h2 className="text-xl font-bold">Observed template patterns</h2>
+          <div className="mt-4 grid gap-3">
+            {logicTemplateSnapshot.observedChannelStrips.map((strip) => (
+              <article key={strip.name} className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <h3 className="font-black">{strip.name}</h3>
+                    <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-[var(--muted)]">{strip.input} to {strip.output}</p>
+                  </div>
+                  <StatusPill>{strip.confidence}</StatusPill>
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {strip.plugins.map((plugin) => <span key={plugin} className="rounded-lg bg-violet-500/15 px-2 py-1 text-xs font-bold text-violet-100">{plugin}</span>)}
+                </div>
+                <p className="mt-3 text-sm text-[var(--muted)]">Sends: {strip.sends.join(", ")}</p>
+              </article>
+            ))}
+          </div>
+        </SurfaceCard>
+      </section>
+
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {logicPanels.map((panel) => (
           <SurfaceCard key={panel.title}>
@@ -52,6 +99,16 @@ export default function LogicStreamPage() {
         <div className="grid gap-4 md:grid-cols-2">
           {workflows.map((workflow) => <PracticalWorkflowMiniCard key={workflow.slug} workflow={workflow} />)}
         </div>
+      </section>
+      <section className="mt-6 grid gap-4 md:grid-cols-2">
+        <SurfaceCard>
+          <h2 className="text-xl font-bold">Template teaching notes</h2>
+          <ul className="mt-4 grid gap-2 text-sm leading-6 text-slate-300">{logicTemplateSnapshot.trainingNotes.map((note) => <li key={note}>- {note}</li>)}</ul>
+        </SurfaceCard>
+        <SurfaceCard>
+          <h2 className="text-xl font-bold">Review before certification</h2>
+          <ul className="mt-4 grid gap-2 text-sm leading-6 text-[var(--muted)]">{logicTemplateSnapshot.reviewNotes.map((note) => <li key={note}>- {note}</li>)}</ul>
+        </SurfaceCard>
       </section>
     </>
   );

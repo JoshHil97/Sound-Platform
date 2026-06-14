@@ -7,6 +7,8 @@ Implemented outputs:
 - Added a rich lesson content model for curated lesson depth
 - Populated core lessons across Foundations, X32, P16, FOH/EQ, Dante, Logic, Waves, feedback and SOP writing
 - Upgraded lesson pages to render ministry purpose, operator context, key concepts, walkthrough steps, good/bad examples, practice lab prompts, mentor rubrics and source backlog
+- Imported first church-owned source artifacts into the platform data model: the NLS Broadcast Template Logic capture and the `2ND-NLS 2026` X32 scene snapshot
+- Added source-backed views to Logic Stream, X32 Console, Digital Twin and Visual Source Registry
 - Preserved the Phase 0 rule: do not mass-generate hundreds of disconnected lessons without curriculum architecture and governance
 
 Populated starter lessons:
@@ -27,6 +29,12 @@ Current implementation status:
 - Rich lesson content is typed mock data
 - Lesson page renders rich sections when available and falls back to the previous lesson template otherwise
 - Visual/audio/source backlog is visible per lesson so future asset capture remains explicit
+- Source imports are labeled by confidence: confirmed from file, observed from screenshot or inferred from source
+- Logic ProjectData is treated carefully as binary/proprietary; only metadata, strings and visible screenshot labels are used until direct template review
+
+Reference:
+
+- See `CHURCH_SOURCE_IMPORT_NOTES.md` for exact imported files, source facts and review caveats
 
 Next recommended work:
 

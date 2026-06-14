@@ -487,6 +487,64 @@ export type LogicChannelStrip = {
   normalMeter: string;
 };
 
+export type SourceConfidence = "Confirmed from file" | "Observed from screenshot" | "Inferred from source";
+
+export type LogicTemplateSnapshot = {
+  name: string;
+  sourceFiles: string[];
+  screenshotSrc: string;
+  sampleRate: string;
+  tempo: string;
+  key: string;
+  timeSignature: string;
+  trackCount: number;
+  impulseResponses: string[];
+  observedPlugins: string[];
+  observedChannelStrips: Array<{
+    name: string;
+    input: string;
+    sends: string[];
+    output: string;
+    plugins: string[];
+    confidence: SourceConfidence;
+  }>;
+  trainingNotes: string[];
+  reviewNotes: string[];
+};
+
+export type X32SceneChannelSnapshot = {
+  number: number;
+  name: string;
+  sourceGroup: string;
+  preampGain: string;
+  mainLevel: string;
+  pan: string;
+  keySends: string[];
+  dcaOrGroup: string;
+  confidence: SourceConfidence;
+};
+
+export type X32SceneBusSnapshot = {
+  number: number;
+  name: string;
+  purpose: string;
+  mixLevel: string;
+  pan: string;
+  confidence: SourceConfidence;
+};
+
+export type X32SceneSnapshot = {
+  sceneName: string;
+  sourceFile: string;
+  routing: string[];
+  channels: X32SceneChannelSnapshot[];
+  buses: X32SceneBusSnapshot[];
+  matrices: string[];
+  dcas: string[];
+  trainingNotes: string[];
+  reviewNotes: string[];
+};
+
 export type P16Source = {
   slot: number;
   label: string;
