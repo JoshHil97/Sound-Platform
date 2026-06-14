@@ -42,6 +42,8 @@ Phase 0 is mandatory before broad lesson generation or deeper feature expansion.
 
 Phase 1 repository audit lives in [docs/phase-1/README.md](docs/phase-1/README.md). It records the current route/component/schema state, risks, and the backlog for Phase 2 design system and Phase 3 platform architecture.
 
+Phase 2 design system lives in [docs/phase-2/README.md](docs/phase-2/README.md). It defines the Sound Academy dark control-room tokens, reusable UI primitives and page migration rules.
+
 ## Local Setup
 
 ```bash

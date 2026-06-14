@@ -47,6 +47,8 @@ Outputs:
 - Interaction state library
 - Legal-safe X32/Logic/Dante mock guidelines
 
+Status: initial design system completed in [phase-2/DESIGN_SYSTEM_BLUEPRINT.md](phase-2/DESIGN_SYSTEM_BLUEPRINT.md).
+
 ## PHASE 3: Platform Architecture
 
 Goal: align app architecture with curriculum graph, service operations, assets, evidence and production deployment.

@@ -8,7 +8,7 @@ export default function TroubleshootingPage() {
       <PageHeader eyebrow="Decision Trees" title="Troubleshooting Centre" description="Interactive symptom-based workflows for live services: test one thing, confirm evidence, recover calmly, and log what happened." />
       <div className="grid gap-4 md:grid-cols-2">
         {troubleshootingFlows.map((flow) => (
-          <Link key={flow.slug} href={`/troubleshooting/${flow.slug}`} className="focus-ring rounded-md border border-[var(--line)] bg-white p-5 shadow-sm hover:border-amber-300 hover:bg-amber-50">
+          <Link key={flow.slug} href={`/troubleshooting/${flow.slug}`} className="focus-ring glass-panel rounded-2xl p-5 transition hover:border-amber-300/40 hover:bg-amber-400/10">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <h2 className="text-xl font-bold">{flow.title}</h2>
               <Tag>{flow.priority}</Tag>

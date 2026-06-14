@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
-import { PageHeader, StatCard, Tag } from "@/components/ui";
+import { MetricCard, PageHeader, SectionHeader, SurfaceCard, Tag } from "@/components/ui";
 import { visualSources } from "@/lib/data";
 
 const categories = Array.from(new Set(visualSources.map((source) => source.category)));
@@ -19,20 +19,20 @@ export default function VisualsPage() {
       />
 
       <section className="mb-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <StatCard label="Visual sources" value={String(visualSources.length)} detail="Seeded references and production placeholders." />
-        <StatCard label="Official references" value={String(rightsCounts["Official vendor reference"] ?? 0)} detail="Vendor and support pages for accurate UI/equipment examples." />
-        <StatCard label="Church captures needed" value={String(rightsCounts["Church-owned required"] ?? 0)} detail="Exact room, rack, mic and software screenshots to capture." />
-        <StatCard label="Original diagrams" value={String(rightsCounts["Create original diagram"] ?? 0)} detail="Signal flow and chain diagrams to draw from church workflows." />
+        <MetricCard label="Visual sources" value={visualSources.length} detail="Seeded references and production placeholders." />
+        <MetricCard label="Official references" value={rightsCounts["Official vendor reference"] ?? 0} detail="Vendor and support pages for accurate UI/equipment examples." />
+        <MetricCard label="Church captures needed" value={rightsCounts["Church-owned required"] ?? 0} detail="Exact room, rack, mic and software screenshots to capture." />
+        <MetricCard label="Original diagrams" value={rightsCounts["Create original diagram"] ?? 0} detail="Signal flow and chain diagrams to draw from church workflows." />
       </section>
 
-      <section className="mb-6 rounded-md border border-[var(--line)] bg-white p-5 shadow-sm">
-        <h2 className="text-xl font-bold">Sourcing standard</h2>
+      <SurfaceCard className="mb-6">
+        <SectionHeader title="Sourcing standard" description="Every visual used in training should be accurate, legally safe, and connected to the real church workflow it teaches." />
         <div className="mt-4 grid gap-3 text-sm leading-6 text-[var(--muted)] md:grid-cols-3">
           <p>Official vendor references are used for accurate product, plugin and software UI orientation.</p>
           <p>Church-owned captures are required anywhere the visual must match your actual X32 scene, Logic template, OBS setup, patching, room or equipment placement.</p>
           <p>Original diagrams should explain your approved signal paths and decision points without copying vendor artwork.</p>
         </div>
-      </section>
+      </SurfaceCard>
 
       <div className="grid gap-6">
         {categories.map((category) => (
@@ -43,7 +43,7 @@ export default function VisualsPage() {
             </div>
             <div className="grid gap-4 lg:grid-cols-2">
               {visualSources.filter((source) => source.category === category).map((source) => (
-                <article key={source.slug} className="rounded-md border border-[var(--line)] bg-white p-5 shadow-sm">
+                <SurfaceCard key={source.slug}>
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <h3 className="text-lg font-bold">{source.title}</h3>
@@ -54,15 +54,15 @@ export default function VisualsPage() {
                   <p className="mt-4 text-sm leading-6 text-[var(--muted)]">{source.trainingUse}</p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {source.linkedTopics.map((topic) => (
-                      <span key={topic} className="rounded-md bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">{topic}</span>
+                      <span key={topic} className="rounded-lg border border-cyan-300/15 bg-cyan-300/10 px-2.5 py-1 text-xs font-semibold text-cyan-100">{topic}</span>
                     ))}
                   </div>
-                  <p className="mt-4 rounded-md bg-slate-50 p-3 text-sm leading-6 text-[var(--muted)]">{source.notes}</p>
-                  <Link href={source.sourceUrl} className="focus-ring mt-4 inline-flex items-center gap-2 rounded-md border border-[var(--line)] px-3 py-2 text-sm font-semibold hover:bg-teal-50">
+                  <p className="mt-4 rounded-2xl border border-white/10 bg-black/20 p-4 text-sm leading-6 text-[var(--muted)]">{source.notes}</p>
+                  <Link href={source.sourceUrl} className="focus-ring mt-4 inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2 text-sm font-semibold text-slate-100 hover:border-cyan-300/30 hover:bg-cyan-300/10">
                     Open source
                     <ExternalLink size={16} aria-hidden="true" />
                   </Link>
-                </article>
+                </SurfaceCard>
               ))}
             </div>
           </section>
