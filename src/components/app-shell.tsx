@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Bell, BookOpen, ClipboardCheck, Gauge, GraduationCap, Headphones, ListChecks, MonitorCog, Network, RadioTower, Search, Settings, ShieldCheck, SlidersHorizontal, UserCircle, Wrench, Zap } from "lucide-react";
 
 const navItems = [
@@ -21,10 +24,13 @@ const navItems = [
 const mobileItems = navItems.slice(0, 5);
 
 export function AppShell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const immersiveLesson = pathname.startsWith("/lessons/");
+
   return (
     <div className="min-h-screen text-[var(--ink)]">
       <div className="pointer-events-none fixed inset-0 border border-white/5" />
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-72 border-r border-white/10 bg-black/35 px-4 py-5 backdrop-blur-2xl xl:block">
+      <aside className={`fixed inset-y-0 left-0 z-30 hidden w-72 border-r border-white/10 bg-black/35 px-4 py-5 backdrop-blur-2xl xl:block ${immersiveLesson ? "xl:hidden" : ""}`}>
         <Link href="/" className="focus-ring flex items-center gap-3 rounded-2xl">
           <span className="grid h-11 w-11 place-items-center rounded-2xl purple-gradient shadow-[0_0_28px_rgba(124,58,237,0.38)]">
             <Zap size={22} aria-hidden="true" />
@@ -56,7 +62,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
 
-      <header className="sticky top-0 z-20 border-b border-white/10 bg-[#050711]/75 backdrop-blur-2xl xl:ml-72">
+      <header className={`sticky top-0 z-20 border-b border-white/10 bg-[#050711]/75 backdrop-blur-2xl xl:ml-72 ${immersiveLesson ? "hidden" : ""}`}>
         <div className="flex items-center gap-3 px-4 py-3 md:px-6">
           <Link href="/" className="focus-ring flex items-center gap-2 rounded-xl xl:hidden">
             <span className="grid h-10 w-10 place-items-center rounded-xl purple-gradient">
@@ -85,11 +91,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      <main className="px-4 pb-28 pt-5 md:px-6 xl:ml-72 xl:pb-8">
-        <div className="mx-auto max-w-[1500px]">{children}</div>
+      <main className={immersiveLesson ? "px-0 pb-0 pt-0" : "px-4 pb-28 pt-5 md:px-6 xl:ml-72 xl:pb-8"}>
+        <div className={immersiveLesson ? "mx-auto max-w-none" : "mx-auto max-w-[1500px]"}>{children}</div>
       </main>
 
-      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#050711]/90 px-2 py-2 backdrop-blur-2xl xl:hidden">
+      <nav className={`fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#050711]/90 px-2 py-2 backdrop-blur-2xl xl:hidden ${immersiveLesson ? "hidden" : ""}`}>
         <div className="grid grid-cols-5 gap-1">
           {mobileItems.map((item) => {
             const Icon = item.icon;

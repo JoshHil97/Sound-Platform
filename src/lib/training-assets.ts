@@ -11,7 +11,7 @@ export const vbciLogicTrainingAssets: TrainingVisualAsset[] = [
     purpose: "Course hero showing the church room, livestream laptop and core workflow icons.",
     sourceName: "VBCI Logic Training Assets",
     confidence: "Confirmed from file",
-    linkedLessons: ["logic-session-template", "dante-into-logic"]
+    linkedLessons: ["logic-session-template", "dante-into-logic", "foh-vs-stream"]
   },
   {
     slug: "logic-mixer-full",
@@ -23,7 +23,7 @@ export const vbciLogicTrainingAssets: TrainingVisualAsset[] = [
     purpose: "Full mixer reference for channel strips, sends, outputs, meters and livestream grouping.",
     sourceName: "VBCI Logic Training Assets",
     confidence: "Confirmed from file",
-    linkedLessons: ["logic-session-template", "logic-vocal-clarity"]
+    linkedLessons: ["logic-session-template", "logic-vocal-clarity", "foh-vs-stream"]
   },
   {
     slug: "logic-channel-strip",
@@ -59,7 +59,7 @@ export const vbciLogicTrainingAssets: TrainingVisualAsset[] = [
     purpose: "Show X32 to Dante Virtual Soundcard, Logic processing, livestream bus, record bus and platform output.",
     sourceName: "VBCI Logic Training Assets",
     confidence: "Confirmed from file",
-    linkedLessons: ["dante-into-logic", "livestream-has-no-sound"]
+    linkedLessons: ["dante-into-logic", "livestream-has-no-sound", "foh-vs-stream"]
   },
   {
     slug: "logic-io-setup",
@@ -155,7 +155,7 @@ export const vbciLogicTrainingAssets: TrainingVisualAsset[] = [
     purpose: "Use as the visual base for A/B listening and level-meter training.",
     sourceName: "VBCI Logic Training Assets",
     confidence: "Confirmed from file",
-    linkedLessons: ["gain-structure-basics", "logic-latency-loudness"]
+    linkedLessons: ["gain-structure-basics", "logic-latency-loudness", "foh-vs-stream"]
   },
   {
     slug: "x32-livestream-diagram",

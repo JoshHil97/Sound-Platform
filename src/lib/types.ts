@@ -645,6 +645,10 @@ export type LessonExperience = {
   nodes: SignalFlowNode[];
   faultScenarios: SignalFaultScenario[];
   channelView: ChannelViewState;
+  heroAsset?: TrainingVisualAsset;
+  visualAssets?: TrainingVisualAsset[];
+  referenceAsset?: TrainingVisualAsset;
+  trainingCards?: Array<{ title: string; eyebrow: string; body: string; items: string[] }>;
   mission: {
     title: string;
     prompt: string;
