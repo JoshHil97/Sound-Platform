@@ -1,0 +1,26 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="X32 Console">
+  <defs>
+    <linearGradient id="g" x1="10" y1="54" x2="54" y2="12" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8B5CF6"/><stop offset=".55" stop-color="#3B82F6"/><stop offset="1" stop-color="#2DD4BF"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 .55 0 0 0 0 .36 0 0 0 0 1 0 0 0 .5 0"/>
+      <feBlend in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+    <path d="M12 16h40l5 34H7l5-34z"/>
+    <path d="M19 22h18v9H19z"/>
+    <path d="M42 22h7"/>
+    <path d="M42 28h7"/>
+    <path d="M17 39v9"/>
+    <path d="M27 36v12"/>
+    <path d="M37 40v8"/>
+    <path d="M47 34v14"/>
+    <path d="M14 39h6"/>
+    <path d="M24 36h6"/>
+    <path d="M34 40h6"/>
+    <path d="M44 34h6"/>
+  </g>
+</svg>

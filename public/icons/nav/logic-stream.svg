@@ -1,0 +1,24 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logic Stream">
+  <defs>
+    <linearGradient id="g" x1="12" y1="52" x2="54" y2="12" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8B5CF6"/><stop offset=".55" stop-color="#3B82F6"/><stop offset="1" stop-color="#2DD4BF"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 .55 0 0 0 0 .36 0 0 0 0 1 0 0 0 .5 0"/>
+      <feBlend in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+    <path d="M11 16h42v32H11z"/>
+    <path d="M20 16v32"/>
+    <path d="M27 25h18"/>
+    <path d="M27 39h23"/>
+    <path d="M27 32h10"/>
+    <path d="M45 24v17"/>
+    <path d="M15 24h2"/>
+    <path d="M15 32h2"/>
+    <path d="M15 40h2"/>
+    <path d="M28 24c2 5 4 5 6 0s4-5 6 0 4 5 6 0"/>
+  </g>
+</svg>

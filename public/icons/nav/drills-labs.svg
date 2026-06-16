@@ -1,0 +1,21 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Drills and Labs">
+  <defs>
+    <linearGradient id="g" x1="12" y1="52" x2="52" y2="12" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8B5CF6"/><stop offset=".55" stop-color="#3B82F6"/><stop offset="1" stop-color="#2DD4BF"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 .55 0 0 0 0 .36 0 0 0 0 1 0 0 0 .5 0"/>
+      <feBlend in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+    <path d="M15 36v-5c0-10 7-17 17-17s17 7 17 17v5"/>
+    <path d="M16 36h7v13h-7z"/>
+    <path d="M41 36h7v13h-7z"/>
+    <path d="M25 44h3"/>
+    <path d="M32 39v10"/>
+    <path d="M36 42v4"/>
+    <path d="M25 42c2-5 4-5 6 0s4 5 6 0"/>
+  </g>
+</svg>

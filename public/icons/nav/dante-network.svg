@@ -1,0 +1,25 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dante Network">
+  <defs>
+    <linearGradient id="g" x1="12" y1="52" x2="52" y2="12" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8B5CF6"/><stop offset=".55" stop-color="#3B82F6"/><stop offset="1" stop-color="#2DD4BF"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 .55 0 0 0 0 .36 0 0 0 0 1 0 0 0 .5 0"/>
+      <feBlend in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+    <circle cx="32" cy="32" r="8"/>
+    <circle cx="18" cy="18" r="5"/>
+    <circle cx="46" cy="18" r="5"/>
+    <circle cx="18" cy="46" r="5"/>
+    <circle cx="46" cy="46" r="5"/>
+    <path d="M24 24l4 4"/>
+    <path d="M40 24l-4 4"/>
+    <path d="M24 40l4-4"/>
+    <path d="M40 40l-4-4"/>
+    <path d="M14 32h10"/>
+    <path d="M40 32h10"/>
+  </g>
+</svg>
