@@ -143,6 +143,12 @@ function UserCard() {
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const immersiveLesson = pathname.startsWith("/lessons/");
+  const commandDashboard = pathname === "/";
+  const mainClass = immersiveLesson
+    ? "relative px-0 pb-0 pt-0"
+    : commandDashboard
+      ? "relative px-2.5 pb-7 pt-3.5 md:ml-20 md:px-3.5 xl:ml-72 xl:px-4"
+      : "relative px-4 pb-28 pt-5 md:ml-20 md:px-6 md:pb-8 xl:ml-72";
 
   return (
     <div className="min-h-screen text-[var(--ink)]">
@@ -174,7 +180,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <header
         className={`sticky top-0 z-20 border-b border-white/10 bg-[#040711]/78 shadow-[0_18px_60px_rgba(0,0,0,0.18)] backdrop-blur-2xl md:ml-20 xl:ml-72 ${
-          immersiveLesson ? "hidden" : ""
+          immersiveLesson || commandDashboard ? "hidden" : ""
         }`}
       >
         <div className="flex min-h-16 items-center gap-3 px-4 py-3 md:px-6">
@@ -207,14 +213,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      <main
-        className={
-          immersiveLesson
-            ? "relative px-0 pb-0 pt-0"
-            : "relative px-4 pb-28 pt-5 md:ml-20 md:px-6 md:pb-8 xl:ml-72"
-        }
-      >
-        <div className={immersiveLesson ? "mx-auto max-w-none" : "mx-auto max-w-[1540px]"}>{children}</div>
+      <main className={mainClass}>
+        <div className={immersiveLesson ? "mx-auto max-w-none" : commandDashboard ? "mx-auto max-w-[1580px]" : "mx-auto max-w-[1540px]"}>{children}</div>
       </main>
 
       <nav
