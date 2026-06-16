@@ -43,31 +43,27 @@ function isActivePath(pathname: string, href?: string) {
 
 function SoundAcademyMark({ compact = false }: { compact?: boolean }) {
   return (
-    <span
-      className={`grid shrink-0 place-items-center rounded-2xl border border-violet-300/20 bg-violet-500/15 text-violet-100 shadow-[0_0_34px_rgba(124,58,237,0.34)] ${
-        compact ? "h-11 w-11" : "h-12 w-12"
-      }`}
+    <Image
+      src="/icons/sound-platform-logo.svg"
+      alt=""
+      width={compact ? 44 : 48}
+      height={compact ? 44 : 48}
+      className={`sound-platform-logo shrink-0 ${compact ? "h-11 w-11" : "h-12 w-12"}`}
       aria-hidden="true"
-    >
-      <span className="flex h-6 items-center gap-1">
-        <span className="h-3 w-1 rounded-full bg-violet-300" />
-        <span className="h-6 w-1 rounded-full bg-violet-400" />
-        <span className="h-4 w-1 rounded-full bg-cyan-300" />
-        <span className="h-7 w-1 rounded-full bg-violet-500" />
-        <span className="h-3 w-1 rounded-full bg-cyan-400" />
-      </span>
-    </span>
+      priority
+      unoptimized
+    />
   );
 }
 
 function SidebarNavItem({ item, pathname }: { item: NavItem; pathname: string }) {
   const active = isActivePath(pathname, item.href);
   const baseClass =
-    "group relative flex h-12 items-center gap-3 rounded-2xl border px-3 text-sm font-semibold transition duration-200 focus-ring md:justify-center xl:justify-start";
+    "shell-nav-item group relative flex h-12 items-center gap-3 rounded-2xl border px-3 text-sm font-semibold focus-ring md:justify-center xl:justify-start";
   const activeClass =
-    "border-violet-300/35 bg-violet-600/30 text-white shadow-[0_0_28px_rgba(124,58,237,0.2)]";
+    "border-violet-300/40 bg-violet-600/30 text-white shadow-[var(--glow-primary-active),inset_0_1px_0_rgba(255,255,255,0.08)]";
   const inactiveClass =
-    "border-transparent text-slate-400 hover:border-white/10 hover:bg-white/[0.055] hover:text-white";
+    "border-transparent text-slate-400 hover:border-violet-300/18 hover:bg-white/[0.06] hover:text-white hover:shadow-[var(--glow-primary-hover)]";
   const disabledClass = "cursor-not-allowed border-transparent text-slate-600 opacity-75";
 
   if (item.disabled) {
@@ -151,14 +147,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen text-[var(--ink)]">
       <div className="pointer-events-none fixed inset-0 border border-white/5" />
-      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_12%_8%,rgba(124,58,237,0.13),transparent_24rem),radial-gradient(circle_at_88%_10%,rgba(34,211,238,0.09),transparent_22rem)]" />
+      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_43%_12%,rgba(139,92,246,0.095),transparent_28rem),radial-gradient(circle_at_88%_10%,rgba(45,212,191,0.075),transparent_22rem)]" />
 
       <aside
-        className={`shell-sidebar fixed inset-y-0 left-0 z-30 hidden w-20 flex-col border-r border-white/10 bg-[#03050d]/82 px-3 py-5 shadow-[18px_0_55px_rgba(0,0,0,0.34)] backdrop-blur-2xl md:flex xl:w-72 xl:px-5 ${
+        className={`shell-sidebar fixed inset-y-0 left-0 z-30 hidden w-20 flex-col border-r border-white/10 px-3 py-5 backdrop-blur-2xl md:flex xl:w-72 xl:px-5 ${
           immersiveLesson ? "md:hidden" : ""
         }`}
       >
-        <Link href="/" className="focus-ring flex items-center justify-center gap-3 rounded-2xl xl:justify-start" aria-label="Sound Academy home">
+        <Link href="/" className="group focus-ring flex items-center justify-center gap-3 rounded-2xl xl:justify-start" aria-label="Sound Academy home">
           <SoundAcademyMark compact />
           <span className="hidden xl:block">
             <span className="block text-lg font-black uppercase leading-none tracking-wide text-white">Sound</span>
@@ -177,12 +173,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </aside>
 
       <header
-        className={`sticky top-0 z-20 border-b border-white/10 bg-[#050711]/76 backdrop-blur-2xl md:ml-20 xl:ml-72 ${
+        className={`sticky top-0 z-20 border-b border-white/10 bg-[#040711]/78 shadow-[0_18px_60px_rgba(0,0,0,0.18)] backdrop-blur-2xl md:ml-20 xl:ml-72 ${
           immersiveLesson ? "hidden" : ""
         }`}
       >
         <div className="flex min-h-16 items-center gap-3 px-4 py-3 md:px-6">
-          <Link href="/" className="focus-ring flex items-center gap-3 rounded-2xl md:hidden" aria-label="Sound Academy home">
+          <Link href="/" className="group focus-ring flex items-center gap-3 rounded-2xl md:hidden" aria-label="Sound Academy home">
             <SoundAcademyMark compact />
             <span className="font-black uppercase tracking-wide">Sound Academy</span>
           </Link>
@@ -192,7 +188,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={17} aria-hidden="true" />
               <span className="sr-only">Search</span>
               <input
-                className="focus-ring h-11 w-full rounded-2xl border border-white/10 bg-white/[0.045] py-2 pl-10 pr-3 text-sm text-white placeholder:text-slate-500"
+                className="shell-search focus-ring h-11 w-full rounded-2xl border border-white/10 bg-white/[0.045] py-2 pl-10 pr-3 text-sm text-white placeholder:text-slate-500"
                 placeholder="Search lessons, consoles, faults, SOPs..."
               />
             </label>
@@ -204,7 +200,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <span className="text-slate-500">Level 2</span>
           </div>
 
-          <button className="focus-ring grid h-11 w-11 place-items-center rounded-2xl border border-white/10 bg-white/[0.045] text-slate-300 hover:border-violet-300/30 hover:text-white">
+          <button className="shell-nav-item focus-ring grid h-11 w-11 place-items-center rounded-2xl border border-white/10 bg-white/[0.045] text-slate-300 hover:border-violet-300/30 hover:text-white hover:shadow-[var(--glow-primary-hover)]">
             <CircleHelp size={18} aria-hidden="true" />
             <span className="sr-only">Help</span>
           </button>

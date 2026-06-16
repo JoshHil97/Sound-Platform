@@ -18,6 +18,10 @@ The production SVGs live in `public/icons/nav`:
 - `reports.svg`
 - `settings.svg`
 
+The platform brand mark lives at:
+
+- `public/icons/sound-platform-logo.svg`
+
 ## Design Rules
 
 - Canvas: `64 x 64`.
@@ -27,6 +31,8 @@ The production SVGs live in `public/icons/nav`:
 - Visual style: outline-first, simple silhouettes, no icon containers.
 - Sidebar render sizes: `24px`, `28px`, and `32px`.
 - Padding: icon artwork sits comfortably inside the canvas and avoids touching edges.
+
+The logo mark uses the same `64 x 64` canvas, but is filled rather than outline-only so the cross-and-waveform remains readable at small sidebar sizes.
 
 ## Color System
 
@@ -39,12 +45,16 @@ Each SVG uses the same purple-to-blue-to-teal gradient. The app shell controls f
 ## State Behavior
 
 - Default: slightly dimmed so text and active states remain readable.
-- Hover: increases saturation and glow.
-- Active: increases glow by roughly 20% and lifts the icon by `1px`.
+- Hover: increases saturation and glow to roughly `120%`.
+- Active: increases glow to roughly `140%` and lifts the icon by `1px`.
+- Focused: uses the strongest glow at roughly `150%`.
 - Disabled: desaturated and dimmed, with no navigation behavior.
+
+Glows use the shared shell tokens in `src/app/globals.css` so the sidebar, search control, focus state, and icon hover behavior feel like one system.
 
 ## Concept Mapping
 
+- Platform logo: church ministry cross fused with an audio waveform/meter shape.
 - Dashboard: audio meters and command-centre monitoring.
 - X32 Console: digital mixer, screen, and faders.
 - Logic Stream: DAW timeline and multitrack recording.
