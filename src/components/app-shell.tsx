@@ -147,7 +147,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const mainClass = immersiveLesson
     ? "relative px-0 pb-0 pt-0"
     : commandDashboard
-      ? "relative px-3 pb-8 pt-4 md:ml-20 md:px-4 xl:ml-72"
+      ? "relative px-2.5 pb-7 pt-3.5 md:ml-20 md:px-3.5 xl:ml-72 xl:px-4"
       : "relative px-4 pb-28 pt-5 md:ml-20 md:px-6 md:pb-8 xl:ml-72";
 
   return (
@@ -214,7 +214,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </header>
 
       <main className={mainClass}>
-        <div className={immersiveLesson ? "mx-auto max-w-none" : "mx-auto max-w-[1540px]"}>{children}</div>
+        <div className={immersiveLesson ? "mx-auto max-w-none" : commandDashboard ? "mx-auto max-w-[1580px]" : "mx-auto max-w-[1540px]"}>{children}</div>
       </main>
 
       <nav
