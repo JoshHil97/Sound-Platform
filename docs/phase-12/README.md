@@ -12,6 +12,10 @@ Implemented outputs:
 - Added a Playwright smoke-test suite (`tests/e2e/smoke.spec.ts`) covering every top-level route plus a primary-navigation flow, run against a production build (`pnpm test:e2e`)
 - The new suite caught a real bug: the app had no `favicon.ico`, so every fresh browser session logged a 404. Fixed by generating `src/app/favicon.ico` and pointing `metadata.icons` at the existing platform logo SVG.
 - Added a GitHub Actions workflow (`.github/workflows/ci.yml`) that runs on every push to `main` and every pull request: install, lint, typecheck, `prisma validate`, build, then the Playwright E2E suite (installing its own Chromium since CI runners don't have the sandbox's pre-installed browser). Made `playwright.config.ts` portable so it only uses the sandbox's local Chromium path when that path exists, falling back to Playwright's own managed browser otherwise.
+- Ran Lighthouse (performance/accessibility/best-practices/SEO) against a production build on the dashboard, academy, sound-lab, service-mode, certifications and x32-console routes. Fixed two real findings it surfaced:
+  - `aria-prohibited-attr`: the shared `ProgressBar` component (`src/components/ui.tsx`) put `aria-label` on a plain `<div>` with no role, which axe correctly flags as not exposed to assistive tech. Added `role="progressbar"` with `aria-valuenow`/`aria-valuemin`/`aria-valuemax`. This was on every page using academy/certification/service progress bars — fixing the shared component took accessibility scores on those routes from 95 to 100.
+  - Missing `sizes` on several `next/image` usages styled to render fluidly (`w-full`) but only given a fixed intrinsic `width`/`height`. Without `sizes`, Next.js can't pick a correctly-scaled responsive image and over-fetches. Added accurate `sizes` values across `x32-console/page.tsx`, `visuals/page.tsx`, `training-visuals.tsx` and `lesson-experience-shell.tsx`. On `/x32-console` this took the Lighthouse performance score from 91 to 98 and LCP from 3.4s to 2.2s (170 KiB → 44 KiB of avoidable image bytes).
+  - Left one contrast finding undecided rather than fixing unilaterally: the "Play Current" button on Sound Lab (`bg-violet-500` + white text) measures 4.23:1 against the WCAG AA 4.5:1 threshold for its font size — a narrow miss. `bg-violet-500` is the app's primary CTA color used in 18 files; swapping it to `bg-violet-600` (which already matches the `--accent` design token, #7c3aed) would clear the threshold at 5.7:1 with a barely-perceptible visual change, but that's a brand-color call, not a bug fix, so it's flagged here rather than applied.
 
 Current implementation status:
 
@@ -23,7 +27,8 @@ Current implementation status:
 Not done in this phase (left for a follow-up pass):
 
 - Broader `aria-hidden` consistency pass on the ~90 remaining Lucide icons that render next to visible text (cosmetic screen-reader verbosity only, not a WCAG failure)
-- Performance review (bundle analysis, Lighthouse pass)
+- The `bg-violet-500`/white-text contrast decision above — needs a product/design call, not a code fix
+- A perf re-check once real (non-placeholder) media assets replace the current training/dashboard images, since those are the dominant page weight today
 
 Reference:
 
@@ -34,5 +39,5 @@ Reference:
 
 Next recommended work:
 
-- Add a Lighthouse/perf pass once real media assets replace placeholders
+- Decide whether to change the primary CTA color for AA contrast compliance (see finding above)
 - Decide auth provider (Phase 1 audit gap) before enabling any Prisma-backed runtime writes

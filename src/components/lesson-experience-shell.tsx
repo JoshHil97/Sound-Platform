@@ -229,7 +229,7 @@ export function LessonHeader({ experience }: { experience: LessonExperience }) {
         </div>
         <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/35 p-2">
           {experience.heroAsset ? (
-            <Image src={experience.heroAsset.src} alt={experience.heroAsset.title} width={experience.heroAsset.width} height={experience.heroAsset.height} className="h-44 w-full rounded-xl object-cover object-top opacity-95" priority />
+            <Image src={experience.heroAsset.src} alt={experience.heroAsset.title} width={experience.heroAsset.width} height={experience.heroAsset.height} sizes="(min-width: 1280px) 340px, 100vw" className="h-44 w-full rounded-xl object-cover object-top opacity-95" priority />
           ) : (
             <div className="grid h-44 place-items-center rounded-xl bg-gradient-to-br from-violet-500/20 to-cyan-500/10">
               <Play className="text-violet-200" size={42} />
@@ -309,7 +309,7 @@ function TabContent({ tab, experience }: { tab: LessonTabModel; experience: Less
       <aside className="grid gap-3">
         {assets.slice(0, 2).map((asset) => (
           <figure key={asset.slug} className="overflow-hidden rounded-2xl border border-white/10 bg-black/35">
-            <Image src={asset.src} alt={asset.title} width={asset.width} height={asset.height} className="h-40 w-full object-cover object-top" />
+            <Image src={asset.src} alt={asset.title} width={asset.width} height={asset.height} sizes="(min-width: 1024px) 320px, 100vw" className="h-40 w-full object-cover object-top" />
             <figcaption className="p-3">
               <p className="text-sm font-black">{asset.title}</p>
               <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-400">{asset.purpose}</p>
@@ -318,7 +318,7 @@ function TabContent({ tab, experience }: { tab: LessonTabModel; experience: Less
         ))}
         {experience.referenceAsset ? (
           <figure className="overflow-hidden rounded-2xl border border-violet-400/25 bg-violet-500/10">
-            <Image src={experience.referenceAsset.src} alt={experience.referenceAsset.title} width={experience.referenceAsset.width} height={experience.referenceAsset.height} className="h-44 w-full object-cover object-top" />
+            <Image src={experience.referenceAsset.src} alt={experience.referenceAsset.title} width={experience.referenceAsset.width} height={experience.referenceAsset.height} sizes="(min-width: 1024px) 320px, 100vw" className="h-44 w-full object-cover object-top" />
             <figcaption className="p-3">
               <p className="text-xs font-black uppercase tracking-[0.16em] text-violet-300">Design target</p>
               <p className="mt-1 text-sm font-black">{experience.referenceAsset.title}</p>
