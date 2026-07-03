@@ -207,3 +207,5 @@ Outputs:
 - Rollback checklist
 - Asset storage plan
 - Launch runbook
+
+Status: launch runbook, Postgres baseline migration and environment variable documentation completed in [phase-13/README.md](phase-13/README.md). Actually provisioning Vercel/Postgres still requires live account access outside this repository.
