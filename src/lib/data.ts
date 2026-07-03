@@ -1743,7 +1743,7 @@ export const adminWorkQueue: AdminWorkQueueItem[] = [
   { title: "Verify Dante device names against Sunday network", area: "Equipment", requester: "Grace Chen", ownerRole: "Senior Engineer", priority: "High", status: "Review", dueDate: "2026-06-20", detail: "Digital Twin names should match Dante Controller and DVS exactly before Content Population." },
   { title: "Draft Logic livestream startup SOP v2", area: "SOP", requester: "Naomi Patel", ownerRole: "Technical Director", priority: "Critical", status: "Draft", dueDate: "2026-06-18", detail: "Add plugin delay, loudness meter and OBS capture verification before next live training." },
   { title: "Review no-sound troubleshooting flow after rehearsal", area: "Troubleshooting", requester: "Daniel Mensah", ownerRole: "Senior Engineer", priority: "Normal", status: "Changes Requested", dueDate: "2026-06-27", detail: "Add a clearer P16 branch and a stronger escalation point for unknown routing changes." },
-  { title: "Expand Foundations lesson content outline", area: "Curriculum", requester: "Ava Williams", ownerRole: "Admin", priority: "Normal", status: "Draft", dueDate: "2026-07-02", detail: "Use Phase 0 lesson architecture before generating full content in Phase 11." }
+  { title: "Expand Foundations lesson content outline", area: "Curriculum", requester: "Ava Williams", ownerRole: "Admin", priority: "Normal", status: "Draft", dueDate: "2026-07-02", detail: "Use the approved lesson architecture before generating full content." }
 ];
 
 export const governanceStatuses: GovernanceStatus[] = [
