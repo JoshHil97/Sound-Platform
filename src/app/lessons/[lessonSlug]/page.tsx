@@ -251,4 +251,3 @@ function getSidebarLessonStatus(index: number, activeIndex: number): LessonExper
   }
   return "Available";
 }
-

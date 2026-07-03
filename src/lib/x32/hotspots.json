@@ -1,0 +1,2050 @@
+{
+  "assetId": "asset-002-x32-hotspot-map",
+  "assetName": "X32 Hotspot Map",
+  "version": "1.0-draft",
+  "status": "ready-for-codex-first-pass",
+  "baseImage": {
+    "recommendedFilename": "x32-master-base.png",
+    "coordinateSystem": "percentage",
+    "coordinateOrigin": "top-left",
+    "notes": [
+      "Render the approved X32 master image inside a relative positioned container.",
+      "Render each hotspot as an absolute positioned transparent button.",
+      "Use rect percentages for left, top, width and height.",
+      "Coordinates are first pass and should be tuned visually after first browser render."
+    ]
+  },
+  "categories": {
+    "band_instruments": {
+      "label": "Band / Instruments",
+      "accent": "green"
+    },
+    "backing_vocals": {
+      "label": "Backing Vocals",
+      "accent": "purple"
+    },
+    "lead_vocals": {
+      "label": "Lead Vocals",
+      "accent": "violet"
+    },
+    "speech_leadership": {
+      "label": "Speech / Leadership",
+      "accent": "orange"
+    },
+    "technical_inputs": {
+      "label": "Technical Inputs",
+      "accent": "blue"
+    }
+  },
+  "hotspots": [
+    {
+      "id": "ch-01",
+      "type": "channel",
+      "number": 1,
+      "name": "TRACK L",
+      "category": "band_instruments",
+      "categoryLabel": "Band / Instruments",
+      "accent": "green",
+      "purpose": "Scene label: TRACK L. Training category corrected to Band / Instruments.",
+      "associatedHotspots": [
+        "dca-05"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 6.6,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-02",
+      "type": "channel",
+      "number": 2,
+      "name": "TRACK R",
+      "category": "band_instruments",
+      "categoryLabel": "Band / Instruments",
+      "accent": "green",
+      "purpose": "Scene label: TRACK R. Training category corrected to Band / Instruments.",
+      "associatedHotspots": [
+        "dca-05"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 9.18,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-03",
+      "type": "channel",
+      "number": 3,
+      "name": "MOTIF L",
+      "category": "band_instruments",
+      "categoryLabel": "Band / Instruments",
+      "accent": "green",
+      "purpose": "Keyboard / Motif left.",
+      "associatedHotspots": [
+        "dca-04",
+        "dca-05"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 11.76,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-04",
+      "type": "channel",
+      "number": 4,
+      "name": "MOTIF R",
+      "category": "band_instruments",
+      "categoryLabel": "Band / Instruments",
+      "accent": "green",
+      "purpose": "Keyboard / Motif right.",
+      "associatedHotspots": [
+        "dca-04",
+        "dca-05"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 14.34,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-05",
+      "type": "channel",
+      "number": 5,
+      "name": "KEYS 2 L",
+      "category": "band_instruments",
+      "categoryLabel": "Band / Instruments",
+      "accent": "green",
+      "purpose": "Second keyboard left.",
+      "associatedHotspots": [
+        "dca-04",
+        "dca-05"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 16.92,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-06",
+      "type": "channel",
+      "number": 6,
+      "name": "KEYS 2 R",
+      "category": "band_instruments",
+      "categoryLabel": "Band / Instruments",
+      "accent": "green",
+      "purpose": "Second keyboard right.",
+      "associatedHotspots": [
+        "dca-04",
+        "dca-05"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 19.5,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-07",
+      "type": "channel",
+      "number": 7,
+      "name": "GTR",
+      "category": "band_instruments",
+      "categoryLabel": "Band / Instruments",
+      "accent": "green",
+      "purpose": "Guitar input.",
+      "associatedHotspots": [
+        "dca-05",
+        "dca-08"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 22.08,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-08",
+      "type": "channel",
+      "number": 8,
+      "name": "BASS",
+      "category": "band_instruments",
+      "categoryLabel": "Band / Instruments",
+      "accent": "green",
+      "purpose": "Bass guitar DI.",
+      "associatedHotspots": [
+        "dca-05",
+        "dca-06"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 24.66,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-09",
+      "type": "channel",
+      "number": 9,
+      "name": "Kick",
+      "category": "band_instruments",
+      "categoryLabel": "Band / Instruments",
+      "accent": "green",
+      "purpose": "Kick drum microphone.",
+      "associatedHotspots": [
+        "dca-05",
+        "dca-07"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 27.24,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-10",
+      "type": "channel",
+      "number": 10,
+      "name": "Snr TOP",
+      "category": "band_instruments",
+      "categoryLabel": "Band / Instruments",
+      "accent": "green",
+      "purpose": "Snare top microphone.",
+      "associatedHotspots": [
+        "dca-05",
+        "dca-07"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 29.82,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-11",
+      "type": "channel",
+      "number": 11,
+      "name": "Snr BOT",
+      "category": "band_instruments",
+      "categoryLabel": "Band / Instruments",
+      "accent": "green",
+      "purpose": "Snare bottom microphone.",
+      "associatedHotspots": [
+        "dca-05",
+        "dca-07"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 32.4,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-12",
+      "type": "channel",
+      "number": 12,
+      "name": "FloorTom",
+      "category": "band_instruments",
+      "categoryLabel": "Band / Instruments",
+      "accent": "green",
+      "purpose": "Floor tom microphone.",
+      "associatedHotspots": [
+        "dca-05",
+        "dca-07"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 34.98,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-13",
+      "type": "channel",
+      "number": 13,
+      "name": "HighTom",
+      "category": "band_instruments",
+      "categoryLabel": "Band / Instruments",
+      "accent": "green",
+      "purpose": "High tom microphone.",
+      "associatedHotspots": [
+        "dca-05",
+        "dca-07"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 37.56,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-14",
+      "type": "channel",
+      "number": 14,
+      "name": "Mid Tom",
+      "category": "band_instruments",
+      "categoryLabel": "Band / Instruments",
+      "accent": "green",
+      "purpose": "Mid tom microphone.",
+      "associatedHotspots": [
+        "dca-05",
+        "dca-07"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 40.14,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-15",
+      "type": "channel",
+      "number": 15,
+      "name": "OH L",
+      "category": "band_instruments",
+      "categoryLabel": "Band / Instruments",
+      "accent": "green",
+      "purpose": "Drum overhead left.",
+      "associatedHotspots": [
+        "dca-05",
+        "dca-07"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 42.72,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-16",
+      "type": "channel",
+      "number": 16,
+      "name": "OH R",
+      "category": "band_instruments",
+      "categoryLabel": "Band / Instruments",
+      "accent": "green",
+      "purpose": "Drum overhead right.",
+      "associatedHotspots": [
+        "dca-05",
+        "dca-07"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 45.3,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-17",
+      "type": "channel",
+      "number": 17,
+      "name": "BV-07",
+      "category": "backing_vocals",
+      "categoryLabel": "Backing Vocals",
+      "accent": "purple",
+      "purpose": "Backing vocal 7.",
+      "associatedHotspots": [
+        "dca-01"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 47.88,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-18",
+      "type": "channel",
+      "number": 18,
+      "name": "BV-06",
+      "category": "backing_vocals",
+      "categoryLabel": "Backing Vocals",
+      "accent": "purple",
+      "purpose": "Backing vocal 6.",
+      "associatedHotspots": [
+        "dca-01"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 50.46,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-19",
+      "type": "channel",
+      "number": 19,
+      "name": "BV-05",
+      "category": "backing_vocals",
+      "categoryLabel": "Backing Vocals",
+      "accent": "purple",
+      "purpose": "Backing vocal 5.",
+      "associatedHotspots": [
+        "dca-01"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 53.04,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-20",
+      "type": "channel",
+      "number": 20,
+      "name": "BV-04",
+      "category": "backing_vocals",
+      "categoryLabel": "Backing Vocals",
+      "accent": "purple",
+      "purpose": "Backing vocal 4.",
+      "associatedHotspots": [
+        "dca-01"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 55.62,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-21",
+      "type": "channel",
+      "number": 21,
+      "name": "BV-03",
+      "category": "backing_vocals",
+      "categoryLabel": "Backing Vocals",
+      "accent": "purple",
+      "purpose": "Backing vocal 3.",
+      "associatedHotspots": [
+        "dca-01"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 58.2,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-22",
+      "type": "channel",
+      "number": 22,
+      "name": "BV-02",
+      "category": "backing_vocals",
+      "categoryLabel": "Backing Vocals",
+      "accent": "purple",
+      "purpose": "Backing vocal 2.",
+      "associatedHotspots": [
+        "dca-01"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 60.78,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-23",
+      "type": "channel",
+      "number": 23,
+      "name": "BV-01",
+      "category": "backing_vocals",
+      "categoryLabel": "Backing Vocals",
+      "accent": "purple",
+      "purpose": "Backing vocal 1.",
+      "associatedHotspots": [
+        "dca-01"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 63.36,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-24",
+      "type": "channel",
+      "number": 24,
+      "name": "LV S2",
+      "category": "lead_vocals",
+      "categoryLabel": "Lead Vocals",
+      "accent": "violet",
+      "purpose": "Lead vocal 2.",
+      "associatedHotspots": [
+        "dca-02"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 65.94,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-25",
+      "type": "channel",
+      "number": 25,
+      "name": "LV S1",
+      "category": "lead_vocals",
+      "categoryLabel": "Lead Vocals",
+      "accent": "violet",
+      "purpose": "Lead vocal 1.",
+      "associatedHotspots": [
+        "dca-02"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 68.52,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-26",
+      "type": "channel",
+      "number": 26,
+      "name": "BishopHH",
+      "category": "speech_leadership",
+      "categoryLabel": "Speech / Leadership",
+      "accent": "orange",
+      "purpose": "Bishop handheld microphone.",
+      "associatedHotspots": [
+        "dca-03"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 71.1,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-27",
+      "type": "channel",
+      "number": 27,
+      "name": "Bishop LP",
+      "category": "speech_leadership",
+      "categoryLabel": "Speech / Leadership",
+      "accent": "orange",
+      "purpose": "Bishop lapel microphone.",
+      "associatedHotspots": [
+        "dca-03"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 73.68,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-28",
+      "type": "channel",
+      "number": 28,
+      "name": "MOD",
+      "category": "speech_leadership",
+      "categoryLabel": "Speech / Leadership",
+      "accent": "orange",
+      "purpose": "Moderator microphone.",
+      "associatedHotspots": [
+        "dca-03"
+      ],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 76.26,
+        "yPercent": 47.8,
+        "widthPercent": 2.28,
+        "heightPercent": 43.6
+      }
+    },
+    {
+      "id": "ch-29",
+      "type": "channel",
+      "number": 29,
+      "name": "CLICK GUIDE",
+      "category": "technical_inputs",
+      "categoryLabel": "Technical Inputs",
+      "accent": "blue",
+      "purpose": "Click guide / technical feed.",
+      "associatedHotspots": [],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 78.84,
+        "yPercent": 75.6,
+        "widthPercent": 2.28,
+        "heightPercent": 15.8
+      }
+    },
+    {
+      "id": "ch-30",
+      "type": "channel",
+      "number": 30,
+      "name": "DESK MIC",
+      "category": "technical_inputs",
+      "categoryLabel": "Technical Inputs",
+      "accent": "blue",
+      "purpose": "Sound desk microphone.",
+      "associatedHotspots": [],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 81.42,
+        "yPercent": 75.6,
+        "widthPercent": 2.28,
+        "heightPercent": 15.8
+      }
+    },
+    {
+      "id": "ch-31",
+      "type": "channel",
+      "number": 31,
+      "name": "AUDT MIC",
+      "category": "technical_inputs",
+      "categoryLabel": "Technical Inputs",
+      "accent": "blue",
+      "purpose": "Auditorium microphone.",
+      "associatedHotspots": [],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 84.0,
+        "yPercent": 75.6,
+        "widthPercent": 2.28,
+        "heightPercent": 15.8
+      }
+    },
+    {
+      "id": "ch-32",
+      "type": "channel",
+      "number": 32,
+      "name": "TALKBACK",
+      "category": "technical_inputs",
+      "categoryLabel": "Technical Inputs",
+      "accent": "blue",
+      "purpose": "Talkback microphone.",
+      "associatedHotspots": [],
+      "routingSummary": "Input channel on the X32. Inputs 1-32 are sent to the Dante network for the Logic Pro livestream workflow. Channels can also feed Main LR, monitor mixes, P16 mixes and FX sends where assigned.",
+      "commonIssues": [
+        "Muted channel",
+        "Gain too low or too high",
+        "Wrong source or patch",
+        "Missing from monitor mix",
+        "Missing from Dante or Logic input"
+      ],
+      "trainingLinks": [
+        "Console basics",
+        "Gain staging",
+        "Signal flow",
+        "Troubleshooting no sound"
+      ],
+      "rect": {
+        "xPercent": 86.58,
+        "yPercent": 75.6,
+        "widthPercent": 2.28,
+        "heightPercent": 15.8
+      }
+    },
+    {
+      "id": "bus-01",
+      "type": "bus",
+      "number": 1,
+      "name": "STAGE MON L",
+      "category": "monitor",
+      "accent": "green",
+      "purpose": "Stage monitor left mix.",
+      "routingSummary": "Mix bus used for monitors, P16, livestream reference, or FX depending on assignment.",
+      "commonIssues": [
+        "Send level too low",
+        "Bus muted",
+        "Wrong tap point",
+        "Wrong output routing",
+        "Confusing bus sends with FOH level"
+      ],
+      "trainingLinks": [
+        "Buses explained",
+        "Sends on fader",
+        "Monitor mixing",
+        "P16 basics"
+      ],
+      "rect": {
+        "xPercent": 79.5,
+        "yPercent": 51.0,
+        "widthPercent": 4.5,
+        "heightPercent": 3.0
+      }
+    },
+    {
+      "id": "bus-02",
+      "type": "bus",
+      "number": 2,
+      "name": "STAGE MON R",
+      "category": "monitor",
+      "accent": "green",
+      "purpose": "Stage monitor right mix.",
+      "routingSummary": "Mix bus used for monitors, P16, livestream reference, or FX depending on assignment.",
+      "commonIssues": [
+        "Send level too low",
+        "Bus muted",
+        "Wrong tap point",
+        "Wrong output routing",
+        "Confusing bus sends with FOH level"
+      ],
+      "trainingLinks": [
+        "Buses explained",
+        "Sends on fader",
+        "Monitor mixing",
+        "P16 basics"
+      ],
+      "rect": {
+        "xPercent": 84.6,
+        "yPercent": 51.0,
+        "widthPercent": 4.5,
+        "heightPercent": 3.0
+      }
+    },
+    {
+      "id": "bus-04",
+      "type": "bus",
+      "number": 4,
+      "name": "LVS P16",
+      "category": "p16",
+      "accent": "green",
+      "purpose": "Lead vocals P16 monitor mix.",
+      "routingSummary": "Mix bus used for monitors, P16, livestream reference, or FX depending on assignment.",
+      "commonIssues": [
+        "Send level too low",
+        "Bus muted",
+        "Wrong tap point",
+        "Wrong output routing",
+        "Confusing bus sends with FOH level"
+      ],
+      "trainingLinks": [
+        "Buses explained",
+        "Sends on fader",
+        "Monitor mixing",
+        "P16 basics"
+      ],
+      "rect": {
+        "xPercent": 79.5,
+        "yPercent": 54.5,
+        "widthPercent": 4.5,
+        "heightPercent": 3.0
+      }
+    },
+    {
+      "id": "bus-05",
+      "type": "bus",
+      "number": 5,
+      "name": "LiveStream L",
+      "category": "livestream_mix_reference",
+      "accent": "purple",
+      "purpose": "Livestream left mix reference from scene. Confirm active or legacy use because the main confirmed workflow is Inputs 1-32 to Dante and Logic.",
+      "routingSummary": "Mix bus used for monitors, P16, livestream reference, or FX depending on assignment.",
+      "commonIssues": [
+        "Send level too low",
+        "Bus muted",
+        "Wrong tap point",
+        "Wrong output routing",
+        "Confusing bus sends with FOH level"
+      ],
+      "trainingLinks": [
+        "Buses explained",
+        "Sends on fader",
+        "Monitor mixing",
+        "P16 basics"
+      ],
+      "rect": {
+        "xPercent": 84.6,
+        "yPercent": 54.5,
+        "widthPercent": 4.5,
+        "heightPercent": 3.0
+      }
+    },
+    {
+      "id": "bus-06",
+      "type": "bus",
+      "number": 6,
+      "name": "LiveStream R",
+      "category": "livestream_mix_reference",
+      "accent": "purple",
+      "purpose": "Livestream right mix reference from scene. Confirm active or legacy use because the main confirmed workflow is Inputs 1-32 to Dante and Logic.",
+      "routingSummary": "Mix bus used for monitors, P16, livestream reference, or FX depending on assignment.",
+      "commonIssues": [
+        "Send level too low",
+        "Bus muted",
+        "Wrong tap point",
+        "Wrong output routing",
+        "Confusing bus sends with FOH level"
+      ],
+      "trainingLinks": [
+        "Buses explained",
+        "Sends on fader",
+        "Monitor mixing",
+        "P16 basics"
+      ],
+      "rect": {
+        "xPercent": 79.5,
+        "yPercent": 58.0,
+        "widthPercent": 4.5,
+        "heightPercent": 3.0
+      }
+    },
+    {
+      "id": "bus-07",
+      "type": "bus",
+      "number": 7,
+      "name": "BISHOP P16",
+      "category": "p16",
+      "accent": "green",
+      "purpose": "Bishop P16 monitor mix.",
+      "routingSummary": "Mix bus used for monitors, P16, livestream reference, or FX depending on assignment.",
+      "commonIssues": [
+        "Send level too low",
+        "Bus muted",
+        "Wrong tap point",
+        "Wrong output routing",
+        "Confusing bus sends with FOH level"
+      ],
+      "trainingLinks": [
+        "Buses explained",
+        "Sends on fader",
+        "Monitor mixing",
+        "P16 basics"
+      ],
+      "rect": {
+        "xPercent": 84.6,
+        "yPercent": 58.0,
+        "widthPercent": 4.5,
+        "heightPercent": 3.0
+      }
+    },
+    {
+      "id": "bus-08",
+      "type": "bus",
+      "number": 8,
+      "name": "TALKBACK P16",
+      "category": "p16",
+      "accent": "green",
+      "purpose": "Talkback feed to P16 users.",
+      "routingSummary": "Mix bus used for monitors, P16, livestream reference, or FX depending on assignment.",
+      "commonIssues": [
+        "Send level too low",
+        "Bus muted",
+        "Wrong tap point",
+        "Wrong output routing",
+        "Confusing bus sends with FOH level"
+      ],
+      "trainingLinks": [
+        "Buses explained",
+        "Sends on fader",
+        "Monitor mixing",
+        "P16 basics"
+      ],
+      "rect": {
+        "xPercent": 79.5,
+        "yPercent": 61.5,
+        "widthPercent": 4.5,
+        "heightPercent": 3.0
+      }
+    },
+    {
+      "id": "bus-09",
+      "type": "bus",
+      "number": 9,
+      "name": "BVS P16",
+      "category": "p16",
+      "accent": "green",
+      "purpose": "Backing vocals P16 mix.",
+      "routingSummary": "Mix bus used for monitors, P16, livestream reference, or FX depending on assignment.",
+      "commonIssues": [
+        "Send level too low",
+        "Bus muted",
+        "Wrong tap point",
+        "Wrong output routing",
+        "Confusing bus sends with FOH level"
+      ],
+      "trainingLinks": [
+        "Buses explained",
+        "Sends on fader",
+        "Monitor mixing",
+        "P16 basics"
+      ],
+      "rect": {
+        "xPercent": 84.6,
+        "yPercent": 61.5,
+        "widthPercent": 4.5,
+        "heightPercent": 3.0
+      }
+    },
+    {
+      "id": "bus-10",
+      "type": "bus",
+      "number": 10,
+      "name": "SNARE P16",
+      "category": "p16",
+      "accent": "green",
+      "purpose": "Snare P16 feed.",
+      "routingSummary": "Mix bus used for monitors, P16, livestream reference, or FX depending on assignment.",
+      "commonIssues": [
+        "Send level too low",
+        "Bus muted",
+        "Wrong tap point",
+        "Wrong output routing",
+        "Confusing bus sends with FOH level"
+      ],
+      "trainingLinks": [
+        "Buses explained",
+        "Sends on fader",
+        "Monitor mixing",
+        "P16 basics"
+      ],
+      "rect": {
+        "xPercent": 79.5,
+        "yPercent": 65.0,
+        "widthPercent": 4.5,
+        "heightPercent": 3.0
+      }
+    },
+    {
+      "id": "bus-11",
+      "type": "bus",
+      "number": 11,
+      "name": "DRUM MIX P16",
+      "category": "p16",
+      "accent": "green",
+      "purpose": "Drum mix P16 left / part 1.",
+      "routingSummary": "Mix bus used for monitors, P16, livestream reference, or FX depending on assignment.",
+      "commonIssues": [
+        "Send level too low",
+        "Bus muted",
+        "Wrong tap point",
+        "Wrong output routing",
+        "Confusing bus sends with FOH level"
+      ],
+      "trainingLinks": [
+        "Buses explained",
+        "Sends on fader",
+        "Monitor mixing",
+        "P16 basics"
+      ],
+      "rect": {
+        "xPercent": 84.6,
+        "yPercent": 65.0,
+        "widthPercent": 4.5,
+        "heightPercent": 3.0
+      }
+    },
+    {
+      "id": "bus-12",
+      "type": "bus",
+      "number": 12,
+      "name": "DRUM MIX P16",
+      "category": "p16",
+      "accent": "green",
+      "purpose": "Drum mix P16 right / part 2.",
+      "routingSummary": "Mix bus used for monitors, P16, livestream reference, or FX depending on assignment.",
+      "commonIssues": [
+        "Send level too low",
+        "Bus muted",
+        "Wrong tap point",
+        "Wrong output routing",
+        "Confusing bus sends with FOH level"
+      ],
+      "trainingLinks": [
+        "Buses explained",
+        "Sends on fader",
+        "Monitor mixing",
+        "P16 basics"
+      ],
+      "rect": {
+        "xPercent": 79.5,
+        "yPercent": 68.5,
+        "widthPercent": 4.5,
+        "heightPercent": 3.0
+      }
+    },
+    {
+      "id": "bus-13",
+      "type": "bus",
+      "number": 13,
+      "name": "DRUM VERB",
+      "category": "fx_send",
+      "accent": "amber",
+      "purpose": "Drum reverb send.",
+      "routingSummary": "Mix bus used for monitors, P16, livestream reference, or FX depending on assignment.",
+      "commonIssues": [
+        "Send level too low",
+        "Bus muted",
+        "Wrong tap point",
+        "Wrong output routing",
+        "Confusing bus sends with FOH level"
+      ],
+      "trainingLinks": [
+        "Buses explained",
+        "Sends on fader",
+        "Monitor mixing",
+        "P16 basics"
+      ],
+      "rect": {
+        "xPercent": 84.6,
+        "yPercent": 68.5,
+        "widthPercent": 4.5,
+        "heightPercent": 3.0
+      }
+    },
+    {
+      "id": "bus-15",
+      "type": "bus",
+      "number": 15,
+      "name": "VOCAL REVERB",
+      "category": "fx_send",
+      "accent": "amber",
+      "purpose": "Vocal reverb send.",
+      "routingSummary": "Mix bus used for monitors, P16, livestream reference, or FX depending on assignment.",
+      "commonIssues": [
+        "Send level too low",
+        "Bus muted",
+        "Wrong tap point",
+        "Wrong output routing",
+        "Confusing bus sends with FOH level"
+      ],
+      "trainingLinks": [
+        "Buses explained",
+        "Sends on fader",
+        "Monitor mixing",
+        "P16 basics"
+      ],
+      "rect": {
+        "xPercent": 79.5,
+        "yPercent": 72.0,
+        "widthPercent": 4.5,
+        "heightPercent": 3.0
+      }
+    },
+    {
+      "id": "bus-16",
+      "type": "bus",
+      "number": 16,
+      "name": "VOCAL DELAY",
+      "category": "fx_send",
+      "accent": "amber",
+      "purpose": "Vocal delay send.",
+      "routingSummary": "Mix bus used for monitors, P16, livestream reference, or FX depending on assignment.",
+      "commonIssues": [
+        "Send level too low",
+        "Bus muted",
+        "Wrong tap point",
+        "Wrong output routing",
+        "Confusing bus sends with FOH level"
+      ],
+      "trainingLinks": [
+        "Buses explained",
+        "Sends on fader",
+        "Monitor mixing",
+        "P16 basics"
+      ],
+      "rect": {
+        "xPercent": 84.6,
+        "yPercent": 72.0,
+        "widthPercent": 4.5,
+        "heightPercent": 3.0
+      }
+    },
+    {
+      "id": "dca-01",
+      "type": "dca",
+      "number": 1,
+      "name": "BVS",
+      "category": "control_group",
+      "accent": "amber",
+      "purpose": "Controls the relative level of the BVS group without changing individual channel processing.",
+      "containsChannels": [
+        "ch-17",
+        "ch-18",
+        "ch-19",
+        "ch-20",
+        "ch-21",
+        "ch-22",
+        "ch-23"
+      ],
+      "routingSummary": "DCA controls grouped channel level. It is not an audio bus and does not route sound by itself.",
+      "commonIssues": [
+        "DCA muted",
+        "Channel assigned to unexpected DCA",
+        "Operator moves channel fader instead of group",
+        "Confusing DCA with bus"
+      ],
+      "trainingLinks": [
+        "DCA groups explained",
+        "Mixing with groups",
+        "Service workflow"
+      ],
+      "rect": {
+        "xPercent": 7.0,
+        "yPercent": 88.5,
+        "widthPercent": 2.25,
+        "heightPercent": 5.5
+      }
+    },
+    {
+      "id": "dca-02",
+      "type": "dca",
+      "number": 2,
+      "name": "LVS",
+      "category": "control_group",
+      "accent": "amber",
+      "purpose": "Controls the relative level of the LVS group without changing individual channel processing.",
+      "containsChannels": [
+        "ch-24",
+        "ch-25"
+      ],
+      "routingSummary": "DCA controls grouped channel level. It is not an audio bus and does not route sound by itself.",
+      "commonIssues": [
+        "DCA muted",
+        "Channel assigned to unexpected DCA",
+        "Operator moves channel fader instead of group",
+        "Confusing DCA with bus"
+      ],
+      "trainingLinks": [
+        "DCA groups explained",
+        "Mixing with groups",
+        "Service workflow"
+      ],
+      "rect": {
+        "xPercent": 9.6,
+        "yPercent": 88.5,
+        "widthPercent": 2.25,
+        "heightPercent": 5.5
+      }
+    },
+    {
+      "id": "dca-03",
+      "type": "dca",
+      "number": 3,
+      "name": "BISHOP MICS",
+      "category": "control_group",
+      "accent": "amber",
+      "purpose": "Controls the relative level of the BISHOP MICS group without changing individual channel processing.",
+      "containsChannels": [
+        "ch-26",
+        "ch-27",
+        "ch-28"
+      ],
+      "routingSummary": "DCA controls grouped channel level. It is not an audio bus and does not route sound by itself.",
+      "commonIssues": [
+        "DCA muted",
+        "Channel assigned to unexpected DCA",
+        "Operator moves channel fader instead of group",
+        "Confusing DCA with bus"
+      ],
+      "trainingLinks": [
+        "DCA groups explained",
+        "Mixing with groups",
+        "Service workflow"
+      ],
+      "rect": {
+        "xPercent": 12.2,
+        "yPercent": 88.5,
+        "widthPercent": 2.25,
+        "heightPercent": 5.5
+      }
+    },
+    {
+      "id": "dca-04",
+      "type": "dca",
+      "number": 4,
+      "name": "KEYS",
+      "category": "control_group",
+      "accent": "amber",
+      "purpose": "Controls the relative level of the KEYS group without changing individual channel processing.",
+      "containsChannels": [
+        "ch-03",
+        "ch-04",
+        "ch-05",
+        "ch-06"
+      ],
+      "routingSummary": "DCA controls grouped channel level. It is not an audio bus and does not route sound by itself.",
+      "commonIssues": [
+        "DCA muted",
+        "Channel assigned to unexpected DCA",
+        "Operator moves channel fader instead of group",
+        "Confusing DCA with bus"
+      ],
+      "trainingLinks": [
+        "DCA groups explained",
+        "Mixing with groups",
+        "Service workflow"
+      ],
+      "rect": {
+        "xPercent": 14.8,
+        "yPercent": 88.5,
+        "widthPercent": 2.25,
+        "heightPercent": 5.5
+      }
+    },
+    {
+      "id": "dca-05",
+      "type": "dca",
+      "number": 5,
+      "name": "BAND",
+      "category": "control_group",
+      "accent": "amber",
+      "purpose": "Controls the relative level of the BAND group without changing individual channel processing.",
+      "containsChannels": [
+        "ch-01",
+        "ch-02",
+        "ch-03",
+        "ch-04",
+        "ch-05",
+        "ch-06",
+        "ch-07",
+        "ch-08",
+        "ch-09",
+        "ch-10",
+        "ch-11",
+        "ch-12",
+        "ch-13",
+        "ch-14",
+        "ch-15",
+        "ch-16"
+      ],
+      "routingSummary": "DCA controls grouped channel level. It is not an audio bus and does not route sound by itself.",
+      "commonIssues": [
+        "DCA muted",
+        "Channel assigned to unexpected DCA",
+        "Operator moves channel fader instead of group",
+        "Confusing DCA with bus"
+      ],
+      "trainingLinks": [
+        "DCA groups explained",
+        "Mixing with groups",
+        "Service workflow"
+      ],
+      "rect": {
+        "xPercent": 17.4,
+        "yPercent": 88.5,
+        "widthPercent": 2.25,
+        "heightPercent": 5.5
+      }
+    },
+    {
+      "id": "dca-06",
+      "type": "dca",
+      "number": 6,
+      "name": "BASS",
+      "category": "control_group",
+      "accent": "amber",
+      "purpose": "Controls the relative level of the BASS group without changing individual channel processing.",
+      "containsChannels": [
+        "ch-08"
+      ],
+      "routingSummary": "DCA controls grouped channel level. It is not an audio bus and does not route sound by itself.",
+      "commonIssues": [
+        "DCA muted",
+        "Channel assigned to unexpected DCA",
+        "Operator moves channel fader instead of group",
+        "Confusing DCA with bus"
+      ],
+      "trainingLinks": [
+        "DCA groups explained",
+        "Mixing with groups",
+        "Service workflow"
+      ],
+      "rect": {
+        "xPercent": 20.0,
+        "yPercent": 88.5,
+        "widthPercent": 2.25,
+        "heightPercent": 5.5
+      }
+    },
+    {
+      "id": "dca-07",
+      "type": "dca",
+      "number": 7,
+      "name": "DRUMS",
+      "category": "control_group",
+      "accent": "amber",
+      "purpose": "Controls the relative level of the DRUMS group without changing individual channel processing.",
+      "containsChannels": [
+        "ch-09",
+        "ch-10",
+        "ch-11",
+        "ch-12",
+        "ch-13",
+        "ch-14",
+        "ch-15",
+        "ch-16"
+      ],
+      "routingSummary": "DCA controls grouped channel level. It is not an audio bus and does not route sound by itself.",
+      "commonIssues": [
+        "DCA muted",
+        "Channel assigned to unexpected DCA",
+        "Operator moves channel fader instead of group",
+        "Confusing DCA with bus"
+      ],
+      "trainingLinks": [
+        "DCA groups explained",
+        "Mixing with groups",
+        "Service workflow"
+      ],
+      "rect": {
+        "xPercent": 22.6,
+        "yPercent": 88.5,
+        "widthPercent": 2.25,
+        "heightPercent": 5.5
+      }
+    },
+    {
+      "id": "dca-08",
+      "type": "dca",
+      "number": 8,
+      "name": "GUITAR",
+      "category": "control_group",
+      "accent": "amber",
+      "purpose": "Controls the relative level of the GUITAR group without changing individual channel processing.",
+      "containsChannels": [
+        "ch-07"
+      ],
+      "routingSummary": "DCA controls grouped channel level. It is not an audio bus and does not route sound by itself.",
+      "commonIssues": [
+        "DCA muted",
+        "Channel assigned to unexpected DCA",
+        "Operator moves channel fader instead of group",
+        "Confusing DCA with bus"
+      ],
+      "trainingLinks": [
+        "DCA groups explained",
+        "Mixing with groups",
+        "Service workflow"
+      ],
+      "rect": {
+        "xPercent": 25.2,
+        "yPercent": 88.5,
+        "widthPercent": 2.25,
+        "heightPercent": 5.5
+      }
+    },
+    {
+      "id": "matrix-02",
+      "type": "matrix",
+      "number": 2,
+      "name": "SIDE FILL",
+      "category": "matrix_output",
+      "accent": "orange",
+      "purpose": "FOH side fill feed. Side fill is part of the FOH system.",
+      "routingSummary": "Matrix output used to feed a specific zone or destination from main or mix sources.",
+      "commonIssues": [
+        "Matrix muted",
+        "Source not assigned to matrix",
+        "Matrix output routing wrong",
+        "Zone level too low"
+      ],
+      "trainingLinks": [
+        "Matrices explained",
+        "FOH zones",
+        "Overflow and room feeds"
+      ],
+      "rect": {
+        "xPercent": 90.4,
+        "yPercent": 72.0,
+        "widthPercent": 3.4,
+        "heightPercent": 2.8
+      }
+    },
+    {
+      "id": "matrix-03",
+      "type": "matrix",
+      "number": 3,
+      "name": "OVERFLOW",
+      "category": "matrix_output",
+      "accent": "orange",
+      "purpose": "Audio feed for the overflow area.",
+      "routingSummary": "Matrix output used to feed a specific zone or destination from main or mix sources.",
+      "commonIssues": [
+        "Matrix muted",
+        "Source not assigned to matrix",
+        "Matrix output routing wrong",
+        "Zone level too low"
+      ],
+      "trainingLinks": [
+        "Matrices explained",
+        "FOH zones",
+        "Overflow and room feeds"
+      ],
+      "rect": {
+        "xPercent": 90.4,
+        "yPercent": 75.3,
+        "widthPercent": 3.4,
+        "heightPercent": 2.8
+      }
+    },
+    {
+      "id": "matrix-04",
+      "type": "matrix",
+      "number": 4,
+      "name": "VICTORYLAND",
+      "category": "matrix_output",
+      "accent": "orange",
+      "purpose": "Audio feed for Victoryland.",
+      "routingSummary": "Matrix output used to feed a specific zone or destination from main or mix sources.",
+      "commonIssues": [
+        "Matrix muted",
+        "Source not assigned to matrix",
+        "Matrix output routing wrong",
+        "Zone level too low"
+      ],
+      "trainingLinks": [
+        "Matrices explained",
+        "FOH zones",
+        "Overflow and room feeds"
+      ],
+      "rect": {
+        "xPercent": 90.4,
+        "yPercent": 78.6,
+        "widthPercent": 3.4,
+        "heightPercent": 2.8
+      }
+    },
+    {
+      "id": "matrix-05",
+      "type": "matrix",
+      "number": 5,
+      "name": "LIVESTREAM L",
+      "category": "matrix_output",
+      "accent": "orange",
+      "purpose": "Alternate livestream matrix left reference from scene. Confirm active usage.",
+      "routingSummary": "Matrix output used to feed a specific zone or destination from main or mix sources.",
+      "commonIssues": [
+        "Matrix muted",
+        "Source not assigned to matrix",
+        "Matrix output routing wrong",
+        "Zone level too low"
+      ],
+      "trainingLinks": [
+        "Matrices explained",
+        "FOH zones",
+        "Overflow and room feeds"
+      ],
+      "rect": {
+        "xPercent": 90.4,
+        "yPercent": 81.9,
+        "widthPercent": 3.4,
+        "heightPercent": 2.8
+      }
+    },
+    {
+      "id": "matrix-06",
+      "type": "matrix",
+      "number": 6,
+      "name": "LIVESTREAM R",
+      "category": "matrix_output",
+      "accent": "orange",
+      "purpose": "Alternate livestream matrix right reference from scene. Confirm active usage.",
+      "routingSummary": "Matrix output used to feed a specific zone or destination from main or mix sources.",
+      "commonIssues": [
+        "Matrix muted",
+        "Source not assigned to matrix",
+        "Matrix output routing wrong",
+        "Zone level too low"
+      ],
+      "trainingLinks": [
+        "Matrices explained",
+        "FOH zones",
+        "Overflow and room feeds"
+      ],
+      "rect": {
+        "xPercent": 90.4,
+        "yPercent": 85.2,
+        "widthPercent": 3.4,
+        "heightPercent": 2.8
+      }
+    },
+    {
+      "id": "fx-13",
+      "type": "fx",
+      "number": 13,
+      "name": "DRUM VERB",
+      "category": "effect",
+      "accent": "violet",
+      "purpose": "Drum reverb effect send/return.",
+      "routingSummary": "FX send controls how much signal is sent to the effect. FX return controls how much effect is heard.",
+      "commonIssues": [
+        "FX send too high",
+        "FX return muted",
+        "Wrong vocal sent to delay or reverb",
+        "Effect overpowering the mix"
+      ],
+      "trainingLinks": [
+        "FX basics",
+        "Vocal reverb",
+        "Delay timing"
+      ],
+      "rect": {
+        "xPercent": 74.0,
+        "yPercent": 35.0,
+        "widthPercent": 7.0,
+        "heightPercent": 4.8
+      }
+    },
+    {
+      "id": "fx-15",
+      "type": "fx",
+      "number": 15,
+      "name": "VOCAL REVERB",
+      "category": "effect",
+      "accent": "violet",
+      "purpose": "Vocal reverb effect send/return.",
+      "routingSummary": "FX send controls how much signal is sent to the effect. FX return controls how much effect is heard.",
+      "commonIssues": [
+        "FX send too high",
+        "FX return muted",
+        "Wrong vocal sent to delay or reverb",
+        "Effect overpowering the mix"
+      ],
+      "trainingLinks": [
+        "FX basics",
+        "Vocal reverb",
+        "Delay timing"
+      ],
+      "rect": {
+        "xPercent": 74.0,
+        "yPercent": 40.5,
+        "widthPercent": 7.0,
+        "heightPercent": 4.8
+      }
+    },
+    {
+      "id": "fx-16",
+      "type": "fx",
+      "number": 16,
+      "name": "VOCAL DELAY",
+      "category": "effect",
+      "accent": "violet",
+      "purpose": "Vocal delay effect send/return.",
+      "routingSummary": "FX send controls how much signal is sent to the effect. FX return controls how much effect is heard.",
+      "commonIssues": [
+        "FX send too high",
+        "FX return muted",
+        "Wrong vocal sent to delay or reverb",
+        "Effect overpowering the mix"
+      ],
+      "trainingLinks": [
+        "FX basics",
+        "Vocal reverb",
+        "Delay timing"
+      ],
+      "rect": {
+        "xPercent": 74.0,
+        "yPercent": 46.0,
+        "widthPercent": 7.0,
+        "heightPercent": 4.8
+      }
+    },
+    {
+      "id": "main-lr",
+      "type": "master",
+      "name": "MAIN LR",
+      "category": "main_output",
+      "accent": "red",
+      "purpose": "Main left/right output feeding the FOH system via the subwoofer and house speakers.",
+      "routingSummary": "Main LR to Subwoofer to FOH Left, Centre, Right and Side Fill.",
+      "commonIssues": [
+        "Main LR muted",
+        "Main fader down",
+        "Subwoofer or FOH system off",
+        "Output routing issue"
+      ],
+      "trainingLinks": [
+        "Main LR explained",
+        "FOH signal flow",
+        "Shutdown and startup checks"
+      ],
+      "rect": {
+        "xPercent": 88.0,
+        "yPercent": 12.0,
+        "widthPercent": 7.0,
+        "heightPercent": 29.0
+      }
+    },
+    {
+      "id": "screen-main",
+      "type": "screen",
+      "name": "X32 Screen",
+      "category": "screen_area",
+      "accent": "cyan",
+      "purpose": "Main console screen used for channel processing, routing, meters, scenes and setup pages.",
+      "routingSummary": "Future sprints can split this into EQ, dynamics, routing, meters and scenes.",
+      "commonIssues": [
+        "Wrong page selected",
+        "Operator edits wrong channel",
+        "Scene not recalled correctly"
+      ],
+      "trainingLinks": [
+        "Console navigation",
+        "Scenes",
+        "Routing"
+      ],
+      "rect": {
+        "xPercent": 45.2,
+        "yPercent": 7.0,
+        "widthPercent": 22.2,
+        "heightPercent": 23.0
+      }
+    }
+  ]
+}
