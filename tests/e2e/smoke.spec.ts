@@ -47,3 +47,14 @@ test("primary navigation lets a user reach the Academy from the dashboard", asyn
   await expect(page).toHaveURL(/\/academy/);
   await expect(page.getByRole("heading", { name: "Sound Academy Pathways" })).toBeVisible();
 });
+
+test("Troubleshooting and Certifications are reachable from the primary nav", async ({ page }) => {
+  await page.goto("/");
+  const nav = page.getByRole("navigation", { name: "Primary navigation" });
+
+  await nav.getByRole("link", { name: /troubleshooting/i }).click();
+  await expect(page).toHaveURL(/\/troubleshooting$/);
+
+  await nav.getByRole("link", { name: /certifications/i }).click();
+  await expect(page).toHaveURL(/\/certifications$/);
+});

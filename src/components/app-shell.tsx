@@ -21,8 +21,8 @@ const navItems: NavItem[] = [
   { href: "/service-mode", label: "Service Mode", iconSrc: "/icons/nav/service-mode.svg", mobileLabel: "Service" },
   { href: "/academy", label: "Academy", iconSrc: "/icons/nav/academy.svg" },
   { href: "/sound-lab", label: "Drills & Labs", iconSrc: "/icons/nav/drills-labs.svg" },
-  { label: "Team", iconSrc: "/icons/nav/team.svg", disabled: true },
-  { label: "Resources", iconSrc: "/icons/nav/resources.svg", disabled: true },
+  { href: "/troubleshooting", label: "Troubleshooting", iconSrc: "/icons/nav/troubleshooting.svg" },
+  { href: "/certifications", label: "Certifications", iconSrc: "/icons/nav/certifications.svg" },
   { label: "Reports", iconSrc: "/icons/nav/reports.svg", disabled: true },
   { label: "Settings", iconSrc: "/icons/nav/settings.svg", disabled: true }
 ];
@@ -85,6 +85,9 @@ function SidebarNavItem({ item, pathname }: { item: NavItem; pathname: string })
           unoptimized
         />
         <span className="hidden min-w-0 truncate xl:block">{item.label}</span>
+        <span className="ml-auto hidden shrink-0 rounded-full border border-slate-600/60 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500 xl:block">
+          Soon
+        </span>
         <span className="sr-only">{item.label} coming later</span>
       </button>
     );
