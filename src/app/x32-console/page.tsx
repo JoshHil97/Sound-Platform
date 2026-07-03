@@ -24,7 +24,7 @@ export default function X32ConsolePage() {
               <StatusPill>Reference</StatusPill>
             </div>
             <div className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-black/30">
-              <Image src={x32Reference.src} alt={x32Reference.title} width={x32Reference.width} height={x32Reference.height} className="h-auto w-full" priority />
+              <Image src={x32Reference.src} alt={x32Reference.title} width={x32Reference.width} height={x32Reference.height} sizes="(max-width: 1279px) 100vw, 62vw" className="h-auto w-full" priority />
             </div>
           </SurfaceCard>
         ) : null}
@@ -33,7 +33,7 @@ export default function X32ConsolePage() {
             <p className="text-sm font-black uppercase tracking-[0.16em] text-cyan-300">Scene Diagram Asset</p>
             <h2 className="mt-1 text-2xl font-black">{livestreamDiagram.title}</h2>
             <div className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-white">
-              <Image src={livestreamDiagram.src} alt={livestreamDiagram.title} width={livestreamDiagram.width} height={livestreamDiagram.height} className="h-auto w-full" />
+              <Image src={livestreamDiagram.src} alt={livestreamDiagram.title} width={livestreamDiagram.width} height={livestreamDiagram.height} sizes="(max-width: 1279px) 100vw, 38vw" className="h-auto w-full" />
             </div>
             <p className="mt-4 text-sm leading-6 text-[var(--muted)]">{livestreamDiagram.purpose}</p>
           </SurfaceCard>

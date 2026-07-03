@@ -42,7 +42,14 @@ export function StatCard({ label, value, detail }: { label: string; value: strin
 
 export function ProgressBar({ value }: { value: number }) {
   return (
-    <div className="h-2 overflow-hidden rounded-full bg-white/10" aria-label={`${value}% complete`}>
+    <div
+      role="progressbar"
+      aria-valuenow={value}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-label={`${value}% complete`}
+      className="h-2 overflow-hidden rounded-full bg-white/10"
+    >
       <div className="h-full rounded-full bg-gradient-to-r from-cyan-400 via-violet-500 to-fuchsia-500" style={{ width: `${value}%` }} />
     </div>
   );

@@ -191,6 +191,8 @@ Outputs:
 - E2E flows for Academy, Sound Lab, Service Mode and Certification
 - Performance review
 
+Status: initial lint/build/test baseline, accessibility pass and route smoke-test suite completed in [phase-12/README.md](phase-12/README.md).
+
 ## PHASE 13: Vercel Launch
 
 Goal: launch with safe operations.
@@ -205,3 +207,5 @@ Outputs:
 - Rollback checklist
 - Asset storage plan
 - Launch runbook
+
+Status: launch runbook, Postgres baseline migration and environment variable documentation completed in [phase-13/README.md](phase-13/README.md). Actually provisioning Vercel/Postgres still requires live account access outside this repository.
