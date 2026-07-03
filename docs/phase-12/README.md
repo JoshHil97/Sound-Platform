@@ -11,6 +11,7 @@ Implemented outputs:
 - Accessibility pass on the shell, dashboard and interactive components: confirmed landmarks (`<nav aria-label>`, `<main>`), `lang="en"`, real `<button>` elements with `focus-visible` rings on every interactive control, `aria-current` on active nav links, meaningful `alt` text on content images and `alt=""` on decorative images, and 44px+ mobile tap targets. Added `aria-hidden` to two stray decorative icons in the dashboard header for consistency.
 - Added a Playwright smoke-test suite (`tests/e2e/smoke.spec.ts`) covering every top-level route plus a primary-navigation flow, run against a production build (`pnpm test:e2e`)
 - The new suite caught a real bug: the app had no `favicon.ico`, so every fresh browser session logged a 404. Fixed by generating `src/app/favicon.ico` and pointing `metadata.icons` at the existing platform logo SVG.
+- Added a GitHub Actions workflow (`.github/workflows/ci.yml`) that runs on every push to `main` and every pull request: install, lint, typecheck, `prisma validate`, build, then the Playwright E2E suite (installing its own Chromium since CI runners don't have the sandbox's pre-installed browser). Made `playwright.config.ts` portable so it only uses the sandbox's local Chromium path when that path exists, falling back to Playwright's own managed browser otherwise.
 
 Current implementation status:
 
@@ -23,16 +24,15 @@ Not done in this phase (left for a follow-up pass):
 
 - Broader `aria-hidden` consistency pass on the ~90 remaining Lucide icons that render next to visible text (cosmetic screen-reader verbosity only, not a WCAG failure)
 - Performance review (bundle analysis, Lighthouse pass)
-- CI wiring to run `lint` / `build` / `test:e2e` on push (no CI config exists yet in the repo)
 
 Reference:
 
 - `tests/e2e/smoke.spec.ts` — route smoke coverage
-- `playwright.config.ts` — builds and boots the app on port 3100 before running tests
+- `playwright.config.ts` — builds and boots the app on port 3100 before running tests; uses the sandbox's local Chromium when present, otherwise Playwright's own managed browser
 - `prisma.config.ts` — replaces the deprecated `package.json#prisma` block
+- `.github/workflows/ci.yml` — lint/typecheck/prisma-validate/build/E2E on every push and PR
 
 Next recommended work:
 
-- Wire `pnpm lint`, `pnpm build`, and `pnpm test:e2e` into CI before Phase 13 launch
 - Add a Lighthouse/perf pass once real media assets replace placeholders
 - Decide auth provider (Phase 1 audit gap) before enabling any Prisma-backed runtime writes

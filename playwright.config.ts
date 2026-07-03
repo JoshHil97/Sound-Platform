@@ -1,4 +1,8 @@
+import fs from "node:fs";
 import { defineConfig, devices } from "@playwright/test";
+
+const sandboxChromium = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome";
+const executablePath = fs.existsSync(sandboxChromium) ? sandboxChromium : undefined;
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -21,9 +25,7 @@ export default defineConfig({
       name: "chromium",
       use: {
         ...devices["Desktop Chrome"],
-        launchOptions: {
-          executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
-        }
+        launchOptions: executablePath ? { executablePath } : {}
       }
     }
   ]
