@@ -88,6 +88,7 @@ export default function AcademyPage() {
                 academy={academy}
                 moduleCount={getModulesForAcademy(academy.slug).length}
                 progress={pathProgress[index] ?? 0}
+                recommended={academy.slug === "foundations-academy"}
               />
             ))}
           </div>

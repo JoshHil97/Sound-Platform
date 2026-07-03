@@ -189,15 +189,26 @@ export function CertificationBand({ certification, competencies }: { certificati
   );
 }
 
-export function AcademyPathCard({ academy, moduleCount, progress }: { academy: Academy; moduleCount: number; progress: number }) {
+export function AcademyPathCard({ academy, moduleCount, progress, recommended = false }: { academy: Academy; moduleCount: number; progress: number; recommended?: boolean }) {
   return (
-    <Link href={`/academy/paths/${academy.slug}`} className="focus-ring glass-panel grid min-h-[300px] rounded-3xl p-5 transition hover:border-violet-400/40 hover:bg-violet-500/10">
+    <Link
+      href={`/academy/paths/${academy.slug}`}
+      className={`focus-ring glass-panel grid min-h-[300px] rounded-3xl p-5 transition hover:border-violet-400/40 hover:bg-violet-500/10 ${
+        recommended ? "border-amber-400/50 shadow-[0_0_0_1px_rgba(251,191,36,0.25),0_0_32px_rgba(251,191,36,0.12)]" : ""
+      }`}
+    >
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.18em] text-violet-300">Specialist Path</p>
           <h2 className="mt-2 text-2xl font-black uppercase tracking-wide">{academy.title.replace("Academy", "Specialist")}</h2>
         </div>
-        {progress > 0 ? <StatusPill tone="success">Active</StatusPill> : <Lock className="text-slate-500" size={19} />}
+        {recommended ? (
+          <StatusPill tone="warning">Start Here</StatusPill>
+        ) : progress > 0 ? (
+          <StatusPill tone="success">Active</StatusPill>
+        ) : (
+          <Lock className="text-slate-500" size={19} />
+        )}
       </div>
       <p className="mt-4 text-sm leading-6 text-[var(--muted)]">{academy.mission}</p>
       <div className="mt-5">
