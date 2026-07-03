@@ -191,6 +191,8 @@ Outputs:
 - E2E flows for Academy, Sound Lab, Service Mode and Certification
 - Performance review
 
+Status: initial lint/build/test baseline, accessibility pass and route smoke-test suite completed in [phase-12/README.md](phase-12/README.md).
+
 ## PHASE 13: Vercel Launch
 
 Goal: launch with safe operations.
