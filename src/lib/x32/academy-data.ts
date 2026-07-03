@@ -85,7 +85,10 @@ export const x32ConsoleMetadata = {
     "Inputs 1-16 are taught as Band / Instruments in the training model.",
     "Stage Monitor A and Stage Monitor B connect through Stage Box A.",
     "X32 Rack sits behind Bishop with wireless receivers nearby.",
-    "Inputs 1-32 feed Dante and Logic Pro for livestream mixing."
+    "Inputs 1-32 feed Dante and Logic Pro for livestream mixing.",
+    "Scene file contains Bus 5/6 and Matrix 5/6 livestream references.",
+    "Current confirmed church training model is Inputs 1-32 to Dante to Logic Pro.",
+    "Bus 5/6 and Matrix 5/6 require church verification before being taught as live standard."
   ]
 };
 

@@ -466,7 +466,7 @@ function ConsoleOverviewPanel() {
           <Network size={15} aria-hidden="true" />
           Confirmed Livestream Path
         </div>
-        <p className="mt-2 text-xs leading-5 text-slate-300">Inputs 1-32 feed the X32 Dante card, Dante Network and Logic Pro. Bus 5/6 remain scene references until verified.</p>
+        <p className="mt-2 text-xs leading-5 text-slate-300">Inputs 1-32 feed the X32 Dante card, Dante Network and Logic Pro. Bus 5/6 and Matrix 5/6 remain scene references until verified.</p>
       </div>
       <ul className="mt-4 grid gap-2">
         {x32ConsoleMetadata.accuracyNotes.map((note) => (
