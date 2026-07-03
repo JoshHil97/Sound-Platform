@@ -306,7 +306,7 @@ function SystemHealthPanel() {
 function ScheduleTimeline() {
   return (
     <DashboardCard label="8" className="p-5">
-      <h2 className="text-lg font-black text-white">Today's Schedule</h2>
+      <h2 className="text-lg font-black text-white">Today&apos;s Schedule</h2>
       <div className="mt-5 space-y-1">
         {schedule.map((item, index) => (
           <div key={item.time} className="grid min-h-10 grid-cols-[22px_64px_1fr_auto] items-center gap-3">
@@ -461,7 +461,7 @@ function FooterStrip() {
       <div className="grid gap-5 text-slate-200 md:grid-cols-[1.2fr_0.7fr_0.7fr_0.7fr] md:items-center">
         <div className="flex gap-4">
           <Quote className="mt-0.5 shrink-0 text-3xl text-violet-400" aria-hidden="true" />
-          <p className="text-base leading-7">"Whatever you do, work at it with all your heart, as working for the Lord, not for human masters." - Colossians 3:23</p>
+          <p className="text-base leading-7">&quot;Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.&quot; - Colossians 3:23</p>
         </div>
         <p className="flex items-center justify-center gap-3 border-white/10 text-base md:border-l">
           <Download size={19} className="text-slate-300" />
