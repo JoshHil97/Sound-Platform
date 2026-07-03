@@ -60,7 +60,7 @@ export default function SoundLabPage() {
           <h2 className="text-xl font-bold">Mentor review mode</h2>
           <p className="mt-2 text-sm leading-6 text-[var(--muted)]">A mentor should ask the trainee to name the fault, point to the meter clue, choose the first safe check, then explain what they would document after service.</p>
           <div className="mt-4">
-            <div className="mb-2 flex justify-between text-xs font-bold text-[var(--muted)]"><span>Phase 6 persistence readiness</span><span>45%</span></div>
+            <div className="mb-2 flex justify-between text-xs font-bold text-[var(--muted)]"><span>Mentor review readiness</span><span>45%</span></div>
             <ProgressBar value={45} />
           </div>
         </SurfaceCard>

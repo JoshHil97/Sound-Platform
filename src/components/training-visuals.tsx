@@ -36,7 +36,7 @@ export function VisualHeroBoard({
           </div>
         </div>
         <figure className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/35 shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
-          <Image src={asset.src} alt={asset.title} width={asset.width} height={asset.height} className="h-full min-h-[260px] w-full object-cover" priority />
+          <Image src={asset.src} alt={asset.title} width={asset.width} height={asset.height} sizes="(min-width: 1280px) 59vw, 100vw" className="h-full min-h-[260px] w-full object-cover" priority />
           <figcaption className="absolute inset-x-0 bottom-0 border-t border-white/10 bg-black/70 px-4 py-3 text-sm text-slate-200 backdrop-blur-xl">
             {asset.purpose}
           </figcaption>
@@ -50,7 +50,7 @@ export function VisualAssetCard({ asset, large = false }: { asset: TrainingVisua
   return (
     <article className={`group overflow-hidden rounded-2xl border border-white/15 bg-[linear-gradient(145deg,rgba(15,23,42,0.68),rgba(2,6,23,0.78)),radial-gradient(circle_at_50%_0%,rgba(124,58,237,0.12),transparent_18rem)] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_18px_48px_rgba(0,0,0,0.24)] ${large ? "md:col-span-2" : ""}`}>
       <div className="relative overflow-hidden bg-black/35">
-        <Image src={asset.src} alt={asset.title} width={asset.width} height={asset.height} className={`w-full object-cover transition duration-300 group-hover:scale-[1.02] ${large ? "h-[320px]" : "h-[210px]"}`} />
+        <Image src={asset.src} alt={asset.title} width={asset.width} height={asset.height} sizes={large ? "(min-width: 768px) 66vw, 100vw" : "(min-width: 768px) 33vw, 100vw"} className={`w-full object-cover transition duration-300 group-hover:scale-[1.02] ${large ? "h-[320px]" : "h-[210px]"}`} />
         <div className="absolute left-3 top-3 rounded-xl border border-violet-300/25 bg-black/65 px-3 py-1 text-[11px] font-black uppercase tracking-[0.14em] text-violet-100 backdrop-blur-xl">
           {asset.category}
         </div>

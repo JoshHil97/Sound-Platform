@@ -21,7 +21,7 @@ export default function DigitalTwinPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Phase 8"
+        eyebrow="System Model"
         title="Digital Twin"
         description="A living model of the church production system: X32 inputs, buses, Dante subscriptions, Logic stream channels, P16 source order, wireless assignments, stage zones and signal paths."
         action={{ href: "/signal-flow", label: "Open Signal Flow" }}

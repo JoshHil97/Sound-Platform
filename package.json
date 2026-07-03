@@ -12,7 +12,8 @@
     "lint": "eslint",
     "prisma:generate": "prisma generate",
     "prisma:validate": "prisma validate",
-    "prisma:seed": "prisma db seed"
+    "prisma:seed": "prisma db seed",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@next/swc-wasm-nodejs": "15.5.19",
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",
+    "@playwright/test": "^1.61.1",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/node": "^25.0.1",
     "@types/react": "^19.2.7",
@@ -36,9 +38,6 @@
     "tailwindcss": "3.4.18",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
-  },
-  "prisma": {
-    "seed": "tsx prisma/seed.ts"
   },
   "packageManager": "pnpm@11.6.0"
 }

@@ -58,7 +58,7 @@ export default function AdminPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Phase 10 Admin CMS"
+        eyebrow="Admin CMS"
         title="Admin Command Centre"
         description="Manage curriculum, equipment, SOPs, troubleshooting flows, assets, users, certification approvals and governance without losing the church-specific operating context."
         action={{ href: "/certifications", label: "Open Certification Cockpit" }}
@@ -163,7 +163,7 @@ export default function AdminPage() {
         </SurfaceCard>
 
         <SurfaceCard>
-          <SectionHeader title="Certification Approval Cockpit" description="Phase 10 gives admins a place to see mentor reviews, evidence records and credential definitions together." />
+          <SectionHeader title="Certification Approval Cockpit" description="Gives admins a place to see mentor reviews, evidence records and credential definitions together." />
           <div className="grid gap-4 md:grid-cols-3">
             <MetricCard label="Credentials" value={certificationDefinitions.length} detail="Governed definitions." />
             <MetricCard label="Evidence" value={evidenceRecords.length} detail="Submitted records." />
@@ -188,7 +188,7 @@ export default function AdminPage() {
 
       <section className="mb-6 grid gap-5 xl:grid-cols-[0.8fr_1.2fr]">
         <SurfaceCard>
-          <SectionHeader title="Editor Panels" description="These are static MVP panels now; Phase 12 should wire them to forms and server actions once auth is ready." />
+          <SectionHeader title="Editor Panels" description="These are static MVP panels now; they will wire to forms and server actions once auth is ready." />
           <div className="grid gap-3">
             {[
               { icon: <Database size={18} />, title: "Curriculum graph", detail: `${modules.length} modules ready for controlled content population.` },
@@ -234,10 +234,10 @@ export default function AdminPage() {
       </section>
 
       <SurfaceCard>
-        <SectionHeader title="Phase 10 Implementation Boundary" description="This phase creates the admin operating surface and data model. It intentionally avoids pretending that static mock buttons are live CMS mutations." />
+        <SectionHeader title="Implementation Boundary" description="This surface intentionally avoids pretending that static mock buttons are live CMS mutations." />
         <div className="grid gap-3 text-sm leading-6 text-[var(--muted)] md:grid-cols-3">
           <p><CheckCircle2 className="mr-2 inline text-emerald-300" size={16} />Content areas, queues and governance are visible.</p>
-          <p><CheckCircle2 className="mr-2 inline text-emerald-300" size={16} />Certification approvals are connected to Phase 9 data.</p>
+          <p><CheckCircle2 className="mr-2 inline text-emerald-300" size={16} />Certification approvals are connected to certification data.</p>
           <p><CheckCircle2 className="mr-2 inline text-emerald-300" size={16} />Real create/edit/publish actions wait for auth and server actions.</p>
         </div>
       </SurfaceCard>

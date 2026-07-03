@@ -6,7 +6,7 @@ import { digitalSignalPaths, signalPaths } from "@/lib/data";
 export default function SignalFlowPage() {
   return (
     <>
-      <PageHeader eyebrow="System Maps" title="Signal Flow" description="Church-specific paths for FOH, monitors and livestream, now backed by the Phase 8 Digital Twin model." action={{ href: "/digital-twin", label: "Open Digital Twin" }} />
+      <PageHeader eyebrow="System Maps" title="Signal Flow" description="Church-specific paths for FOH, monitors and livestream, backed by the Digital Twin model." action={{ href: "/digital-twin", label: "Open Digital Twin" }} />
       <section className="mb-6 glass-panel rounded-3xl p-5">
         <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
           <div>

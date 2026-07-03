@@ -212,7 +212,7 @@ function HealthStatusRow({ row }: { row: HealthRow }) {
 function ContinueLearningCard() {
   return (
     <DashboardCard label="5" className="p-5 md:p-6">
-      <div className="grid gap-6 lg:grid-cols-[minmax(280px,1.08fr)_minmax(270px,0.92fr)] lg:items-stretch">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:items-stretch">
         <div className={`relative min-h-[316px] overflow-hidden rounded-3xl ${panelSurface}`}>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_68%,rgba(59,130,246,0.16),transparent_34%),radial-gradient(circle_at_76%_24%,rgba(217,70,239,0.16),transparent_38%)]" />
           <Image src="/dashboard-assets/x32-hero.png" alt="X32 console training graphic" fill sizes="(max-width: 768px) 100vw, 560px" className="scale-[1.05] object-cover object-[52%_50%]" />
@@ -222,7 +222,7 @@ function ContinueLearningCard() {
             <p className="mt-1 text-lg font-black text-white">X32 Foundations</p>
           </div>
         </div>
-        <div className="flex flex-col justify-between gap-4">
+        <div className="flex min-w-0 flex-col justify-between gap-4">
           <div>
             <p className={`${dashboardType.eyebrow} text-violet-300`}>Continue Learning</p>
             <h2 className={`mt-3 ${dashboardType.featureTitle}`}>EQ Deep Dive</h2>
@@ -461,7 +461,7 @@ function FooterStrip() {
       <div className="grid gap-5 text-slate-200 md:grid-cols-[1.2fr_0.7fr_0.7fr_0.7fr] md:items-center">
         <div className="flex gap-4">
           <Quote className="mt-0.5 shrink-0 text-3xl text-violet-400" aria-hidden="true" />
-          <p className="text-base leading-7">&quot;Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.&quot; - Colossians 3:23</p>
+          <p className="text-base leading-7">&ldquo;Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.&rdquo; - Colossians 3:23</p>
         </div>
         <p className="flex items-center justify-center gap-3 border-white/10 text-base md:border-l">
           <Download size={19} className="text-slate-300" />
@@ -492,8 +492,8 @@ export function DashboardCommandCentre() {
             <input className="h-12 w-full rounded-2xl border border-slate-500/45 bg-slate-800/65 py-2 pl-12 pr-4 text-sm text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_18px_44px_rgba(0,0,0,0.26)] placeholder:text-slate-400 outline-none focus:border-violet-400/55 focus:shadow-[0_0_36px_rgba(139,92,246,0.3)]" placeholder="Search the platform..." />
           </label>
           <div className="hidden items-center gap-6 text-slate-200 lg:flex">
-            <Bell size={22} />
-            <CircleHelp size={24} />
+            <Bell size={22} aria-hidden="true" />
+            <CircleHelp size={24} aria-hidden="true" />
           </div>
         </div>
 
@@ -503,6 +503,10 @@ export function DashboardCommandCentre() {
               <span className="absolute left-5 top-5 grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-base font-black text-white shadow-[0_0_24px_rgba(139,92,246,0.55)]">1</span>
               <h1 className={dashboardType.heroTitle}>Sound Team Command Centre</h1>
               <p className={`mt-4 max-w-[680px] ${dashboardType.heroBody}`}>Monitor service readiness, continue training, check Dante and livestream health, and keep the team aligned.</p>
+              <Link href="/academy/paths/foundations-academy" className="focus-ring mt-4 inline-flex items-center gap-2 rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-2 text-sm font-bold text-amber-200 hover:bg-amber-400/15">
+                New to the team? Start the Foundations path
+                <ArrowRight size={16} aria-hidden="true" />
+              </Link>
             </div>
             <Link href="/service-mode" className="relative flex min-h-[96px] items-center gap-4 rounded-2xl border border-violet-400/38 bg-violet-600/22 p-5 shadow-[0_0_32px_rgba(139,92,246,0.24)]">
               <span className="absolute -left-6 -top-3 grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-base font-black text-white shadow-[0_0_24px_rgba(139,92,246,0.55)]">2</span>

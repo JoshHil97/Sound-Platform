@@ -41,7 +41,7 @@ export default function VisualsPage() {
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {vbciLogicTrainingAssets.map((asset) => (
             <SurfaceCard key={asset.slug} className="overflow-hidden p-0">
-              <Image src={asset.src} alt={asset.title} width={asset.width} height={asset.height} className="h-44 w-full object-cover" />
+              <Image src={asset.src} alt={asset.title} width={asset.width} height={asset.height} sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw" className="h-44 w-full object-cover" />
               <div className="p-4">
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <h3 className="font-black">{asset.title}</h3>
@@ -60,7 +60,7 @@ export default function VisualsPage() {
         <div className="grid gap-4 lg:grid-cols-2">
           {referenceLookAssets.map((asset) => (
             <SurfaceCard key={asset.slug} className="overflow-hidden p-0">
-              <Image src={asset.src} alt={asset.title} width={asset.width} height={asset.height} className="h-72 w-full object-cover object-top" />
+              <Image src={asset.src} alt={asset.title} width={asset.width} height={asset.height} sizes="(min-width: 1024px) 50vw, 100vw" className="h-72 w-full object-cover object-top" />
               <div className="p-4">
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <h3 className="font-black">{asset.title}</h3>
