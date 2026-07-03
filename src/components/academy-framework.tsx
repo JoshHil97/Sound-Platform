@@ -93,7 +93,7 @@ export function SpecialistHero({
       <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 opacity-70 lg:block">
         {visual === "eq" ? <LargeEqCurve /> : visual === "signal" ? <SignalChainVisual /> : <LargeWaveform />}
       </div>
-      <div className="relative max-w-3xl">
+      <div className="relative max-w-3xl lg:max-w-[52%]">
         <div className="flex flex-wrap items-center gap-3">
           <h1 className="text-4xl font-black uppercase tracking-wide md:text-5xl">{academy.title.replace("Academy", "Specialist")}</h1>
           <StatusPill>{moduleCount} modules</StatusPill>
