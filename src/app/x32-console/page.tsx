@@ -731,6 +731,7 @@ function InfoPanel({ hotspot }: { hotspot?: Hotspot }) {
       <div className="mt-3 flex flex-wrap gap-2">
         <MetaChip accent={accent}>{typeLabels[hotspot.type]}</MetaChip>
         <MetaChip accent={accent}>{displayHotspot.categoryLabel ?? "Console Operations"}</MetaChip>
+        {displayHotspot.verificationNote ? <MetaChip accent={accentStyles.amber}>Scene Reference / Requires Verification</MetaChip> : null}
       </div>
 
       <InfoSection label="Type" accent={accent}>
@@ -743,7 +744,7 @@ function InfoPanel({ hotspot }: { hotspot?: Hotspot }) {
         {displayHotspot.purpose}
       </InfoSection>
       <InfoSection label="Routing Summary" accent={accent}>{displayHotspot.routingSummary}</InfoSection>
-      <InfoSection label="Associated Items" accent={accent}>{items.length > 0 ? items.join(", ") : "No associated items listed for Sprint 1."}</InfoSection>
+      <InfoSection label="Associated Items" accent={accent}>{items.length > 0 ? items.join(", ") : "No associated channels or groups linked to this element."}</InfoSection>
       {displayHotspot.verificationNote ? (
         <InfoSection label="Verification Note" accent={accent}>
           <div className="rounded-lg border px-2.5 py-2 text-xs font-semibold leading-5 text-amber-100" style={{ backgroundColor: accentStyles.amber.soft, borderColor: `rgb(${accentStyles.amber.rgb} / 0.34)` }}>

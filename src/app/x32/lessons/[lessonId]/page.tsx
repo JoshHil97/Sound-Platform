@@ -3,6 +3,18 @@ import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Clock3, Layers3, RadioTower, ShieldCheck } from "lucide-react";
 import { formatSystemLabel, getNextX32Lesson, getX32Lesson, getX32Lessons } from "@/lib/x32/academy-data";
+import hotspotMap from "@/lib/x32/hotspots.json";
+
+type HotspotEntry = { id: string; type: string; number?: number; name: string };
+const hotspotLookup = new Map((hotspotMap.hotspots as HotspotEntry[]).map((hotspot) => [hotspot.id, hotspot]));
+
+function formatHotspotLabel(id: string) {
+  const hotspot = hotspotLookup.get(id);
+  if (!hotspot) {
+    return formatSystemLabel(id);
+  }
+  return hotspot.type === "channel" && hotspot.number ? `CH${hotspot.number.toString().padStart(2, "0")} - ${hotspot.name}` : hotspot.name;
+}
 
 export function generateStaticParams() {
   return getX32Lessons().map((lesson) => ({ lessonId: lesson.id }));
@@ -70,7 +82,7 @@ export default async function X32LessonPage({ params }: { params: Promise<{ less
               <TagList items={lesson.churchExamples} />
             </LessonPanel>
             <LessonPanel title="Related Console Areas" icon={<Layers3 size={18} />}>
-              <TagList items={lesson.relatedHotspots.length ? lesson.relatedHotspots : ["Linked during content build"]} />
+              <TagList items={lesson.relatedHotspots.length ? lesson.relatedHotspots.map(formatHotspotLabel) : ["Linked during content build"]} />
             </LessonPanel>
           </div>
 
