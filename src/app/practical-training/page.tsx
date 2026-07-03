@@ -14,7 +14,7 @@ export default function PracticalTrainingPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Phase 5"
+        eyebrow="Task-Based Training"
         title="Practical Training Systems"
         description="Task-based operator drills for X32, Logic, Dante, Waves, wireless, P16 and live-service troubleshooting. Every workflow teaches what to do, what to observe, why it matters and how to recover safely."
         action={{ href: `/lessons/${featuredWorkflow.lessonSlug}`, label: "Open Featured Lesson" }}

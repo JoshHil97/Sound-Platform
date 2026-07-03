@@ -28,7 +28,7 @@ export default function AcademyPage() {
         </div>
         <div className="relative max-w-3xl">
           <div className="flex flex-wrap items-center gap-3">
-            <StatusPill>Phase 4 Academy Experience</StatusPill>
+            <StatusPill>Structured Learning Paths</StatusPill>
             <Tag>{academies.length} specialist paths</Tag>
           </div>
           <h1 className="mt-5 text-4xl font-black uppercase tracking-wide md:text-6xl">Sound Academy Pathways</h1>
@@ -88,6 +88,7 @@ export default function AcademyPage() {
                 academy={academy}
                 moduleCount={getModulesForAcademy(academy.slug).length}
                 progress={pathProgress[index] ?? 0}
+                recommended={academy.slug === "foundations-academy"}
               />
             ))}
           </div>
@@ -123,7 +124,7 @@ export default function AcademyPage() {
         <SurfaceCard>
           <BookOpen className="text-violet-300" />
           <h2 className="mt-3 text-xl font-black">Lesson maps before lesson volume</h2>
-          <p className="mt-2 text-sm leading-6 text-[var(--muted)]">Phase 4 uses the Phase 0 curriculum map so future content stays connected to competencies, assessments and service evidence.</p>
+          <p className="mt-2 text-sm leading-6 text-[var(--muted)]">Every path is built from the same curriculum map, so lessons stay connected to competencies, assessments and service evidence.</p>
         </SurfaceCard>
         <SurfaceCard>
           <RadioTower className="text-cyan-300" />

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, CheckCircle2, ClipboardCheck, FlaskConical, RadioTower, ShieldCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2, ClipboardCheck, FlaskConical, RadioTower } from "lucide-react";
 import {
   AcademyCommandPanel,
   AcademySidebar,
@@ -175,19 +175,6 @@ export default async function AcademyPathPage({ params }: { params: Promise<{ ac
           <section id="certificate-path">
             <CertificationBand certification={certification} competencies={competencies} />
           </section>
-
-          <SurfaceCard>
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <p className="text-sm font-black uppercase tracking-[0.16em] text-emerald-300">Phase 4 Foundation</p>
-                <h2 className="mt-1 text-2xl font-black">Ready for deeper lesson redesign</h2>
-              </div>
-              <ShieldCheck className="text-emerald-300" size={28} />
-            </div>
-            <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
-              This pathway framework gives the next phases a strong place to attach interactive lessons, listening labs, simulator drills, source-backed visuals, mentor evidence and certification rules.
-            </p>
-          </SurfaceCard>
         </main>
       </div>
     </>

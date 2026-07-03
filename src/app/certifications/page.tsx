@@ -54,14 +54,14 @@ export default function CertificationsPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Phase 9 Certification"
+        eyebrow="Certification"
         title="Certification Passport"
         description="Evidence-based certification for real church sound readiness: competencies, Sound Lab results, practical sign-offs, service observations, mentor reviews and renewal gates."
         action={{ href: "/academy", label: "Review Academy Paths" }}
       />
 
       <section className="mb-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <MetricCard label="Credential definitions" value={certificationDefinitions.length} detail="Governed award criteria from Phase 0." />
+        <MetricCard label="Credential definitions" value={certificationDefinitions.length} detail="Governed award criteria." />
         <MetricCard label="Evidence reviewed" value={approvedEvidence} detail={`${reviewEvidence} records still need mentor review.`} />
         <MetricCard label="Service approvals" value={approvedServices} detail="Observed services approved for certification." />
         <MetricCard label="Mentor tasks" value={mentorSignOffTasks.length} detail="Practical reviews, retries and final approvals." />
@@ -216,7 +216,7 @@ export default function CertificationsPage() {
       </section>
 
       <section className="mb-6">
-        <SectionHeader title="Credential Catalogue" description="The catalogue is governed by Phase 0: every award has a mission, modules, competencies, service requirements and renewal cycle." />
+        <SectionHeader title="Credential Catalogue" description="Every award has a mission, modules, competencies, service requirements and renewal cycle." />
         <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
           {certificationDefinitions.map((definition) => {
             const academyCompetencies = competencies.filter((competency) => definition.competencySlugs.includes(competency.slug));
