@@ -503,6 +503,10 @@ export function DashboardCommandCentre() {
               <span className="absolute left-5 top-5 grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-base font-black text-white shadow-[0_0_24px_rgba(139,92,246,0.55)]">1</span>
               <h1 className={dashboardType.heroTitle}>Sound Team Command Centre</h1>
               <p className={`mt-4 max-w-[680px] ${dashboardType.heroBody}`}>Monitor service readiness, continue training, check Dante and livestream health, and keep the team aligned.</p>
+              <Link href="/academy/paths/foundations-academy" className="focus-ring mt-4 inline-flex items-center gap-2 rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-2 text-sm font-bold text-amber-200 hover:bg-amber-400/15">
+                New to the team? Start the Foundations path
+                <ArrowRight size={16} aria-hidden="true" />
+              </Link>
             </div>
             <Link href="/service-mode" className="relative flex min-h-[96px] items-center gap-4 rounded-2xl border border-violet-400/38 bg-violet-600/22 p-5 shadow-[0_0_32px_rgba(139,92,246,0.24)]">
               <span className="absolute -left-6 -top-3 grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-base font-black text-white shadow-[0_0_24px_rgba(139,92,246,0.55)]">2</span>

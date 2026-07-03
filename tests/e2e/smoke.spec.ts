@@ -58,3 +58,10 @@ test("Troubleshooting and Certifications are reachable from the primary nav", as
   await nav.getByRole("link", { name: /certifications/i }).click();
   await expect(page).toHaveURL(/\/certifications$/);
 });
+
+test("dashboard points new volunteers at the Foundations path", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("link", { name: /New to the team/i }).click();
+  await expect(page).toHaveURL(/\/academy\/paths\/foundations-academy$/);
+  await expect(page.getByRole("heading", { name: "Foundations Specialist" })).toBeVisible();
+});
