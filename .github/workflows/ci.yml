@@ -8,6 +8,10 @@ on:
 jobs:
   lint-build-test:
     runs-on: ubuntu-latest
+    env:
+      # Prisma's schema references env("DATABASE_URL"), so validate/build need it
+      # set even though the app runs on static data. Local SQLite value is fine for CI.
+      DATABASE_URL: "file:./dev.db"
     steps:
       - uses: actions/checkout@v4
 

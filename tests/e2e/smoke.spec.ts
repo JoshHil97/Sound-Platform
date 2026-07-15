@@ -65,3 +65,17 @@ test("dashboard points new volunteers at the Foundations path", async ({ page })
   await expect(page).toHaveURL(/\/academy\/paths\/foundations-academy$/);
   await expect(page.getByRole("heading", { name: "Foundations Specialist" })).toBeVisible();
 });
+
+test("a draft lesson is marked as draft and never shows the raw template text", async ({ page }) => {
+  await page.goto("/lessons/why-sound-is-ministry");
+  // The draft marker must be visible so learners know the lesson is unfinished.
+  await expect(page.getByText(/Draft — full lesson in progress/i)).toBeVisible();
+  // The old repeated placeholder text must never render.
+  await expect(page.getByText("Plain-language focus:")).toHaveCount(0);
+  await expect(page.getByText("Connect the skill to rehearsal, service operation")).toHaveCount(0);
+});
+
+test("a fully written lesson is not marked as draft", async ({ page }) => {
+  await page.goto("/lessons/basic-signal-flow");
+  await expect(page.getByText(/Draft — full lesson in progress/i)).toHaveCount(0);
+});

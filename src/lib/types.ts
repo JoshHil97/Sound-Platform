@@ -640,7 +640,8 @@ export type LessonExperience = {
   xpReward: number;
   difficulty: "Beginner" | "Intermediate" | "Advanced";
   objective: string;
-  sidebarLessons: Array<{ slug: string; title: string; status: "Complete" | "Active" | "Locked" | "Available"; duration: number }>;
+  draft?: boolean;
+  sidebarLessons: Array<{ slug: string; title: string; status: "Complete" | "Active" | "Locked" | "Available"; duration: number; draft?: boolean }>;
   tabs: LessonTab[];
   nodes: SignalFlowNode[];
   faultScenarios: SignalFaultScenario[];
