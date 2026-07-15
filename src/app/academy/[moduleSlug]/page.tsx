@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHeader, StepCard, SurfaceCard, Tag } from "@/components/ui";
 import { PracticalWorkflowMiniCard } from "@/components/practical-training";
-import { getAcademyForModule, getLessonsForModule, getModule, getPracticalWorkflowsForModule } from "@/lib/data";
+import { getAcademyForModule, getLessonsForModule, getModule, getPracticalWorkflowsForModule, isLessonPublished } from "@/lib/data";
 
 export default async function ModulePage({ params }: { params: Promise<{ moduleSlug: string }> }) {
   const { moduleSlug } = await params;
@@ -50,7 +50,12 @@ export default async function ModulePage({ params }: { params: Promise<{ moduleS
                 <Tag>{lesson.difficulty}</Tag>
               </div>
               <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{lesson.summary}</p>
-              <p className="mt-3 text-xs font-semibold">{lesson.durationMinutes} min</p>
+              <div className="mt-3 flex items-center gap-2">
+                <p className="text-xs font-semibold">{lesson.durationMinutes} min</p>
+                {isLessonPublished(lesson.slug) ? null : (
+                  <span className="rounded border border-amber-400/30 bg-amber-400/10 px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wide text-amber-200">Draft</span>
+                )}
+              </div>
             </Link>
           ))}
         </div>

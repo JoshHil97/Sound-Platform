@@ -1803,6 +1803,12 @@ export function getRichLessonContent(lessonSlug: string) {
   return richLessonContent.find((content) => content.lessonSlug === lessonSlug);
 }
 
+// A lesson is "published" once it has a full written walkthrough (rich content).
+// Everything else is still a draft that falls back to the shared lesson template.
+export function isLessonPublished(lessonSlug: string) {
+  return richLessonContent.some((content) => content.lessonSlug === lessonSlug);
+}
+
 export function getLessonsForModule(moduleSlug: string) {
   return lessons.filter((lesson) => lesson.moduleSlug === moduleSlug);
 }

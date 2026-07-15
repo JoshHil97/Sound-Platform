@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { LessonExperienceShell } from "@/components/lesson-experience-shell";
-import { getLesson, getModule, getRichLessonContent, lessonGuides, lessons } from "@/lib/data";
+import { getLesson, getModule, getRichLessonContent, isLessonPublished, lessonGuides, lessons } from "@/lib/data";
 import { getTrainingAssetsForLesson, referenceLookAssets } from "@/lib/training-assets";
 import type { Lesson, LessonExperience, Module, RichLessonContent } from "@/lib/types";
 
@@ -43,6 +43,11 @@ function buildLessonExperience(
   const isFohStream = lesson.slug === "foh-vs-stream";
   const guide = lessonGuides.find((item) => item.lessonSlug === lesson.slug);
   const visualAssets = lessonAssets ?? [];
+  const isDraft = !richContent;
+  const draftOverview =
+    "The full written walkthrough for this lesson is still being finalised. The live simulator, board checks and listening cues below are ready to practise with now.";
+  const draftListening =
+    "Use the listening cues below while the recorded audio walkthrough for this lesson is prepared.";
 
   return {
     slug: lesson.slug,
@@ -60,20 +65,22 @@ function buildLessonExperience(
       : isFohStream
         ? "Compare what works in the room against what translates online, then diagnose why the stream can fail even when FOH sounds fine."
         : lesson.summary,
+    draft: isDraft,
     sidebarLessons: moduleLessons.length
       ? moduleLessons.map((item, index) => ({
           slug: item.slug,
           title: item.slug === "basic-signal-flow" ? "Signal Flow Fundamentals" : item.slug === "foh-vs-stream" ? "FOH vs Livestream Mix" : item.title,
           status: getSidebarLessonStatus(index, lessonIndex),
-          duration: item.durationMinutes
+          duration: item.durationMinutes,
+          draft: !isLessonPublished(item.slug)
         }))
-      : [{ slug: lesson.slug, title: lesson.title, status: "Active", duration: lesson.durationMinutes }],
+      : [{ slug: lesson.slug, title: lesson.title, status: "Active", duration: lesson.durationMinutes, draft: isDraft }],
     tabs: [
       {
         id: "overview",
         label: "Overview",
         title: "What this lesson trains",
-        body: richContent?.ministryWhy ?? lesson.beginner,
+        body: richContent?.ministryWhy ?? draftOverview,
         bullets: [
           "Follow the source-to-output path instead of guessing from the loudest symptom.",
           "Use meters, mute states, routing and listening checks in a calm order.",
@@ -91,7 +98,7 @@ function buildLessonExperience(
         id: "listening",
         label: "Listening Lab",
         title: "What the fault sounds like",
-        body: richContent?.operatorContext ?? lesson.intermediate,
+        body: richContent?.operatorContext ?? draftListening,
         bullets: ["No input sounds silent everywhere.", "Bad routing often works in one destination but not another.", "Clipping sounds harsh even if the fader is low."]
       },
       {
@@ -129,7 +136,7 @@ function buildLessonExperience(
       {
         eyebrow: "Listen for",
         title: "What good should sound like",
-        body: richContent?.ministryWhy ?? lesson.beginner,
+        body: richContent?.ministryWhy ?? "Aim for clear speech, stable level and no clipping in both the room and the stream.",
         items: guide?.listeningTargets ?? richContent?.examples.map((example) => example.good) ?? ["Clear speech", "Stable level", "No clipping"]
       },
       {

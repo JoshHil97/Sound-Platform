@@ -169,9 +169,9 @@ export function LessonSidebar({ experience }: { experience: LessonExperience }) 
               <span className={`grid h-7 w-7 place-items-center rounded-lg text-xs font-black ${active ? "bg-violet-500 text-white" : "bg-white/10 text-slate-300"}`}>{index + 1}</span>
               <span className="min-w-0">
                 <span className="block truncate text-xs font-bold">{lesson.title}</span>
-                <span className="text-xs text-slate-500">{lesson.duration} min</span>
+                <span className="text-xs text-slate-500">{lesson.duration} min{lesson.draft ? " · Draft" : ""}</span>
               </span>
-              {lesson.status === "Complete" ? <CheckCircle2 className="text-emerald-300" size={16} /> : lesson.status === "Locked" ? <Lock className="text-slate-500" size={16} /> : <Circle className="text-violet-300" size={14} />}
+              {lesson.draft ? <span className="rounded border border-amber-400/30 bg-amber-400/10 px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wide text-amber-200">Draft</span> : lesson.status === "Complete" ? <CheckCircle2 className="text-emerald-300" size={16} /> : lesson.status === "Locked" ? <Lock className="text-slate-500" size={16} /> : <Circle className="text-violet-300" size={14} />}
             </Link>
           );
         })}
@@ -225,6 +225,12 @@ export function LessonHeader({ experience }: { experience: LessonExperience }) {
             <HeaderPill icon={<SlidersHorizontal size={15} />} text="Simulator" />
             <HeaderPill icon={<Trophy size={15} />} text={`${experience.xpReward} XP`} />
             <HeaderPill icon={<Zap size={15} />} text={experience.difficulty} />
+            {experience.draft ? (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/40 bg-amber-400/10 px-3 py-1.5 text-xs font-bold text-amber-200">
+                <AlertTriangle size={14} aria-hidden="true" />
+                Draft — full lesson in progress
+              </span>
+            ) : null}
           </div>
         </div>
         <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/35 p-2">
